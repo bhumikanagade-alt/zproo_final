@@ -1,0 +1,232 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/plus-jakarta-sans';
+
+/* Shared UI primitives live in packages/ui; let Tailwind see their class names. */
+@source '../../../../packages/ui/src';
+
+/*
+ * ZPROO GO design tokens. Brand red is sampled from the official logo; adjust here only
+ * (and in packages/config/src/brand.ts for emails/PDFs) if the final logo file differs.
+ */
+:root {
+  --primary: #d9141e;
+  --primary-hover: #b80f18;
+  --primary-light: #fdecec;
+  --primary-foreground: #ffffff;
+  --background: #f8fafc;
+  --foreground: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --card: #ffffff;
+  --ring: #d9141e;
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+  --radius: 0.875rem;
+  --header-height: 4rem;
+  --bottom-nav-height: 4rem;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  --font-sans:
+    'Plus Jakarta Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-card: var(--radius);
+  --shadow-card: 0 1px 2px rgb(17 24 39 / 0.04), 0 4px 16px -4px rgb(17 24 39 / 0.08);
+  --shadow-raised: 0 12px 32px -12px rgb(17 24 39 / 0.18);
+
+  --animate-fade-in: fade-in 160ms ease-out;
+  --animate-pop-in: pop-in 180ms ease-out;
+  --animate-slide-in-right: slide-in-right 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px) scale(0.98);
+  }
+}
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  ::selection {
+    @apply bg-primary-light text-foreground;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@layer base {
+  body { font-size: 0.95rem; line-height: 1.55; }
+  p { line-height: 1.6; }
+  h1, h2, h3 { letter-spacing: -0.02em; }
+}
+
+/* Printable hotel booking voucher: hide site chrome, print on A4 with exact colours. */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+@media print {
+  html.print-voucher header,
+  html.print-voucher footer,
+  html.print-voucher nav,
+  html.print-voucher [data-print-hide] {
+    display: none !important;
+  }
+  html.print-voucher body,
+  html.print-voucher main {
+    background: #fff !important;
+  }
+  html.print-voucher * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  html.print-voucher .voucher-sheet {
+    box-shadow: none !important;
+    border: 1px solid #d1d5db;
+    break-inside: avoid;
+  }
+}
+
+/* Train pages: pointer cursor on everything clickable. */
+html.train-cursor a[href],
+html.train-cursor button:not(:disabled),
+html.train-cursor [role='button'],
+html.train-cursor [role='tab'],
+html.train-cursor [role='option'],
+html.train-cursor [role='menuitem'],
+html.train-cursor label,
+html.train-cursor select,
+html.train-cursor summary,
+html.train-cursor input[type='checkbox'],
+html.train-cursor input[type='radio'],
+html.train-cursor input[type='date'] {
+  cursor: pointer;
+}
+
+/* Hotel and cab pages: pointer cursor on everything clickable. */
+html.pointer-cursor a[href],
+html.pointer-cursor button:not(:disabled),
+html.pointer-cursor [role='button'],
+html.pointer-cursor [role='tab'],
+html.pointer-cursor [role='option'],
+html.pointer-cursor [role='radio'],
+html.pointer-cursor [role='menuitem'],
+html.pointer-cursor label,
+html.pointer-cursor select,
+html.pointer-cursor summary,
+html.pointer-cursor input[type='checkbox'],
+html.pointer-cursor input[type='radio'],
+html.pointer-cursor input[type='date'],
+html.pointer-cursor input[type='time'] {
+  cursor: pointer;
+}
+html.pointer-cursor button:disabled {
+  cursor: not-allowed;
+}
+
+/* Booking confirmed: animated green check (circle draws, tick draws, soft ring pulse). */
+@keyframes bike-check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes bike-check-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes bike-check-ring {
+  0% {
+    opacity: 0.45;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+@keyframes bike-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.bike-check-pop {
+  animation: bike-check-pop 0.45s ease-out both;
+}
+.bike-check-ring {
+  animation: bike-check-ring 1.3s ease-out 0.9s 2 both;
+}
+.bike-check-circle {
+  stroke-dasharray: 151;
+  stroke-dashoffset: 151;
+  animation: bike-check-draw 0.6s ease-out 0.1s forwards;
+}
+.bike-check-mark {
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  animation: bike-check-draw 0.35s ease-out 0.65s forwards;
+}
+.bike-rise {
+  animation: bike-rise 0.5s ease-out both;
+}

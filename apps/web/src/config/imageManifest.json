@@ -1,0 +1,221 @@
+{
+  "services/bikes": {
+    "width": 204,
+    "height": 171,
+    "widths": [
+      204
+    ],
+    "color": "#6e9bac"
+  },
+  "services/buses": {
+    "width": 205,
+    "height": 175,
+    "widths": [
+      205
+    ],
+    "color": "#698e9f"
+  },
+  "services/cabs": {
+    "width": 205,
+    "height": 171,
+    "widths": [
+      205
+    ],
+    "color": "#b8a184"
+  },
+  "services/corporate": {
+    "width": 204,
+    "height": 174,
+    "widths": [
+      204
+    ],
+    "color": "#6fa1bd"
+  },
+  "services/flights": {
+    "width": 234,
+    "height": 175,
+    "widths": [
+      234
+    ],
+    "color": "#5ea9de"
+  },
+  "services/holidays": {
+    "width": 234,
+    "height": 174,
+    "widths": [
+      234
+    ],
+    "color": "#89adb4"
+  },
+  "services/hotels": {
+    "width": 234,
+    "height": 171,
+    "widths": [
+      234
+    ],
+    "color": "#948896"
+  },
+  "services/parcel": {
+    "width": 205,
+    "height": 174,
+    "widths": [
+      205
+    ],
+    "color": "#ae805e"
+  },
+  "services/trains": {
+    "width": 204,
+    "height": 175,
+    "widths": [
+      204
+    ],
+    "color": "#8ba8b6"
+  },
+  "hotels/goa": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480
+    ],
+    "color": "#769a9a"
+  },
+  "hotels/udaipur": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480
+    ],
+    "color": "#bb9066"
+  },
+  "hotels/manali": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480
+    ],
+    "color": "#5a728b"
+  },
+  "hotels/mumbai": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480
+    ],
+    "color": "#8f748d"
+  },
+  "hotels/kerala": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480
+    ],
+    "color": "#6f7a57"
+  },
+  "hotels/dubai": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480
+    ],
+    "color": "#ac9290"
+  },
+  "destinations/goa": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#64979c"
+  },
+  "destinations/kashmir": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#637e9a"
+  },
+  "destinations/kerala": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#80866b"
+  },
+  "destinations/manali": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#52636d"
+  },
+  "destinations/rajasthan": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#9e6951"
+  },
+  "destinations/dubai": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#aa9192"
+  },
+  "destinations/mumbai": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#9c8192"
+  },
+  "destinations/delhi": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#b28160"
+  },
+  "destinations/pune": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#7e8a6e"
+  },
+  "destinations/hyderabad": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#9e918a"
+  },
+  "destinations/bangalore": {
+    "width": 480,
+    "height": 320,
+    "widths": [
+      480,
+      960
+    ],
+    "color": "#7e979d"
+  }
+}

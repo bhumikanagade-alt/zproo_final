@@ -1,0 +1,38 @@
+# Local development infrastructure. Start with `npm run db:up`.
+# Phase 21 adds the `web` and `api` service images (docker/Dockerfile.web, docker/Dockerfile.api).
+# The credentials below are for local development only — never reuse them anywhere else.
+name: zproo-go
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: zproo
+      POSTGRES_PASSWORD: zproo
+      POSTGRES_DB: zproo_go
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U zproo -d zproo_go']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ['redis-server', '--appendonly', 'yes']
+    ports:
+      - '127.0.0.1:6379:6379'
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  postgres-data:
+  redis-data:

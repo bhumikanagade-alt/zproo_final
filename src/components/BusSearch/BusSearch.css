@@ -1,0 +1,1389 @@
+/* =========================================
+   MAIN SEARCH SECTION
+========================================= */
+
+.bus-search-section {
+    width: 100%;
+    padding: 20px 16px 30px;
+    background: #f9fafb;
+}
+
+.bus-search-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+
+/* =========================================
+   SEARCH AREA INSIDE JOURNEY
+========================================= */
+
+.journey-search-area {
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 28px;
+    padding-top: 24px;
+
+    border-top: 1px solid
+        rgba(
+            118,
+            255,
+            199,
+            0.12
+        );
+}
+
+.bus-search-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr 1fr;
+
+    gap: 8px;
+}
+
+
+/* =========================================
+   FROM + TO
+========================================= */
+
+.from-to-wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    grid-column: span 2;
+    transform: translateY(37px);
+}
+
+.city-field {
+    display: flex;
+
+    align-items: center;
+
+    height: 70px;
+
+    padding: 0 16px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.city-field-active {
+    border-color: #22c55e;
+
+    box-shadow:
+        0 0 0 2px rgba(
+            34,
+            197,
+            94,
+            0.08
+        );
+}
+
+.city-input-content {
+    min-width: 0;
+    flex: 1;
+
+    margin-left: 12px;
+}
+
+.field-label {
+    color: #1d4ed8;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.city-input {
+    width: 100%;
+
+    margin-top: 4px;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.city-input::placeholder {
+    color: #9ca3af;
+}
+
+.field-helper {
+    color: #9ca3af;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   CITY SUGGESTIONS
+========================================= */
+
+.city-suggestions {
+    position: absolute;
+
+    top: 76px;
+    left: 0;
+    right: 0;
+
+    z-index: 100;
+
+    overflow: hidden;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 15px 35px rgba(
+            0,
+            0,
+            0,
+            0.12
+        );
+}
+
+.city-suggestion {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding: 12px 16px;
+
+    border: none;
+
+    background: #ffffff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease;
+}
+
+.city-suggestion:hover {
+    background: #f9fafb;
+}
+
+.city-suggestion svg {
+    flex-shrink: 0;
+
+    color: #6b7280;
+}
+
+.suggestion-city {
+    color: #1f2937;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.suggestion-state {
+    margin-top: 2px;
+
+    color: #9ca3af;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   SWAP BUTTON
+========================================= */
+
+.swap-button {
+    position: absolute;
+    top: calc(30% + 4px);
+    left: 50%;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    transform: translate(-50%, -50%);
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #4b5563;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.swap-button:hover {
+    background: #f9fafb;
+
+    color: #111827;
+
+    transform:
+        translate(-50%, -50%)
+        rotate(180deg);
+}
+
+
+/* =========================================
+   DATE SECTION
+========================================= */
+
+.date-section {
+    position: relative;
+}
+
+.women-toggle-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    height: 28px;
+
+    margin-bottom: 8px;
+}
+
+.women-toggle {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 3px 10px 3px 7px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 999px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 2px 6px rgba(
+            0,
+            0,
+            0,
+            0.04
+        );
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.women-text {
+    color: #374151;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+
+/* =========================================
+   TOGGLE SWITCH
+========================================= */
+
+.toggle-switch {
+    position: relative;
+
+    width: 36px;
+    height: 20px;
+
+    border-radius: 999px;
+
+    background: #d1d5db;
+
+    transition:
+        background 0.2s ease;
+}
+
+
+.toggle-circle {
+    position: absolute;
+
+    top: 2px;
+    left: 2px;
+
+    width: 16px;
+    height: 16px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 1px 3px rgba(
+            0,
+            0,
+            0,
+            0.15
+        );
+
+    transition:
+        left 0.2s ease;
+}
+
+.toggle-circle-active {
+    left: 18px;
+}
+
+
+/* =========================================
+   DATE FIELD
+========================================= */
+
+.date-field-wrapper {
+    position: relative;
+}
+
+.date-field {
+    display: flex;
+
+    align-items: center;
+
+    height: 70px;
+
+    padding: 0 12px 0 14px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease;
+}
+
+.date-field:focus-within {
+    border-color: #22c55e;
+}
+
+.calendar-icon-button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    margin-right: 10px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #f9fafb;
+
+    color: #374151;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease;
+}
+
+.calendar-icon-button:hover {
+    background: #f3f4f6;
+}
+
+.date-text-button {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 0;
+    flex: 1;
+
+    border: none;
+
+    background: transparent;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.date-label {
+    color: #6b7280;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.date-value {
+    margin-top: 4px;
+
+    color: #111827;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.quick-date-buttons {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin-left: 8px;
+}
+
+.quick-date-button {
+    padding: 6px 10px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.quick-date-active {
+    border-color: #16a34a;
+
+    background: #16a34a;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   CALENDAR POPUP
+========================================= */
+
+.calendar-popup {
+    position: absolute;
+
+    top: 76px;
+    left: 0;
+    right: 0;
+
+    z-index: 200;
+
+    padding: 16px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 20px 50px rgba(
+            0,
+            0,
+            0,
+            0.15
+        );
+}
+
+.calendar-header {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+}
+
+.calendar-nav-button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #4b5563;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease;
+}
+
+.calendar-nav-button:hover {
+    background: #f3f4f6;
+}
+
+.calendar-month-button {
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    padding: 6px 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #1f2937;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease;
+}
+
+.calendar-month-button:hover {
+    background: #f3f4f6;
+}
+
+
+/* =========================================
+   YEARS
+========================================= */
+
+.years-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 8px;
+
+    max-height: 224px;
+
+    overflow-y: auto;
+}
+
+.year-button {
+    padding: 8px 4px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #374151;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+.year-button:hover {
+    background: #f3f4f6;
+}
+
+.year-button-active {
+    background: #16a34a;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   WEEK DAYS
+========================================= */
+
+.week-days {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 4px;
+
+    margin-bottom: 8px;
+}
+
+.week-day {
+    padding: 4px 0;
+
+    text-align: center;
+
+    color: #9ca3af;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   CALENDAR DAYS
+========================================= */
+
+.calendar-days {
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, 1fr);
+
+    gap: 4px;
+}
+
+.calendar-day {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 36px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.calendar-day-current {
+    background: transparent;
+
+    color: #374151;
+}
+
+.calendar-day-current:hover {
+    background: #f3f4f6;
+}
+
+.calendar-day-other {
+    background: transparent;
+
+    color: #d1d5db;
+}
+
+.calendar-day-other:hover {
+    background: #f9fafb;
+}
+
+.calendar-day-past {
+    background: transparent;
+
+    color: #d1d5db;
+
+    cursor: not-allowed;
+}
+
+.calendar-day-today {
+    border: 1px solid #22c55e;
+
+    background: transparent;
+
+    color: #16a34a;
+}
+
+.calendar-day-selected {
+    background: #16a34a;
+
+    color: #ffffff;
+}
+
+
+/* =========================================
+   SELECTED JOURNEY
+========================================= */
+
+.journey-preview {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+
+    min-height: 250px;
+
+    margin-top: 16px;
+
+    padding: 26px 28px;
+
+    border: 1px solid
+        rgba(
+            118,
+            255,
+            199,
+            0.16
+        );
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at 15% 50%,
+            rgba(
+                0,
+                232,
+                148,
+                0.12
+            ),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            rgba(
+                4,
+                50,
+                35,
+                0.95
+            ),
+            rgba(
+                2,
+                28,
+                20,
+                0.96
+            )
+        );
+
+    box-shadow:
+        inset 0 1px 0
+            rgba(
+                255,
+                255,
+                255,
+                0.04
+            ),
+        0 20px 60px
+            rgba(
+                0,
+                0,
+                0,
+                0.2
+            );
+
+    overflow: visible;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.journey-preview:hover {
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(
+            0,
+            232,
+            148,
+            0.3
+        );
+
+    box-shadow:
+        inset 0 1px 0
+            rgba(
+                255,
+                255,
+                255,
+                0.04
+            ),
+        0 24px 65px
+            rgba(
+                0,
+                0,
+                0,
+                0.25
+            );
+}
+
+
+/* =========================================
+   JOURNEY TOP ROW
+========================================= */
+
+.journey-top-row {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1.5fr auto;
+
+    align-items: center;
+
+    gap: 32px;
+
+    width: 100%;
+}
+
+
+/* =========================================
+   PREVIEW LEFT
+========================================= */
+
+.preview-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    min-width: 220px;
+}
+
+.preview-vehicle {
+    display: grid;
+
+    place-items: center;
+
+    width: 64px;
+    height: 64px;
+
+    flex-shrink: 0;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(
+                0,
+                232,
+                148,
+                0.16
+            ),
+            rgba(
+                0,
+                232,
+                148,
+                0.04
+            )
+        );
+
+    border: 1px solid
+        rgba(
+            0,
+            232,
+            148,
+            0.3
+        );
+
+    box-shadow:
+        0 0 25px
+            rgba(
+                0,
+                232,
+                148,
+                0.08
+            );
+}
+
+.preview-vehicle svg {
+    width: 32px;
+    height: 32px;
+}
+
+.preview-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #8da99e;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+}
+
+.preview-left h3 {
+    margin: 0;
+
+    color: #f5fff9;
+
+    font-size: clamp(
+        18px,
+        2vw,
+        25px
+    );
+
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+.preview-left h3 span {
+    color: #00e894;
+}
+
+
+/* =========================================
+   JOURNEY ROUTE
+========================================= */
+
+.journey-route {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 280px;
+
+    gap: 10px;
+}
+
+.route-point {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-width: 62px;
+
+    color: #00e894;
+}
+
+.route-point small {
+    color: #7e9c91;
+
+    font-size: 8px;
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+}
+
+.route-dot {
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: #00e894;
+
+    box-shadow:
+        0 0 0 6px
+            rgba(
+                0,
+                232,
+                148,
+                0.08
+            ),
+        0 0 18px
+            rgba(
+                0,
+                232,
+                148,
+                0.45
+            );
+}
+
+
+/* =========================================
+   ROUTE LINE
+========================================= */
+
+.route-line {
+    position: relative;
+
+    width: 72px;
+    height: 2px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(
+                0,
+                232,
+                148,
+                0.65
+            ) 0,
+            rgba(
+                0,
+                232,
+                148,
+                0.65
+            ) 10px,
+            transparent 10px,
+            transparent 18px
+        );
+}
+
+.route-moving-dot {
+    position: absolute;
+
+    top: 50%;
+    left: 0;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #00ff9c;
+
+    transform:
+        translateY(-50%);
+
+    animation:
+        routeDotMove
+        2.8s linear infinite;
+
+    box-shadow:
+        0 0 12px
+            rgba(
+                0,
+                255,
+                156,
+                0.8
+            );
+}
+
+@keyframes routeDotMove {
+
+    0% {
+        left: 0;
+        opacity: 0.35;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        left:
+            calc(
+                100% - 7px
+            );
+
+        opacity: 0.35;
+    }
+}
+
+
+/* =========================================
+   CENTER BUS
+========================================= */
+
+.route-vehicle {
+    display: grid;
+
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        rgba(
+            0,
+            232,
+            148,
+            0.08
+        );
+
+    border: 1px solid
+        rgba(
+            0,
+            232,
+            148,
+            0.16
+        );
+
+    animation:
+        routeVehicleFloat
+        2.8s ease-in-out infinite;
+}
+
+.route-vehicle svg {
+    width: 25px;
+    height: 25px;
+}
+
+@keyframes routeVehicleFloat {
+
+    0%,
+    100% {
+        transform:
+            translateY(0);
+    }
+
+    50% {
+        transform:
+            translateY(-4px);
+    }
+}
+
+
+/* =========================================
+   START JOURNEY BUTTON
+========================================= */
+
+.journey-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 150px;
+    min-height: 48px;
+
+    padding: 12px 20px;
+
+    border: 1px solid
+        rgba(
+            0,
+            232,
+            148,
+            0.35
+        );
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            0,
+            232,
+            148,
+            0.08
+        );
+
+    color: #00e894;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.journey-button:hover {
+    background: #00e894;
+
+    color: #03291d;
+
+    border-color: #00e894;
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 30px
+            rgba(
+                0,
+                232,
+                148,
+                0.25
+            );
+}
+
+.journey-button-active {
+    background: #00e894;
+
+    color: #03291d;
+
+    border-color: #00e894;
+
+    box-shadow:
+        0 0 25px
+            rgba(
+                0,
+                232,
+                148,
+                0.35
+            );
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .journey-top-row {
+        grid-template-columns:
+            1fr;
+        gap: 28px;
+    }
+
+    .preview-left {
+        justify-content: center;
+    }
+
+    .journey-route {
+        width: 100%;
+    }
+
+    .journey-button {
+        width: 100%;
+    }
+
+    .bus-search-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .from-to-wrapper {
+        grid-column: span 1;
+    }
+
+    .date-section {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 640px) {
+
+    .bus-search-section {
+        padding: 14px 10px 24px;
+    }
+
+    .journey-preview {
+        min-height: auto;
+
+        padding: 20px 16px;
+
+        border-radius: 22px;
+    }
+
+    .journey-search-area {
+        margin-top: 22px;
+        padding-top: 20px;
+    }
+
+    .from-to-wrapper {
+        grid-template-columns:
+            1fr;
+    }
+
+    .swap-button {
+        top: 50%;
+        left: 50%;
+    }
+
+    .city-field {
+        height: 68px;
+    }
+
+    .date-field {
+        height: auto;
+
+        min-height: 70px;
+
+        flex-wrap: wrap;
+
+        padding: 10px;
+    }
+
+    .date-text-button {
+        min-width: 120px;
+    }
+
+    .quick-date-buttons {
+        width: 100%;
+
+        margin-top: 8px;
+        margin-left: 46px;
+    }
+
+    .calendar-popup {
+        left: 0;
+        right: 0;
+    }
+
+    .preview-left {
+        justify-content: flex-start;
+    }
+
+    .preview-vehicle {
+        width: 54px;
+        height: 54px;
+    }
+
+    .preview-left h3 {
+        font-size: 18px;
+    }
+
+    .journey-route {
+        gap: 5px;
+    }
+
+    .route-line {
+        width: 35px;
+    }
+
+    .route-vehicle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .route-point {
+        min-width: 48px;
+    }
+
+    .journey-button {
+        min-height: 46px;
+    }
+}

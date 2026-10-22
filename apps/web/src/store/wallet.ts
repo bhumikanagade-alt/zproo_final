@@ -1,0 +1,6 @@
+import { create } from 'zustand';
+import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware';
+interface Tx { id:string; type:'credit'|'debit'; label:string; amountPaise:number; createdAt:string }
+interface WalletState { balance:number; transactions:Tx[]; credit:(amount:number,label?:string)=>void; debit:(amount:number,label?:string)=>boolean }
+const storage:StateStorage={getItem:k=>{try{return localStorage.getItem(k)}catch{return null}},setItem:(k,v)=>{try{localStorage.setItem(k,v)}catch{}},removeItem:k=>{try{localStorage.removeItem(k)}catch{}}};
+export const useWallet=create<WalletState>()(persist((set,get)=>({balance:0,transactions:[],credit:(amount,label='Wallet credit')=>set(s=>({balance:s.balance+amount,transactions:[{id:crypto.randomUUID(),type:'credit',label,amountPaise:amount,createdAt:new Date().toISOString()},...s.transactions]})),debit:(amount,label='Booking payment')=>{if(get().balance<amount)return false;set(s=>({balance:s.balance-amount,transactions:[{id:crypto.randomUUID(),type:'debit',label,amountPaise:amount,createdAt:new Date().toISOString()},...s.transactions]}));return true}}),{name:'zproo-wallet',storage:createJSONStorage(()=>storage)}));

@@ -1,0 +1,132 @@
+{
+  "services/flights": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "services/buses": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "services/trains": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "services/hotels": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "services/cabs": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "services/bikes": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "services/holidays": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "services/parcel": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "services/corporate": {
+    "author": "ZPROO GO user-provided/generated artwork",
+    "source": "User-provided ZPROO GO Travel Services reference image",
+    "license": "User-provided asset"
+  },
+  "hotels/goa": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "hotels/udaipur": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "hotels/manali": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "hotels/mumbai": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "hotels/kerala": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "hotels/dubai": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/goa": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/kashmir": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/kerala": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/manali": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/rajasthan": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/dubai": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/mumbai": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/delhi": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/pune": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/hyderabad": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  },
+  "destinations/bangalore": {
+    "author": "ZPROO GO generated artwork",
+    "source": "OpenAI image generation, created for ZPROO GO",
+    "license": "User-generated asset"
+  }
+}

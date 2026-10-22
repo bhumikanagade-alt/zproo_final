@@ -1,0 +1,59 @@
+{
+  "name": "zproo-go",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ZPROO GO \u2014 Unified Mobility & Travel Super App",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=20.11"
+  },
+  "packageManager": "npm@10.9.7",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint && eslint prisma prisma.config.ts eslint.config.js",
+    "typecheck": "turbo run typecheck && tsc -p prisma --noEmit",
+    "test": "turbo run test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy",
+    "db:seed": "prisma db seed",
+    "db:studio": "prisma studio",
+    "db:up": "docker compose up -d postgres redis",
+    "postinstall": "prisma generate",
+    "admin:grant": "tsx prisma/scripts/grant-role.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@prisma/client": "^6.19.0",
+    "@types/node": "^22.18.0",
+    "@zproo/catalog": "*",
+    "@zproo/config": "*",
+    "@zproo/types": "*",
+    "dotenv": "^17.2.0",
+    "eslint": "^9.36.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.4.0",
+    "prettier": "^3.6.0",
+    "prisma": "^6.19.0",
+    "tsx": "^4.20.0",
+    "turbo": "^2.5.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.44.0",
+    "vitest": "^4.1.11"
+  },
+  "overrides": {
+    "deepmerge-ts": "^8.0.2",
+    "tsup": {
+      "esbuild": "^0.28.2"
+    }
+  }
+}

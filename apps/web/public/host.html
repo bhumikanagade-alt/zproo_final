@@ -1,0 +1,10 @@
+<html><body><iframe id=f src="/holiday-explorer.html" style="width:1200px;height:900px"></iframe><script>
+const live=[{code:'HOLIDAY10',description:'10% off holiday packages',discountType:'PERCENT',value:10,maxDiscountPaise:300000,minOrderPaise:1000000,services:['HOLIDAY'],validTo:'2030-12-31'},{code:'BIG',description:'Big only',discountType:'FLAT',value:500000,maxDiscountPaise:null,minOrderPaise:99999999,services:[],validTo:'2030-12-31'}];
+window.signedIn=false;window.log=[];
+addEventListener('message',e=>{const d=e.data;if(!d||d.type!=='zproo-holiday-coupons')return;log.push(d);const r={type:'zproo-holiday-coupons-reply',id:d.id,signedIn:signedIn};
+ if(d.action==='list')Object.assign(r,{ok:true,data:live});
+ else if(!signedIn)Object.assign(r,{ok:false,needsSignIn:true,message:'Please sign in to use a coupon.'});
+ else if(d.code==='HOLIDAY10')Object.assign(r,{ok:true,data:{code:'HOLIDAY10',description:'',discountPaise:Math.min(300000,Math.floor(d.orderPaise/10))}});
+ else Object.assign(r,{ok:false,refused:true,message:'This coupon has expired'});
+ e.source.postMessage(r,location.origin)});
+</script></body></html>

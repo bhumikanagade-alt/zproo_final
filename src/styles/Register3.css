@@ -1,0 +1,1976 @@
+/* =========================================================
+   REGISTER 3 — CLEAN FINAL CSS
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.register3-page {
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  color: #183d27;
+
+  background:
+    radial-gradient(
+      circle at 10% 10%,
+      rgba(165, 225, 125, 0.35),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #eff9e8,
+      #dcefcf 50%,
+      #cce8bd
+    );
+
+  position: relative;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.register3-shape {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.shape-one {
+  width: 420px;
+  height: 420px;
+  left: -220px;
+  top: -200px;
+  background: rgba(80, 160, 70, 0.08);
+}
+
+.shape-two {
+  width: 350px;
+  height: 350px;
+  right: -180px;
+  bottom: -180px;
+  background: rgba(90, 175, 70, 0.1);
+}
+
+.shape-three {
+  width: 120px;
+  height: 120px;
+  right: 7%;
+  top: 20%;
+  border: 18px solid rgba(75, 155, 70, 0.06);
+}
+
+.register3-floating {
+  position: absolute;
+  z-index: 0;
+
+  color: rgba(63, 145, 63, 0.2);
+
+  font-size: 34px;
+  font-weight: 800;
+
+  pointer-events: none;
+}
+
+.floating-one {
+  left: 6%;
+  top: 30%;
+}
+
+.floating-two {
+  right: 12%;
+  top: 15%;
+}
+
+.floating-three {
+  left: 48%;
+  bottom: 8%;
+}
+
+/* =========================================================
+   MAIN WRAPPER
+========================================================= */
+
+.register3-wrapper {
+  position: relative;
+  z-index: 2;
+
+  width: min(1220px, 94%);
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(440px, 0.82fr);
+
+  align-items: center;
+
+  gap: 65px;
+
+  padding: 45px 0;
+}
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.register3-left {
+  min-width: 0;
+}
+
+.register3-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.register3-logo {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #153e24,
+      #39813e
+    );
+
+  color: #dcff9e;
+
+  font-size: 30px;
+  font-weight: 900;
+
+  box-shadow:
+    0 12px 28px rgba(30, 83, 39, 0.2);
+}
+
+.register3-brand h1 {
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.register3-brand h1 span {
+  color: #45a144;
+}
+
+.register3-brand p {
+  margin-top: 5px;
+
+  font-size: 10px;
+  letter-spacing: 2px;
+
+  color: #66816c;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.register3-left-content {
+  margin-top: 50px;
+}
+
+.register3-tag {
+  display: inline-flex;
+
+  padding: 8px 14px;
+
+  border-radius: 30px;
+
+  background: rgba(70, 160, 65, 0.09);
+
+  border: 1px solid rgba(70, 160, 65, 0.15);
+
+  color: #438e40;
+
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 800;
+}
+
+.register3-left-content h2 {
+  margin-top: 22px;
+  margin-bottom: 18px;
+
+  font-size: clamp(43px, 4.5vw, 62px);
+
+  line-height: 0.98;
+
+  letter-spacing: -3.5px;
+
+  color: #173d28;
+}
+
+.register3-left-content h2 span {
+  color: #49a348;
+}
+
+.register3-left-content > p {
+  max-width: 590px;
+
+  color: #637e68;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+
+  font-weight: 500;
+}
+
+/* =========================================================
+   BUS SCENE
+========================================================= */
+
+.register3-bus-card {
+  position: relative;
+
+  width: 100%;
+  height: 245px;
+
+  margin-top: 38px;
+
+  overflow: hidden;
+
+  border-radius: 28px;
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+
+  box-shadow:
+    0 25px 60px rgba(48, 96, 45, 0.18);
+}
+
+.register3-sky {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #a9db86 0%,
+      #cdeab7 55%,
+      #dcebcf 100%
+    );
+}
+
+/* =========================================================
+   SUN
+========================================================= */
+
+.register3-sun {
+  position: absolute;
+
+  width: 68px;
+  height: 68px;
+
+  top: 28px;
+  right: 80px;
+
+  border-radius: 50%;
+
+  background: #fff0a0;
+
+  box-shadow:
+    0 0 35px rgba(255, 238, 113, 0.6);
+}
+
+/* =========================================================
+   CLOUDS
+========================================================= */
+
+.register3-cloud {
+  position: absolute;
+
+  width: 82px;
+  height: 26px;
+
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.register3-cloud::before,
+.register3-cloud::after {
+  content: "";
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: inherit;
+}
+
+.register3-cloud::before {
+  width: 37px;
+  height: 37px;
+
+  left: 12px;
+  top: -18px;
+}
+
+.register3-cloud::after {
+  width: 28px;
+  height: 28px;
+
+  right: 10px;
+  top: -12px;
+}
+
+.cloud-one {
+  left: 70px;
+  top: 60px;
+}
+
+.cloud-two {
+  right: 200px;
+  top: 85px;
+
+  transform: scale(0.8);
+}
+
+/* =========================================================
+   HILLS
+========================================================= */
+
+.register3-hill {
+  position: absolute;
+
+  bottom: 60px;
+
+  width: 350px;
+  height: 110px;
+
+  border-radius: 50% 50% 0 0;
+
+  z-index: 1;
+}
+
+.hill-one {
+  left: -90px;
+  background: #8bc578;
+}
+
+.hill-two {
+  right: -90px;
+  background: #75ad67;
+}
+
+/* =========================================================
+   ONE ROAD ONLY
+========================================================= */
+
+.register3-road {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 72px;
+
+  background: #292d2b;
+
+  overflow: hidden;
+
+  z-index: 5;
+}
+
+/* ONLY THIS creates the moving road line */
+
+.register3-road::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 220%;
+  height: 5px;
+
+  background:
+    repeating-linear-gradient(
+      to right,
+      #ffffff 0,
+      #ffffff 70px,
+      transparent 70px,
+      transparent 140px
+    );
+
+  transform: translate(-140px, -50%);
+
+  animation:
+    registerRoadMove
+    0.8s
+    linear
+    infinite;
+}
+
+@keyframes registerRoadMove {
+  from {
+    transform: translate(-140px, -50%);
+  }
+
+  to {
+    transform: translate(0, -50%);
+  }
+}
+
+/* =========================================================
+   BUS
+========================================================= */
+
+.register3-bus {
+  position: absolute;
+
+  left: 0;
+  bottom: 45px;
+
+  width: 275px;
+  height: 88px;
+
+  border-radius:
+    17px 23px
+    11px 11px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #72d455,
+      #58b848 45%,
+      #3f973f 75%,
+      #347d38
+    );
+
+  border: 2px solid #2f7f38;
+
+  box-shadow:
+    0 10px 0 rgba(27, 78, 35, 0.14),
+    0 16px 25px rgba(31, 76, 34, 0.3);
+
+  z-index: 10;
+
+  animation:
+    registerBusDrive
+    8s
+    linear
+    infinite;
+
+  will-change: transform;
+}
+
+/* Bus continuously travels from left to right.
+   There is NO pause in the middle. */
+
+@keyframes registerBusDrive {
+  0% {
+    transform: translateX(-330px);
+  }
+
+  100% {
+    transform: translateX(calc(100vw + 330px));
+  }
+}
+
+/* =========================================================
+   BUS DETAILS
+========================================================= */
+
+.bus-roof {
+  position: absolute;
+
+  left: 14px;
+  top: -5px;
+
+  width: 215px;
+  height: 8px;
+
+  border-radius: 8px;
+
+  background: #318537;
+}
+
+.bus-display {
+  position: absolute;
+
+  left: 18px;
+  top: 10px;
+
+  padding: 4px 9px;
+
+  border-radius: 4px;
+
+  background: #173d2c;
+
+  color: #d7f5a8;
+
+  font-size: 9px;
+  font-weight: 900;
+
+  letter-spacing: 0.6px;
+}
+
+.bus-side-windows {
+  position: absolute;
+
+  left: 17px;
+  top: 28px;
+
+  display: flex;
+
+  gap: 5px;
+}
+
+.bus-window {
+  position: relative;
+
+  width: 43px;
+  height: 27px;
+
+  overflow: hidden;
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #173d3b,
+      #2a6256
+    );
+
+  border: 2px solid rgba(255, 255, 255, 0.18);
+}
+
+.bus-window span {
+  position: absolute;
+
+  width: 35px;
+  height: 4px;
+
+  left: -5px;
+  top: 5px;
+
+  background: rgba(255, 255, 255, 0.14);
+
+  transform: rotate(-20deg);
+}
+
+.bus-windshield {
+  position: absolute;
+
+  right: 14px;
+  top: 13px;
+
+  width: 59px;
+  height: 40px;
+
+  overflow: hidden;
+
+  border-radius:
+    5px 13px
+    5px 5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #173d3b,
+      #2d6256
+    );
+
+  border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.windshield-reflection {
+  position: absolute;
+
+  width: 75px;
+  height: 8px;
+
+  left: -8px;
+  top: 8px;
+
+  background: rgba(255, 255, 255, 0.2);
+
+  transform: rotate(-25deg);
+}
+
+.bus-door {
+  position: absolute;
+
+  right: 76px;
+  top: 24px;
+
+  width: 25px;
+  height: 50px;
+
+  border: 2px solid rgba(26, 82, 39, 0.65);
+
+  border-radius: 3px;
+
+  background: rgba(47, 120, 55, 0.35);
+}
+
+.door-window {
+  position: absolute;
+
+  left: 4px;
+  top: 4px;
+
+  width: 13px;
+  height: 20px;
+
+  background: #214d45;
+
+  border-radius: 2px;
+}
+
+.door-line {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 2px;
+  height: 100%;
+
+  background: rgba(24, 70, 34, 0.5);
+}
+
+.door-handle {
+  position: absolute;
+
+  right: 4px;
+  top: 28px;
+
+  width: 3px;
+  height: 8px;
+
+  border-radius: 3px;
+
+  background: #b7d99b;
+}
+
+.bus-lower-line {
+  position: absolute;
+
+  left: 15px;
+  bottom: 19px;
+
+  width: 235px;
+  height: 3px;
+
+  border-radius: 4px;
+
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.bus-front-bumper {
+  position: absolute;
+
+  right: -5px;
+  bottom: 9px;
+
+  width: 11px;
+  height: 12px;
+
+  border-radius: 4px;
+
+  background: #267233;
+}
+
+.bus-headlight {
+  position: absolute;
+
+  right: -1px;
+  top: 48px;
+
+  width: 7px;
+  height: 13px;
+
+  border-radius: 3px;
+
+  background: #fff7ad;
+
+  box-shadow:
+    0 0 12px rgba(255, 244, 113, 0.9);
+}
+
+.bus-rear-light {
+  position: absolute;
+
+  left: -2px;
+  top: 48px;
+
+  width: 6px;
+  height: 13px;
+
+  border-radius: 3px;
+
+  background: #e74343;
+}
+
+.bus-mirror {
+  position: absolute;
+
+  right: 60px;
+  top: 15px;
+
+  width: 10px;
+  height: 7px;
+
+  border-radius: 4px;
+
+  background: #1f554a;
+
+  border: 2px solid #347f3d;
+}
+
+/* =========================================================
+   BUS WHEELS
+========================================================= */
+
+.login3-wheel {
+  position: absolute;
+
+  bottom: -17px;
+
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  background: #1e2521;
+
+  border: 5px solid #e9eee8;
+
+  box-shadow:
+    inset 0 0 0 4px #454d47;
+
+  z-index: 15;
+
+  animation:
+    registerWheelSpin
+    0.55s
+    linear
+    infinite;
+}
+
+.wheel-left {
+  left: 32px;
+}
+
+.wheel-right {
+  right: 35px;
+}
+
+.wheel-hub {
+  position: absolute;
+
+  width: 8px;
+  height: 8px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #c9d0ca;
+
+  border: 2px solid #59625b;
+}
+
+@keyframes registerWheelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.register3-features {
+  display: flex;
+
+  gap: 35px;
+
+  margin-top: 23px;
+}
+
+.register3-features div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #617966;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.register3-features strong {
+  color: #429341;
+
+  font-size: 15px;
+}
+
+/* =========================================================
+   RIGHT CARD
+========================================================= */
+
+.register3-right {
+  display: flex;
+
+  justify-content: center;
+}
+
+.register3-card {
+  width: 100%;
+  max-width: 430px;
+  padding: 28px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 25px 55px rgba(50, 92, 45, 0.15);
+}
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.register3-card-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+.register3-mini-icon {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: #e4f4d8;
+
+  color: #429341;
+
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.register3-card-header span {
+  display: block;
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  color: #73966f;
+
+  font-weight: 800;
+}
+
+.register3-card-header h3 {
+  margin-top: 5px;
+
+  font-size: 27px;
+
+  letter-spacing: -1px;
+
+  color: #193f29;
+}
+
+.register3-subtitle {
+  margin: 10px 0 22px;
+
+  color: #718470;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+.register3-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 13px 15px;
+
+  margin-bottom: 18px;
+
+  border-radius: 12px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.register3-message.success {
+  background: #e9f8df;
+
+  color: #397b39;
+}
+
+.register3-message.error {
+  background: #fff0ef;
+
+  color: #b64e4e;
+}
+
+.message-icon {
+  min-width: 20px;
+  height: 20px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+.success .message-icon {
+  background: #65b957;
+
+  color: white;
+}
+
+.error .message-icon {
+  background: #db6969;
+
+  color: white;
+}
+
+/* =========================================================
+   FORM FIELD
+========================================================= */
+
+.register3-field {
+  margin-bottom: 18px;
+}
+
+.register3-field label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #405844;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+.register3-label-row {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+/* =========================================================
+   EMAIL / PHONE TABS
+========================================================= */
+
+.register3-method {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 7px;
+
+  padding: 5px;
+
+  margin-bottom: 18px;
+
+  border-radius: 14px;
+
+  background: #eef5e9;
+}
+
+.register3-method button {
+  height: 45px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: #728575;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.register3-method button.active {
+  background: white;
+
+  color: #347c38;
+
+  box-shadow:
+    0 5px 13px rgba(43, 96, 45, 0.09);
+}
+
+.method-icon {
+  display: inline-flex !important;
+
+  position: static !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  margin-right: 7px;
+
+  color: #4b9447;
+
+  font-size: 15px;
+
+  font-weight: 900;
+}
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.register3-input {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 54px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 15px;
+
+  border: 1px solid #d5e4d1;
+
+  border-radius: 13px;
+
+  background: #f9fcf7;
+
+  transition: 0.2s ease;
+}
+
+.register3-input:focus-within {
+  background: white;
+
+  border-color: #6db64d;
+
+  box-shadow:
+    0 0 0 4px rgba(101, 181, 68, 0.1);
+}
+
+/* Input icon stays inside */
+
+.register3-input > .input-icon {
+  position: static !important;
+
+  display: flex !important;
+
+  flex: 0 0 auto;
+
+  width: 25px !important;
+  height: auto !important;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin: 0 !important;
+
+  transform: none !important;
+
+  color: #4d9949;
+
+  font-size: 17px;
+
+  font-weight: 900;
+}
+
+/* OTP icon stays inside */
+
+.register3-input > .otp-icon {
+  width: 40px !important;
+
+  color: #4d9949;
+
+  font-size: 12px;
+
+  letter-spacing: 0.5px;
+}
+
+.register3-input input {
+  flex: 1;
+
+  min-width: 0;
+
+  height: 52px;
+
+  border: 0;
+
+  outline: 0;
+
+  background: transparent;
+
+  color: #21482b;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 500;
+}
+
+.register3-input input::placeholder {
+  color: #9aa99b;
+
+  font-size: 13px;
+}
+
+.register3-country {
+  flex: 0 0 auto;
+
+  padding-right: 11px;
+
+  border-right: 1px solid #d8e4d5;
+
+  color: #668066;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+.otp-check {
+  color: #48a546;
+
+  font-size: 20px;
+
+  font-weight: 900;
+}
+
+.register3-resend {
+  border: 0;
+
+  background: transparent;
+
+  color: #438e3f;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   PASSWORD CHARACTER
+========================================================= */
+
+.register3-password-character {
+  min-height: 82px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin: 4px 0 8px;
+}
+
+/* =========================================================
+   MASCOT
+========================================================= */
+
+.mascot {
+  position: relative;
+
+  width: 82px;
+  height: 72px;
+
+  flex: 0 0 82px;
+}
+
+/* =========================================================
+   MASCOT BODY
+========================================================= */
+
+.mascot-body {
+  position: absolute;
+
+  left: 17px;
+  bottom: 0;
+
+  width: 50px;
+  height: 27px;
+
+  border-radius:
+    17px 17px
+    12px 12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #7dce52,
+      #4ea43f
+    );
+
+  z-index: 1;
+}
+
+/* =========================================================
+   MASCOT BADGE
+========================================================= */
+
+.mascot-badge {
+  position: absolute;
+
+  left: 50%;
+  top: 7px;
+
+  transform: translateX(-50%);
+
+  width: 19px;
+  height: 19px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.9);
+
+  color: #4b9840;
+
+  font-size: 10px;
+
+  font-weight: 900;
+}
+
+/* =========================================================
+   MASCOT HEAD
+========================================================= */
+
+.mascot-head {
+  position: absolute;
+
+  left: 10px;
+  top: 0;
+
+  width: 62px;
+  height: 52px;
+
+  border-radius:
+    48% 48%
+    45% 45%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #a7e866,
+      #68bc4a
+    );
+
+  z-index: 3;
+
+  box-shadow:
+    inset 0 -4px 0 rgba(39, 117, 49, 0.08);
+}
+
+/* =========================================================
+   MASCOT EARS
+========================================================= */
+
+.mascot-ear {
+  position: absolute;
+
+  top: 20px;
+
+  width: 14px;
+  height: 18px;
+
+  border-radius: 50%;
+
+  background: #62b648;
+
+  z-index: 2;
+}
+
+.ear-left {
+  left: 1px;
+}
+
+.ear-right {
+  right: 1px;
+}
+
+/* =========================================================
+   MASCOT EYES
+========================================================= */
+
+.mascot-eye {
+  position: absolute;
+
+  top: 17px;
+
+  width: 14px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  overflow: hidden;
+
+  transition:
+    height 0.2s ease,
+    top 0.2s ease,
+    background 0.2s ease;
+}
+
+.eye-left {
+  left: 14px;
+}
+
+.eye-right {
+  right: 14px;
+}
+
+/* PUPIL */
+
+.pupil {
+  position: absolute;
+
+  width: 6px;
+  height: 8px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: #183d24;
+
+  transition:
+    opacity 0.15s ease;
+}
+
+/* =========================================================
+   MASCOT MOUTH
+========================================================= */
+
+.mascot-mouth {
+  position: absolute;
+
+  left: 50%;
+  bottom: 9px;
+
+  width: 14px;
+  height: 7px;
+
+  transform: translateX(-50%);
+
+  border-bottom: 2px solid #315a31;
+
+  border-radius:
+    0 0 50% 50%;
+
+  transition:
+    height 0.2s ease,
+    border-bottom-width 0.2s ease;
+}
+
+/* =========================================================
+   PASSWORD CHARACTER REACTION
+========================================================= */
+
+/* Character moves slightly */
+
+.password-active .mascot-head {
+  animation:
+    mascotHappy
+    0.8s
+    ease-in-out
+    infinite alternate;
+}
+
+/* =========================================================
+   CLOSE EYES WHEN PASSWORD IS BEING ENTERED
+========================================================= */
+
+.password-active .mascot-eye {
+  height: 3px;
+
+  top: 24px;
+
+  border-radius: 50%;
+
+  background: #315a31;
+
+  overflow: visible;
+}
+
+/* Hide pupils */
+
+.password-active .mascot-eye .pupil {
+  opacity: 0;
+}
+
+/* Closed eyelid line */
+
+.password-active .mascot-eye::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 17px;
+  height: 3px;
+
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background: #315a31;
+}
+
+/* Happy mouth */
+
+.password-active .mascot-mouth {
+  height: 10px;
+
+  border-bottom-width: 3px;
+}
+
+/* Text reaction */
+
+.password-active .password-character-text strong {
+  color: #428d3e;
+}
+
+.password-active .password-character-text span {
+  color: #638165;
+}
+
+/* Character animation */
+
+@keyframes mascotHappy {
+  from {
+    transform: rotate(-2deg);
+  }
+
+  to {
+    transform:
+      rotate(2deg)
+      translateY(-2px);
+  }
+}
+
+/* =========================================================
+   PASSWORD CHARACTER TEXT
+========================================================= */
+
+.password-character-text {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.password-character-text strong {
+  color: #48604a;
+
+  font-size: 13px;
+
+  font-weight: 800;
+}
+
+.password-character-text span {
+  color: #829183;
+
+  font-size: 11px;
+
+  line-height: 1.4;
+}
+
+/* =========================================================
+   PASSWORD INPUT
+========================================================= */
+
+.password-input {
+  padding-right: 8px;
+}
+
+.password-eye {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.eye-icon {
+  position: relative;
+
+  width: 21px;
+  height: 13px;
+
+  border: 2px solid #5b765e;
+
+  border-radius: 70% 0;
+
+  transform: rotate(45deg);
+}
+
+.eye-icon-pupil {
+  position: absolute;
+
+  width: 6px;
+  height: 6px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-45deg);
+
+  border-radius: 50%;
+
+  background: #4c6e4f;
+}
+
+.eye-visible .eye-icon {
+  border-color: #428e42;
+}
+
+.eye-visible .eye-icon-pupil {
+  background: #428e42;
+}
+
+/* =========================================================
+   TERMS
+========================================================= */
+
+.register3-terms {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 10px;
+
+  margin: 18px 0;
+
+  color: #718070;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+
+  cursor: pointer;
+}
+
+.register3-terms input {
+  width: 17px;
+  height: 17px;
+
+  margin-top: 2px;
+
+  flex-shrink: 0;
+
+  accent-color: #4d9d43;
+}
+
+.register3-terms button {
+  border: 0;
+
+  background: transparent;
+
+  color: #438e3f;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.register3-submit {
+  width: 100%;
+  height: 57px;
+
+  border: 0;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #5cae47,
+      #2f7838
+    );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  box-shadow:
+    0 12px 25px
+    rgba(55, 119, 52, 0.2);
+
+  transition: 0.2s ease;
+}
+
+.register3-submit:hover {
+  transform: translateY(-2px);
+}
+
+.register3-submit:disabled {
+  opacity: 0.7;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+.submit-arrow {
+  font-size: 21px;
+}
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.register3-spinner {
+  width: 19px;
+  height: 19px;
+
+  border: 2px solid rgba(255, 255, 255, 0.4);
+
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation:
+    registerSpin
+    0.7s
+    linear
+    infinite;
+}
+
+@keyframes registerSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+.register3-login {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 22px;
+
+  color: #718070;
+
+  font-size: 12px;
+}
+
+.register3-login button {
+  border: 0;
+
+  background: transparent;
+
+  color: #428b40;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.register3-security {
+  margin-top: 15px;
+  padding: 11px 14px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(47, 128, 54, 0.08),
+    rgba(125, 211, 104, 0.14)
+  );
+
+  border: 1px solid rgba(55, 130, 55, 0.18);
+
+  color: #668064;
+  font-size: 10px;
+  font-weight: 500;
+
+  box-shadow:
+    0 5px 16px rgba(50, 92, 45, 0.08);
+}
+
+.security-lock {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 4px 8px;
+  border-radius: 6px;
+
+  background: #2f8036;
+  color: #ffffff;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+
+  box-shadow:
+    0 3px 8px rgba(47, 128, 54, 0.22);
+}
+
+.security-dot {
+  color: #4c9b4c;
+  font-weight: 800;
+}
+
+.register3-security {
+  font-weight: 600;
+}
+
+.register3-security::after {
+  content: "";
+}
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .register3-wrapper {
+    grid-template-columns: 1fr;
+
+    width: min(650px, 92%);
+
+    gap: 45px;
+  }
+
+  .register3-left {
+    text-align: center;
+  }
+
+  .register3-left-content > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .register3-features {
+    justify-content: center;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .register3-wrapper {
+    width: 92%;
+
+    padding: 28px 0;
+  }
+
+  .register3-left-content {
+    margin-top: 35px;
+  }
+
+  .register3-left-content h2 {
+    font-size: 46px;
+
+    letter-spacing: -2.5px;
+  }
+
+  .register3-left-content > p {
+    font-size: 15px;
+  }
+
+  .register3-bus-card {
+    height: 210px;
+  }
+
+  .register3-card {
+    padding: 28px 22px;
+
+    border-radius: 24px;
+  }
+
+  .register3-card-header h3 {
+    font-size: 27px;
+  }
+
+  .register3-features {
+    flex-wrap: wrap;
+
+    gap: 15px;
+  }
+}
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .register3-left-content h2 {
+    font-size: 39px;
+  }
+
+  .register3-card {
+    padding: 23px 17px;
+  }
+
+  .register3-card-header h3 {
+    font-size: 24px;
+  }
+
+  .register3-input {
+    min-height: 52px;
+  }
+
+  .register3-input input {
+    font-size: 14px;
+  }
+
+  .register3-input input::placeholder {
+    font-size: 13px;
+  }
+
+  .register3-bus-card {
+    height: 190px;
+  }
+
+  .register3-bus {
+    width: 245px;
+    height: 80px;
+  }
+}

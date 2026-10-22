@@ -1,0 +1,1090 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Zproo Holidays Explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap">
+<style>
+/* Concept: immersive poster cards, featured hero, top filter bar with popovers, one long details page with scroll-spy, slide-over booking drawer. */
+:root{
+  --bg:#FBF8F8; --surface:#FFFFFF; --surface-2:#F5EFEF; --ink:#1B1517; --ink-2:#554B4E; --ink-3:#8C8185;
+  --line:#EDE5E6; --accent:#E11D2E; --accent-d:#B91424; --accent-ink:#FFFFFF; --accent-soft:#FFF0F1; --accent-line:#FFD3D8;
+  --good:#12A150; --good-soft:#E6F7EE; --warn:#C77700; --shadow:0 18px 40px -24px rgba(60,10,20,.4);
+  --nav:rgba(255,255,255,.88); --dim:rgba(20,10,14,.55); --sk-a:#EFE8E9; --sk-b:#F8F3F4; --glass:rgba(255,255,255,.16);
+  --font:'Poppins','Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent-line);outline-offset:2px;border-radius:10px}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:20px}
+.muted{color:var(--ink-2)}
+h1,h2,h3{margin:0;letter-spacing:-.025em;text-wrap:balance}
+h2{font-size:clamp(22px,2.6vw,30px);font-weight:800}
+.ico{width:18px;height:18px;flex:none}
+.vh{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{height:64px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:21px;color:var(--accent);letter-spacing:-.03em;background:none;border:0;padding:0}
+.logo i{width:30px;height:30px;border-radius:9px;background:var(--accent);position:relative;display:block}
+.logo i:after{content:'';position:absolute;left:8px;top:8px;width:14px;height:14px;border-radius:50%;border:3px solid #fff;border-right-color:transparent;transform:rotate(30deg)}
+.logo b{color:var(--ink)}
+.tabs{display:flex;gap:4px}
+.tab{display:flex;gap:7px;align-items:center;padding:9px 15px;border-radius:12px;color:var(--ink-2);font-weight:500;font-size:13.5px}
+.tab.on{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.hr{display:flex;gap:10px;align-items:center}
+.iconbtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center}
+@media (max-width:820px){.tabs .tab:not(.on){display:none}}
+
+/* buttons / chips / inputs */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:12px 22px;font-weight:600;font-size:14px;border:1.5px solid transparent;transition:transform .12s,background .12s,box-shadow .12s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn.red{background:linear-gradient(135deg,var(--accent),var(--accent-d));color:var(--accent-ink);box-shadow:0 12px 22px -12px var(--accent)}
+.btn.red:hover{filter:brightness(1.06)}
+.btn.line{background:var(--surface);border-color:var(--accent);color:var(--accent)}
+.btn.ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn.white{background:#fff;color:#1B1517}
+.btn.sm{padding:9px 16px;font-size:13px;border-radius:12px}
+.btn.lg{padding:15px 26px;font-size:15px;border-radius:16px}
+.btn.block{width:100%}
+.btn[disabled]{opacity:.6;cursor:progress}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-size:13px;font-weight:500;color:var(--ink-2);white-space:nowrap}
+button.chip:hover{border-color:var(--accent-line)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chip.soft{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent);font-weight:600}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label,.lbl{font-size:12px;font-weight:600;color:var(--ink-2)}
+.in{width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px;outline:none;transition:border .12s,box-shadow .12s;min-width:0}
+.in:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.in.err{border-color:var(--accent)}
+.err-t{color:var(--accent);font-size:12px;font-weight:500}
+.iw{position:relative;display:flex;align-items:center}
+.iw .ico{position:absolute;left:14px;color:var(--accent);pointer-events:none}
+.iw .in{padding-left:42px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.sec{padding:26px}
+@media (max-width:560px){.sec{padding:18px}}
+.link{background:none;border:0;color:var(--accent);font-weight:600;font-size:13px;padding:0}
+
+/* featured hero */
+.hero{position:relative;color:#fff;min-height:540px;display:flex;align-items:flex-end;overflow:hidden;background:#2a1418}
+.hero .bg{position:absolute;inset:0;animation:fade .7s ease}
+.hero .bg>*{width:100%;height:100%}
+.hero .bg svg,.hero .bg img{width:100%;height:100%;object-fit:cover}
+.hero:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,8,12,.35) 0%,rgba(20,8,12,.05) 35%,rgba(20,8,12,.78) 100%),linear-gradient(90deg,rgba(120,10,20,.55),transparent 60%)}
+@keyframes fade{from{opacity:0;transform:scale(1.04)}to{opacity:1;transform:none}}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-block:46px 120px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.dh .wrap>.kicker{margin-top:60px}
+.kicker{display:inline-flex;gap:8px;align-items:center;background:var(--glass);border:1px solid rgba(255,255,255,.28);backdrop-filter:blur(8px);padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:600}
+.hero h1{font-size:clamp(32px,5.4vw,60px);font-weight:800;line-height:1.05;margin-top:16px;max-width:680px;text-shadow:0 4px 24px rgba(0,0,0,.35)}
+.hero .m{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;align-items:center;font-weight:500}
+.hero .m span{display:inline-flex;gap:6px;align-items:center}
+.hero .cta{display:flex;gap:14px;align-items:center;margin-top:22px;flex-wrap:wrap}
+.hero .pr small{display:block;opacity:.8;font-size:11.5px}
+.hero .pr b{font-size:28px;font-weight:800;letter-spacing:-.03em}
+.feats{display:flex;gap:10px}
+.feat{width:92px;height:72px;border-radius:16px;overflow:hidden;border:2px solid transparent;padding:0;background:none;opacity:.8;transition:all .2s}
+.feat.on{border-color:#fff;opacity:1;transform:translateY(-4px)}
+.feat>*{width:100%;height:100%}
+.feat svg,.feat img{width:100%;height:100%;object-fit:cover}
+@media (max-width:760px){.feats{display:none}.hero{min-height:480px}}
+@media (prefers-reduced-motion:reduce){.hero .bg{animation:none}}
+
+/* finder */
+.finder{margin-top:-84px;position:relative;z-index:5;padding:16px;border-radius:28px}
+.frow{display:grid;grid-template-columns:1fr auto;gap:12px}
+@media (max-width:560px){.frow{grid-template-columns:1fr}.frow .btn{width:100%}}
+.big{padding:16px 16px 16px 46px;border-radius:18px;font-size:15px}
+.iw.lg .ico{left:16px;width:20px;height:20px}
+.fchips{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.pw{position:relative}
+.pop{position:absolute;top:calc(100% + 10px);left:0;z-index:30;background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 30px 60px -20px rgba(0,0,0,.4);padding:18px;width:300px;max-width:calc(100vw - 40px)}
+.pop h4{margin:0 0 12px;font-size:14px}
+.chip .n{background:var(--accent);color:#fff;border-radius:99px;font-size:11px;padding:0 7px;font-weight:700}
+.chip.on .n{background:#fff;color:var(--accent)}
+@media (max-width:640px){.pop{position:fixed;left:0;right:0;bottom:0;top:auto;width:auto;max-width:none;border-radius:26px 26px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));z-index:60}.pdim{position:fixed;inset:0;background:var(--dim);z-index:59}}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.rv{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-3);margin-top:4px}
+.chk{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13.5px;cursor:pointer;position:relative}
+.chk input{position:absolute;opacity:0;pointer-events:none}
+.cb{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--ink-3);display:grid;place-items:center;flex:none;color:#fff}
+.chk input:checked+.cb{background:var(--accent);border-color:var(--accent)}
+.chk input:focus-visible+.cb{outline:3px solid var(--accent-line);outline-offset:2px}
+.chk small{margin-left:auto;color:var(--ink-3)}
+
+/* stories */
+.stories{display:flex;gap:18px;overflow-x:auto;padding:6px 4px 14px;margin-top:26px;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.story{flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;padding:0;font-weight:600;font-size:12.5px;color:var(--ink-2)}
+.story .ring{width:76px;height:76px;border-radius:50%;padding:3px;background:conic-gradient(var(--accent),#ff8a96,var(--accent));transition:transform .15s}
+.story:hover .ring{transform:scale(1.05)}
+.story.on .ring{box-shadow:0 0 0 4px var(--accent-soft)}
+.story .ring>div{width:100%;height:100%;border-radius:50%;overflow:hidden;border:3px solid var(--bg)}
+.story .ring>div>*{width:100%;height:100%}
+.story svg,.story img{width:100%;height:100%;object-fit:cover}
+.story.on{color:var(--accent)}
+
+/* results + poster cards */
+.rhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin:26px 0 18px}
+.rhead .t{font-size:22px;font-weight:800;letter-spacing:-.02em}
+.active{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sel{width:auto;padding:10px 14px;font-size:13px;border-radius:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.poster{position:relative;aspect-ratio:4/5;border-radius:28px;overflow:hidden;isolation:isolate;color:#fff;background:var(--surface-2);box-shadow:var(--shadow);transition:transform .25s}
+.poster:hover{transform:translateY(-5px)}
+.poster .im{position:absolute;inset:0;z-index:-2;transition:transform .7s}
+.poster .im>*{width:100%;height:100%}
+.poster .im svg,.poster .im img{width:100%;height:100%;object-fit:cover}
+.poster:hover .im{transform:scale(1.07)}
+.poster:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(20,8,12,.35) 0%,rgba(20,8,12,0) 28%,rgba(20,8,12,.2) 48%,rgba(20,8,12,.88) 100%)}
+.poster .tp{position:absolute;left:14px;right:14px;top:14px;display:flex;justify-content:space-between;align-items:center}
+.tagb{background:var(--accent);padding:5px 12px;border-radius:999px;font-size:11px;font-weight:700}
+.heart{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;color:#fff}
+.heart.on{background:#fff;color:var(--accent)}
+.heart.on svg{fill:var(--accent)}
+.poster .bt{position:absolute;left:18px;right:18px;bottom:18px;display:flex;flex-direction:column;gap:8px}
+.poster .dest{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;font-weight:600;opacity:.95}
+.poster h3{font-size:21px;font-weight:700;line-height:1.2;text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.poster .pm{display:flex;gap:10px;font-size:12.5px;align-items:center;flex-wrap:wrap}
+.poster .pm span{display:inline-flex;gap:5px;align-items:center;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);padding:4px 10px;border-radius:999px}
+.poster .pb{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.25);margin-top:4px}
+.poster .pb small{display:block;font-size:10.5px;opacity:.8}
+.poster .pb s{font-size:11.5px;opacity:.7}
+.poster .pb b{font-size:21px;font-weight:800;letter-spacing:-.03em;display:block;line-height:1.1;font-variant-numeric:tabular-nums}
+.sk{background:linear-gradient(90deg,var(--sk-a) 25%,var(--sk-b) 37%,var(--sk-a) 63%);background-size:400% 100%;animation:sh 1.3s infinite;border-radius:28px;aspect-ratio:4/5}
+@keyframes sh{0%{background-position:100% 50%}100%{background-position:0 50%}}
+@media (prefers-reduced-motion:reduce){.sk{animation:none}.poster,.poster .im{transition:none}}
+.state{padding:56px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px}
+.state p{max-width:430px;margin:0;color:var(--ink-2)}
+.state .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.code{font-size:12px;color:var(--ink-3);background:var(--surface-2);padding:7px 14px;border-radius:10px}
+.suggest{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:center;margin-top:12px;font-size:12.5px;color:var(--ink-2)}
+.perks{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;padding:26px 30px;margin-top:44px}
+.perk{display:flex;gap:12px;align-items:center;font-weight:600}
+.perk span{width:48px;height:48px;border-radius:16px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+
+/* details hero */
+.dh{position:relative;color:#fff;min-height:min(560px,78vh);display:flex;align-items:flex-end;overflow:hidden;background:#2a1418}
+.dh .bg{position:absolute;inset:0;transition:transform .8s}
+.dh .bg>*{width:100%;height:100%}
+.dh .bg svg,.dh .bg img{width:100%;height:100%;object-fit:cover}
+.dh:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,8,12,.55),rgba(20,8,12,.05) 36%,rgba(20,8,12,.82))}
+.dh .wrap{position:relative;z-index:2;width:100%;padding-block:24px 112px}
+.crumb{display:flex;gap:8px;flex-wrap:wrap;font-size:13px;align-items:center;opacity:.92;margin-bottom:60px}
+.crumb button{background:none;border:0;padding:0;color:inherit}
+.crumb b{font-weight:600}
+.dh h1{font-size:clamp(30px,5vw,54px);font-weight:800;line-height:1.08;max-width:760px;text-shadow:0 4px 24px rgba(0,0,0,.4);margin-top:14px}
+.dh .m{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;align-items:center;font-weight:500}
+.dh .m span{display:inline-flex;gap:6px;align-items:center}
+.shots{position:absolute;right:20px;bottom:112px;z-index:3;display:flex;gap:8px}
+.shot{width:70px;height:54px;border-radius:12px;overflow:hidden;border:2px solid rgba(255,255,255,.4);padding:0;background:none}
+.shot.on{border-color:#fff}
+.shot>*{width:100%;height:100%}
+.shot svg,.shot img{width:100%;height:100%;object-fit:cover}
+@media (max-width:760px){.shots{display:none}}
+.dact{position:absolute;right:20px;top:24px;z-index:3;display:flex;gap:8px}
+.gl{background:var(--glass);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);color:#fff}
+.facts{margin-top:-64px;position:relative;z-index:5;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;padding:8px;border-radius:26px}
+.fact{padding:16px 18px;display:flex;gap:12px;align-items:center;border-right:1px solid var(--line)}
+.fact:last-child{border-right:0}
+.fact .ic{width:42px;height:42px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.fact small{display:block;color:var(--ink-3);font-size:11.5px}
+.fact b{font-size:13.5px;display:block;line-height:1.3}
+@media (max-width:700px){.fact{border-right:0}}
+.snav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--nav);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);margin-top:20px}
+.snav .wrap{display:flex;gap:6px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.snav button{border:0;background:none;padding:10px 18px;border-radius:999px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.snav button.on{background:var(--accent);color:var(--accent-ink)}
+.dg{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:28px;margin-top:28px;align-items:start}
+@media (max-width:1020px){.dg{grid-template-columns:1fr}}
+.stack{display:flex;flex-direction:column;gap:22px}
+.dsec{scroll-margin-top:84px}
+.hl{display:flex;gap:12px;padding:8px 0}
+.hl .ico{color:var(--accent);margin-top:2px}
+.days{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.day{border:1.5px solid var(--line);border-radius:20px;background:var(--surface);overflow:hidden;transition:border .15s}
+.day.open{border-color:var(--accent-line);background:var(--surface)}
+.day>button{width:100%;display:flex;gap:14px;align-items:center;background:none;border:0;padding:16px 18px;text-align:left}
+.day .dn{width:46px;height:46px;border-radius:15px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;flex:none;line-height:1.1;text-align:center;font-size:17px}
+.day .dn small{display:block;font-size:9px;letter-spacing:.1em;font-weight:700}
+.day.open .dn{background:var(--accent);color:#fff}
+.day h4{margin:0;font-size:15.5px}
+.day .chev{margin-left:auto;transition:transform .2s;color:var(--ink-3)}
+.day.open .chev{transform:rotate(180deg)}
+.day .dc{padding:0 18px 18px 78px;color:var(--ink-2);line-height:1.75}
+@media (max-width:560px){.day .dc{padding-left:18px}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.li{display:flex;gap:14px;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-weight:500}
+.li:last-child{border-bottom:0}
+.li span{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;flex:none}
+.li.g span{background:var(--good-soft);color:var(--good)}
+.li.r span{background:var(--accent-soft);color:var(--accent)}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:8px 0;font-size:13.5px;font-variant-numeric:tabular-nums}
+.kv.t{font-size:16px;font-weight:700;border-top:1px dashed var(--line);margin-top:6px;padding-top:12px}
+.kv.t b:last-child{color:var(--accent)}
+.rate{display:inline-flex;gap:4px;align-items:center;background:var(--good-soft);color:var(--good);font-weight:700;font-size:12px;padding:3px 9px;border-radius:8px}
+.rev{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:16px}
+.rev .card{padding:18px;box-shadow:none;border-radius:20px}
+.av{width:42px;height:42px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:700;display:grid;place-items:center;flex:none}
+.bk{position:sticky;top:calc(84px + env(safe-area-inset-top,0px));padding:24px;border-radius:28px}
+@media (max-width:1020px){.bk{position:static}}
+.save{display:inline-flex;gap:6px;align-items:center;background:var(--accent-soft);border:1px solid var(--accent-line);color:var(--accent);font-weight:700;font-size:12.5px;padding:6px 12px;border-radius:10px}
+.price{font-size:34px;font-weight:800;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.old{font-size:13px;color:var(--ink-3);text-decoration:line-through}
+.dates{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.dchip{min-width:0;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:9px 10px;text-align:center;line-height:1.25}
+.dchip b{display:block;font-size:15px}
+.dchip small{color:var(--ink-3);font-size:11px}
+.dchip.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.stp{display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:6px 8px 6px 14px}
+.stp .n{display:flex;gap:8px;align-items:center;font-size:13.5px;font-weight:500}
+.stp .n small{color:var(--ink-3);font-weight:400}
+.stp .c{display:flex;align-items:center;gap:10px}
+.stp button{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-size:18px;line-height:1;display:grid;place-items:center}
+.stp button:disabled{opacity:.4;cursor:not-allowed}
+.stp output{min-width:18px;text-align:center;font-weight:700}
+.mbar{display:none}
+@media (max-width:1020px){
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:35;background:var(--nav);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));gap:10px;align-items:center}
+  .mbar .btn{flex:1;padding-inline:10px}
+  .pad-b{padding-bottom:96px}
+}
+.shm{position:fixed;inset:0;z-index:100;background:var(--dim);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:20px}
+.shc{width:min(420px,100%);background:var(--bg);color:var(--ink);border-radius:22px;padding:22px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
+.shc h3{font-size:19px;font-weight:800;margin:0 0 4px}
+.shc .shrow{display:flex;gap:8px;margin-top:14px}
+.shc .shrow input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:var(--surface);color:var(--ink);font-size:13px}
+.shc .shopts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.shc .shopts a{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 6px;border:1px solid var(--line);border-radius:14px;color:var(--ink);font-size:12.5px;font-weight:600;text-decoration:none;background:var(--surface)}
+.shc .shopts a:hover{border-color:var(--accent);color:var(--accent)}
+.more-sec{margin-bottom:80px;padding-bottom:40px}
+.more{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px;margin-top:16px}
+
+/* drawer */
+.dw{position:fixed;inset:0;z-index:70;background:var(--dim);backdrop-filter:blur(3px);display:flex;justify-content:flex-end;animation:dwf .2s}
+@keyframes dwf{from{opacity:0}to{opacity:1}}
+.drawer{width:min(500px,100%);height:100%;background:var(--bg);display:flex;flex-direction:column;box-shadow:-30px 0 80px -20px rgba(0,0,0,.5);animation:dws .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes dws{from{transform:translateX(40px);opacity:.5}to{transform:none;opacity:1}}
+@media (max-width:640px){.dw{align-items:flex-end}.drawer{height:min(94%,100% - 20px);border-radius:28px 28px 0 0;animation-name:dwu}@keyframes dwu{from{transform:translateY(60px);opacity:.5}to{transform:none;opacity:1}}}
+@media (prefers-reduced-motion:reduce){.dw,.drawer{animation:none}}
+.dhd{padding:18px 20px 14px;background:var(--surface);border-bottom:1px solid var(--line);border-radius:inherit}
+.dhd .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.dhd h3{font-size:19px;font-weight:800}
+.prog{display:flex;gap:6px;margin-top:14px}
+.prog i{flex:1;height:5px;border-radius:5px;background:var(--line)}
+.prog i.on{background:var(--accent)}
+.prog i.done{background:var(--good)}
+.plab{display:flex;justify-content:space-between;font-size:11.5px;color:var(--ink-3);margin-top:6px;font-weight:600}
+.dbody{flex:1;overflow-y:auto;padding:18px 20px 40px}
+.dfoot{padding:14px 20px calc(14px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line);display:flex;gap:12px;align-items:center}
+.dfoot .tot small{display:block;color:var(--ink-3);font-size:11px}
+.dfoot .tot b{font-size:20px;font-weight:800;letter-spacing:-.03em}
+.dfoot .btn{flex:1}
+.mini{display:flex;gap:12px;align-items:center;padding:12px;border-radius:18px;background:var(--surface);border:1px solid var(--line)}
+.mini .im{width:64px;height:64px;border-radius:14px;overflow:hidden;flex:none}
+.mini .im>*{width:100%;height:100%}
+.mini .im svg,.mini .im img{width:100%;height:100%;object-fit:cover}
+.tc{padding:16px;margin-bottom:14px;border-radius:20px;box-shadow:none}
+.tc h4{margin:0 0 12px;font-size:14.5px;display:flex;gap:10px;align-items:center}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fgrid .full{grid-column:1/-1}
+.coupon{display:flex;gap:10px}
+.cp{display:flex;gap:10px;align-items:center;padding:11px 14px;border:1.5px dashed var(--accent-line);border-radius:14px;background:var(--accent-soft);margin-top:10px;font-size:13px}
+.pmeth{display:flex;gap:12px;align-items:center;padding:13px 14px;border:1.5px solid var(--line);border-radius:16px;background:var(--surface);width:100%;text-align:left;margin-bottom:10px}
+.pmeth.on{border-color:var(--accent);background:var(--accent-soft)}
+.rd{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--ink-3);display:grid;place-items:center;flex:none}
+.pmeth.on .rd{border-color:var(--accent)}
+.pmeth.on .rd:after{content:'';width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.pmeth small{display:block;color:var(--ink-3)}
+.notice{display:flex;gap:10px;align-items:center;background:var(--surface-2);border-radius:12px;padding:10px 14px;font-size:12.5px;color:var(--ink-2);margin-top:12px}
+.tick{width:84px;height:84px;border-radius:50%;background:var(--good-soft);margin:6px auto 16px;display:grid;place-items:center;color:var(--good);animation:pop .5s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion:reduce){.tick{animation:none}}
+.vc{display:grid;grid-template-columns:1fr auto;background:var(--surface);border:1px solid var(--line);border-radius:22px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.vc .a{padding:18px 18px 18px 20px;min-width:0}
+.vc .b{padding:18px;border-left:2px dashed var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--accent-soft)}
+.vc:before,.vc:after{content:'';position:absolute;right:calc(var(--bw,118px) - 10px);width:20px;height:20px;border-radius:50%;background:var(--bg);border:1px solid var(--line)}
+.vc:before{top:-11px}.vc:after{bottom:-11px}
+.vc .b svg{width:84px;height:84px;color:var(--ink)}
+.vc .b small{font-size:10.5px;color:var(--ink-3);letter-spacing:.06em;font-weight:700}
+.bid{display:inline-flex;gap:10px;align-items:center;background:var(--accent-soft);border:1px dashed var(--accent);border-radius:14px;padding:9px 14px;font-weight:700;color:var(--accent);letter-spacing:.05em;margin-top:10px}
+.bid button{background:none;border:0;color:var(--accent);display:grid;place-items:center;padding:0}
+.proc{position:fixed;inset:0;z-index:90;background:var(--dim);display:grid;place-items:center}
+.proc div{background:var(--surface);padding:30px 36px;border-radius:24px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.spin{width:42px;height:42px;border-radius:50%;border:4px solid var(--accent-soft);border-top-color:var(--accent);animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-weight:600;font-size:13px;z-index:95;box-shadow:var(--shadow)}
+.demo{margin-top:48px;padding:18px 0 26px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12.5px}
+.demo .wrap{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.demo small{color:var(--ink-3)}
+.photo-btn{cursor:pointer}
+.foot-bar{background:#1b1416;color:#cbbec2;padding:26px 0;font-size:13px}
+.foot-bar .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.foot-bar b{color:#fff}
+
+/* ===== v2 enhancements ===== */
+.card{transition:box-shadow .25s,transform .25s}
+h2.sh{position:relative;padding-left:16px}
+h2.sh:before{content:'';position:absolute;left:0;top:.18em;bottom:.18em;width:5px;border-radius:5px;background:linear-gradient(var(--accent),#ff8a96)}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);padding:6px 14px;border-radius:999px}
+.sechead{text-align:center;max-width:660px;margin:0 auto 34px;display:flex;flex-direction:column;gap:12px;align-items:center}
+.sechead p{margin:0;color:var(--ink-2)}
+.band{padding:64px 0}
+.band.alt{background:linear-gradient(180deg,var(--surface-2),var(--bg))}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.dsec,.stat,.step,.why,.tcard{animation:up .55s both}
+@media (prefers-reduced-motion:reduce){.dsec,.stat,.step,.why,.tcard{animation:none}}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-top:44px}
+.stat{padding:22px;border-radius:22px;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;position:relative;overflow:hidden}
+.stat:after{content:'';position:absolute;right:-28px;top:-28px;width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.14)}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.stat span{font-size:12.5px;opacity:.9}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;counter-reset:s;position:relative}
+.step{padding:26px 22px;border-radius:24px;background:var(--surface);border:1px solid var(--line);position:relative;box-shadow:var(--shadow)}
+.step .no{position:absolute;right:18px;top:12px;font-size:54px;font-weight:800;color:var(--accent-soft);letter-spacing:-.05em;line-height:1}
+.step .ic{width:52px;height:52px;border-radius:17px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:16px;position:relative}
+.step h4{margin:0 0 6px;font-size:16px;position:relative}
+.step p{margin:0;color:var(--ink-2);font-size:13.5px;position:relative}
+/* why */
+.whys{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
+.why{padding:24px;border-radius:24px;background:var(--surface);border:1px solid var(--line);display:flex;gap:16px}
+.why:hover{border-color:var(--accent-line);transform:translateY(-4px)}
+.why .ic{width:48px;height:48px;border-radius:16px;flex:none;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;display:grid;place-items:center}
+.why h4{margin:0 0 4px;font-size:15.5px}.why p{margin:0;font-size:13px;color:var(--ink-2)}
+/* testimonials */
+.tband{background:linear-gradient(135deg,#2a0d14,#4a1220 60%,#6b1626);color:#fff;padding:70px 0;position:relative;overflow:hidden}
+.tband:before{content:'\201C';position:absolute;left:4%;top:-40px;font-size:340px;font-weight:800;color:rgba(255,255,255,.05);line-height:1}
+.tband .eyebrow{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff}
+.tband .sechead p{color:rgba(255,255,255,.75)}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;position:relative}
+.tcard{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(8px);border-radius:24px;padding:24px}
+.tcard .stars,.stars{display:inline-flex;gap:2px;color:#FFB400}
+.tcard p{margin:14px 0 18px;line-height:1.75;font-size:14px;color:rgba(255,255,255,.92)}
+.tcard .who{display:flex;gap:12px;align-items:center}
+.tcard .av{background:#fff;color:var(--accent)}
+.tcard small{display:block;color:rgba(255,255,255,.65)}
+/* reviews */
+.rsum{display:grid;grid-template-columns:200px 1fr;gap:28px;margin-top:18px;align-items:center;padding:22px;border-radius:22px;background:var(--surface-2)}
+@media (max-width:600px){.rsum{grid-template-columns:1fr}}
+.rbig{text-align:center}
+.rbig b{display:block;font-size:56px;font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--accent)}
+.rbig small{color:var(--ink-3)}
+.bars{display:flex;flex-direction:column;gap:8px}
+.bar{display:grid;grid-template-columns:34px 1fr 38px;gap:10px;align-items:center;font-size:12.5px;color:var(--ink-2)}
+.bar i{height:8px;border-radius:8px;background:var(--line);overflow:hidden;display:block}
+.bar i u{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#FFB400,#ff8a00);text-decoration:none}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.rv2{display:flex;flex-direction:column;gap:14px;margin-top:18px}
+.rc{border:1px solid var(--line);border-radius:20px;padding:18px 20px;background:var(--surface)}
+.rc:hover{border-color:var(--accent-line)}
+.rc .h{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.rc .h .rate{margin-left:auto}
+.rc p{margin:12px 0 0;color:var(--ink-2);line-height:1.75;font-size:13.5px}
+.vbadge{display:inline-flex;gap:4px;align-items:center;color:var(--good);font-size:11.5px;font-weight:600}
+.rc .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.rc .meta span{font-size:11.5px;background:var(--surface-2);padding:3px 10px;border-radius:999px;color:var(--ink-2)}
+/* faq */
+.faqs{display:flex;flex-direction:column;gap:12px;margin-top:18px}
+.faq{border:1.5px solid var(--line);border-radius:18px;background:var(--surface);overflow:hidden;transition:border .15s,box-shadow .15s}
+.faq.open{border-color:var(--accent-line);box-shadow:0 14px 28px -22px var(--accent)}
+.faq>button{width:100%;display:flex;gap:14px;align-items:center;background:none;border:0;padding:17px 20px;text-align:left;font-weight:600;font-size:14.5px}
+.faq>button .q{width:32px;height:32px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.faq.open>button .q{background:var(--accent);color:#fff}
+.faq .chev{margin-left:auto;color:var(--ink-3);transition:transform .2s}
+.faq.open .chev{transform:rotate(180deg)}
+.faq .a{padding:0 20px 18px 66px;color:var(--ink-2);line-height:1.8;font-size:13.5px}
+@media (max-width:560px){.faq .a{padding-left:20px}}
+.faqwrap{max-width:860px;margin:0 auto}
+/* help cta */
+.helpcta{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:22px;padding:20px 22px;border-radius:20px;background:var(--accent-soft);border:1px dashed var(--accent)}
+.helpcta b{display:block}.helpcta span{color:var(--ink-2);font-size:13px}
+/* newsletter */
+.news{display:grid;grid-template-columns:1.1fr 1fr;gap:26px;align-items:center;padding:36px;border-radius:30px;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;position:relative;overflow:hidden}
+.news:after{content:'';position:absolute;right:-60px;bottom:-80px;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.12)}
+@media (max-width:760px){.news{grid-template-columns:1fr;padding:26px}}
+.news h2{font-size:clamp(22px,3vw,30px)}.news p{margin:8px 0 0;opacity:.9}
+.nrow{display:flex;gap:10px;position:relative;z-index:1}
+.nrow input{flex:1;min-width:0;border:0;border-radius:14px;padding:15px 16px;background:#fff;color:#1B1517;outline:none}
+@media (max-width:480px){.nrow{flex-direction:column}}
+/* footer */
+.mfoot{background:#1b1416;color:#cbbec2;padding:56px 0 24px;font-size:13px;margin-top:0}
+.fcols{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:30px}
+@media (max-width:820px){.fcols{grid-template-columns:1fr 1fr}}
+.mfoot h5{margin:0 0 14px;color:#fff;font-size:14px}
+.mfoot a{display:block;padding:5px 0;color:#cbbec2}.mfoot a:hover{color:#fff}
+.mfoot .logo b{color:#fff}
+.mfoot p{max-width:300px;line-height:1.7}
+.fbot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.12);margin-top:34px;padding-top:20px}
+.pays{display:flex;gap:8px;flex-wrap:wrap}.pays span{border:1px solid rgba(255,255,255,.2);padding:3px 10px;border-radius:8px;font-size:11.5px}
+.hlbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px}
+.hlbox div{padding:14px 16px;border-radius:16px;background:var(--surface-2);font-size:13px}
+.hlbox small{display:block;color:var(--ink-3);font-size:11px;margin-bottom:2px}
+
+/* ===== v3: light-only polish ===== */
+body{background:radial-gradient(900px 400px at 100% -5%,#FFE3E6 0,transparent 60%),radial-gradient(700px 380px at -5% 35%,#FFF0F1 0,transparent 60%),var(--bg);background-attachment:fixed}
+.card{border:1px solid var(--line)}
+.hero .wrap{padding-block:70px 130px}
+.hero h1{letter-spacing:-.035em}
+.ribbon{display:inline-flex;gap:8px;align-items:center;background:#fff;color:var(--accent);font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(0,0,0,.5);margin-left:10px}
+.ribbon b{background:var(--accent);color:#fff;padding:2px 8px;border-radius:6px;letter-spacing:.06em}
+.topbar{position:fixed;left:16px;top:calc(16px + env(safe-area-inset-top,0px));z-index:45;display:flex;gap:10px}
+.fab{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(20,8,12,.45);backdrop-filter:blur(10px);color:#fff;display:grid;place-items:center;box-shadow:0 12px 24px -12px rgba(0,0,0,.6);transition:transform .15s,background .15s}
+.fab:hover{transform:scale(1.07);background:var(--accent)}
+.ttop{position:fixed;right:18px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:44;width:48px;height:48px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff;display:grid;place-items:center;box-shadow:0 14px 28px -10px var(--accent);opacity:0;pointer-events:none;transform:translateY(12px);transition:.25s}
+.ttop.show{opacity:1;pointer-events:auto;transform:none}
+.ttop svg{transform:rotate(180deg)}
+@media (max-width:1020px){.ttop{bottom:calc(90px + env(safe-area-inset-bottom,0px))}}
+.sprog{position:fixed;left:0;top:0;height:4px;width:0;z-index:60;background:linear-gradient(90deg,var(--accent),#ff8a96);transition:width .1s}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.bdg{display:inline-flex;gap:6px;align-items:center;font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px)}
+.bdg.hot{background:var(--accent);border-color:var(--accent)}
+.live{width:8px;height:8px;border-radius:50%;background:#3DD487;box-shadow:0 0 0 0 rgba(61,212,135,.7);animation:pl 1.6s infinite}
+@keyframes pl{70%{box-shadow:0 0 0 8px rgba(61,212,135,0)}100%{box-shadow:0 0 0 0 rgba(61,212,135,0)}}
+.seats{margin-top:14px;padding:10px 14px;border-radius:14px;background:#FFF6E5;color:#8a5200;font-size:12.5px;font-weight:600;display:flex;gap:8px;align-items:center}
+.seatbar{height:6px;border-radius:6px;background:#FFE2B0;margin-top:8px;overflow:hidden}.seatbar i{display:block;height:100%;background:linear-gradient(90deg,#F2A33A,#E11D2E)}
+.emi{margin-top:10px;font-size:12.5px;color:var(--ink-2);display:flex;gap:8px;align-items:center;background:var(--surface-2);padding:9px 12px;border-radius:12px}
+.offers{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.offer{display:flex;gap:10px;align-items:center;border:1.5px dashed var(--accent-line);background:var(--accent-soft);border-radius:14px;padding:10px 12px;font-size:12.5px}
+.offer b{color:var(--accent);letter-spacing:.05em}
+.offer button{margin-left:auto;background:none;border:0;color:var(--accent);font-weight:700;font-size:12px;padding:0;flex:none}
+.offer button[disabled]{opacity:.5;cursor:not-allowed}
+.offer>span{flex:1;min-width:0}.offer small{display:block;font-size:11.5px;line-height:1.4;margin-top:2px}
+.offers:empty{display:none}
+.cpnote{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px;font-size:12.5px;color:var(--ink-2)}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;text-align:center}
+.trust div{font-size:11px;color:var(--ink-2);padding:10px 4px;border-radius:12px;background:var(--surface-2)}
+.trust span{display:grid;place-items:center;color:var(--accent);margin-bottom:4px}
+.route{display:flex;align-items:center;gap:0;overflow-x:auto;padding:6px 2px 2px;scrollbar-width:none;margin-top:14px}
+.route::-webkit-scrollbar{display:none}
+.rn{display:flex;flex-direction:column;align-items:center;gap:6px;flex:none;min-width:84px;font-size:11.5px;font-weight:600;text-align:center}
+.rn i{width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.rl{flex:1;min-width:34px;height:0;border-top:2px dashed var(--accent-line);margin:-20px 0 0}
+.rcard{text-align:center;margin-top:34px;color:var(--ink-3);font-size:12.5px}
+.marquee{background:linear-gradient(90deg,var(--accent-d),var(--accent));color:#fff;font-weight:600;font-size:13px;padding:9px 0;text-align:center;letter-spacing:.01em}
+.marquee b{background:rgba(255,255,255,.2);padding:2px 9px;border-radius:6px;margin:0 4px;letter-spacing:.06em}
+.poster{box-shadow:0 22px 44px -24px rgba(120,10,20,.55)}
+.poster .rt{display:inline-flex;gap:4px;align-items:center;background:#fff;color:#1B1517;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:700}
+.poster .rt svg{color:#FFB400}
+.poster .off{background:#fff;color:var(--accent);font-weight:800;font-size:11px;padding:3px 9px;border-radius:999px}
+
+.dlist{display:flex;flex-direction:column;gap:4px;margin-top:12px;max-height:260px;overflow-y:auto}
+.dsel{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.dhint{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:2px 4px}
+.sug{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:0;padding:8px;border-radius:14px;color:var(--ink-3)}
+.sug:hover,.sug:focus-visible{background:var(--accent-soft)}
+.sug.on{background:var(--accent-soft);color:var(--accent)}
+.sug .th{width:42px;height:42px;border-radius:12px;overflow:hidden;flex:none;display:block}
+.sug .th>*{width:100%;height:100%}.sug .th svg,.sug .th img{width:100%;height:100%;object-fit:cover}
+.sug .tx{flex:1;min-width:0;color:var(--ink)}
+.sug .tx b{display:block;font-size:14px}.sug .tx small{color:var(--ink-3);font-size:12px}
+.sug mark{background:none;color:var(--accent);font-weight:800}
+.dnone{padding:18px 8px;text-align:center;color:var(--ink-2);font-size:13px}
+.dnone small{color:var(--ink-3)}
+
+/* ===== v4: search panel ===== */
+.finder{padding:22px;border-radius:30px;box-shadow:0 30px 70px -30px rgba(90,10,20,.5);border:1px solid rgba(255,255,255,.7)}
+.fhead{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.fhead b{display:block;font-size:19px;font-weight:800;letter-spacing:-.02em}
+.fhead span{font-size:12.5px;color:var(--ink-3)}
+.ftabs{display:inline-flex;gap:4px;padding:5px;border-radius:999px;background:var(--surface-2)}
+.ftab{display:inline-flex;gap:6px;align-items:center;border:0;background:none;padding:9px 16px;border-radius:999px;font-weight:600;font-size:13px;color:var(--ink-2);transition:.15s}
+.ftab.on{background:var(--accent);color:#fff;box-shadow:0 8px 16px -8px var(--accent)}
+.ftab:not(.on):hover{color:var(--accent)}
+.finder .big{background:var(--surface-2);border-color:transparent}
+.finder .big:focus{background:var(--surface);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.fchips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+@media (max-width:980px){.fchips{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.fchips{grid-template-columns:1fr}.ftabs{width:100%}.ftab{flex:1;justify-content:center;padding-inline:8px}}
+.ftile{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:18px;border:1.5px solid var(--line);background:var(--surface);transition:border .15s,box-shadow .15s,transform .15s}
+.ftile:hover{border-color:var(--accent-line);box-shadow:0 14px 26px -18px var(--accent);transform:translateY(-2px)}
+.ftile[aria-expanded="true"]{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+.ftile .fi{width:42px;height:42px;border-radius:14px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.ftile.on .fi{background:var(--accent);color:#fff}
+.ftile .ft{flex:1;min-width:0}
+.ftile small{display:block;font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.ftile b{display:block;font-size:14.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink)}
+.ftile.on b{color:var(--accent)}
+.ftile .fc{color:var(--ink-3);transition:transform .2s;flex:none}
+.ftile[aria-expanded="true"] .fc{transform:rotate(180deg)}
+.fchips .pw:nth-child(4) .pop,.fchips .pw:nth-child(3) .pop{left:auto;right:0}
+@media (max-width:980px){.fchips .pw:nth-child(odd) .pop{left:0;right:auto}.fchips .pw:nth-child(even) .pop{left:auto;right:0}}
+.fpop{grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);padding-top:2px}
+.fpop .pl{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.fpop .pl:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+</style>
+
+<div id="app"></div>
+<div id="portal"></div><button class="ttop" id="ttop" data-act="top" aria-label="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+
+<script>
+/* ============ Mock data layer (swap this block for the real API later) ============ */
+const SCENES = {"goa": "<svg viewBox=\"0 0 600 400\" preserveAspectRatio=\"xMidYMid slice\" style=\"width:100%;height:100%;display:block\" xmlns=\"http://www.w3.org/2000/svg\"><defs><radialGradient id=\"vggoa\" cx=\".5\" cy=\".45\" r=\".8\"><stop offset=\".55\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#1a0a10\" stop-opacity=\".34\"/></radialGradient><linearGradient id=\"hzggoa\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0\"/><stop offset=\".5\" stop-color=\"#fff\" stop-opacity=\".22\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><filter id=\"nzgoa\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".85\" numOctaves=\"2\" stitchTiles=\"stitch\"/><feColorMatrix values=\"0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .08  0 0 0 .9 0\"/></filter><linearGradient id=\"skygoa\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFB36B\"/><stop offset=\"1\" stop-color=\"#FF6F61\"/></linearGradient><linearGradient id=\"seagoa\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#2BB3C0\"/><stop offset=\"1\" stop-color=\"#F7D794\" stop-opacity=\".6\"/></linearGradient></defs><rect width=\"600\" height=\"400\" fill=\"url(#skygoa)\"/><circle cx=\"375\" cy=\"136\" r=\"36.0\" fill=\"#fff\" opacity=\".85\"/><circle cx=\"375\" cy=\"136\" r=\"64.0\" fill=\"#fff\" opacity=\".18\"/><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"232\" cy=\"38\" rx=\"38\" ry=\"10\"/><ellipse cx=\"254\" cy=\"30\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"412\" cy=\"103\" rx=\"38\" ry=\"10\"/><ellipse cx=\"434\" cy=\"95\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"53\" cy=\"64\" rx=\"38\" ry=\"10\"/><ellipse cx=\"75\" cy=\"56\" rx=\"24\" ry=\"9\"/></g><rect y=\"231\" width=\"600\" height=\"169\" fill=\"url(#seagoa)\"/><path d=\"M0 241 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 262 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 283 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 304 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 325 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 346 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 367 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 400 L0 336 Q240.0 304 600 352 L600 400Z\" fill=\"#F7D794\"/><g transform=\"translate(84.00000000000001,344.0) scale(1)\"><path d=\"M0 0 Q8 -80.0 0 -144.0\" stroke=\"#6B3E26\" stroke-width=\"7\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q-34 -32.0 -61.2 18\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q-50 -32.0 -90.0 4\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q34 -32.0 61.2 18\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q50 -32.0 90.0 4\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q0 -32.0 0.0 -22\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/></g><g transform=\"translate(516.0,344.0) scale(0.85)\"><path d=\"M0 0 Q8 -80.0 0 -144.0\" stroke=\"#6B3E26\" stroke-width=\"7\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q-34 -32.0 -61.2 18\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q-50 -32.0 -90.0 4\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q34 -32.0 61.2 18\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q50 -32.0 90.0 4\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q0 -32.0 0.0 -22\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/></g><g><polygon points=\"375,136 75.0,400 117.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"375,136 207.0,400 249.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"375,136 339.0,400 381.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"375,136 471.0,400 513.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"375,136 603.0,400 645.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"375,136 735.0,400 777.0,400\" fill=\"#fff\" opacity=\".07\"/></g><rect x=\"330.0\" y=\"237\" width=\"90\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.55\"/><rect x=\"333.5\" y=\"252\" width=\"83\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.50\"/><rect x=\"337.0\" y=\"267\" width=\"76\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.45\"/><rect x=\"340.5\" y=\"282\" width=\"69\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.40\"/><rect x=\"344.0\" y=\"297\" width=\"62\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.35\"/><rect x=\"347.5\" y=\"312\" width=\"55\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.30\"/><rect x=\"351.0\" y=\"327\" width=\"48\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.25\"/><rect x=\"354.5\" y=\"342\" width=\"41\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.20\"/><rect x=\"358.0\" y=\"357\" width=\"34\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.15\"/><rect y=\"200.0\" width=\"600\" height=\"64.0\" fill=\"url(#hzggoa)\"/><path d=\"M120.0 64.0 q8 -9 16 0 q8 -9 16 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M156.0 80.0 q6.4 -9 12.8 0 q6.4 -9 12.8 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M186.0 56.00000000000001 q5.2 -9 10.4 0 q5.2 -9 10.4 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><rect width=\"600\" height=\"400\" fill=\"url(#vggoa)\"/><rect width=\"600\" height=\"400\" filter=\"url(#nzgoa)\" opacity=\".16\"/></svg>", "kashmir": "<svg viewBox=\"0 0 600 400\" preserveAspectRatio=\"xMidYMid slice\" style=\"width:100%;height:100%;display:block\" xmlns=\"http://www.w3.org/2000/svg\"><defs><radialGradient id=\"vgkashmir\" cx=\".5\" cy=\".45\" r=\".8\"><stop offset=\".55\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#1a0a10\" stop-opacity=\".34\"/></radialGradient><linearGradient id=\"hzgkashmir\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0\"/><stop offset=\".5\" stop-color=\"#fff\" stop-opacity=\".22\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><filter id=\"nzkashmir\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".85\" numOctaves=\"2\" stitchTiles=\"stitch\"/><feColorMatrix values=\"0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .08  0 0 0 .9 0\"/></filter><linearGradient id=\"skykashmir\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#BFD9F2\"/><stop offset=\"1\" stop-color=\"#7FA6D6\"/></linearGradient><linearGradient id=\"seakashmir\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#EAF2FB\"/><stop offset=\"1\" stop-color=\"#EAF2FB\" stop-opacity=\".6\"/></linearGradient></defs><rect width=\"600\" height=\"400\" fill=\"url(#skykashmir)\"/><circle cx=\"434\" cy=\"136\" r=\"36.0\" fill=\"#fff\" opacity=\".85\"/><circle cx=\"434\" cy=\"136\" r=\"64.0\" fill=\"#fff\" opacity=\".18\"/><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"222\" cy=\"108\" rx=\"38\" ry=\"10\"/><ellipse cx=\"244\" cy=\"100\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"88\" cy=\"50\" rx=\"38\" ry=\"10\"/><ellipse cx=\"110\" cy=\"42\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"463\" cy=\"82\" rx=\"38\" ry=\"10\"/><ellipse cx=\"485\" cy=\"74\" rx=\"24\" ry=\"9\"/></g><path d=\"M0 248 L96.0 120.0 L180.0 208.0 L276.0 72.0 L384.0 200.0 L480.0 112.00000000000001 L600 248 L600 400 L0 400Z\" fill=\"#EAF2FB\" stroke=\"#fff\" stroke-opacity=\".6\"/><path d=\"M0 288.0 L120.0 184.0 L240.0 272.0 L372.0 168.0 L510.0 264.0 L600 224.00000000000003 L600 400 L0 400Z\" fill=\"#7E9FCB\" opacity=\".85\"/><path d=\"M264.0 80.0 L276.0 72.0 L300.0 108.0 L282.0 100.0 L270.0 120.0Z\" fill=\"#fff\"/><rect y=\"328.0\" width=\"600\" height=\"72.0\" fill=\"#2F5D3A\"/><path d=\"M5.0 360.0 L-8.0 360.0 L5.0 315.0 L-3.0 315.0 L6.0 299.0 L15.0 315.0 L8.0 315.0 L19.0 360.0Z\" fill=\"#16402B\"/><path d=\"M64.21739130434783 360.0 L51.21739130434783 360.0 L64.21739130434783 333.0 L56.21739130434783 333.0 L65.21739130434783 317.0 L74.21739130434783 333.0 L67.21739130434783 333.0 L78.21739130434783 360.0Z\" fill=\"#16402B\"/><path d=\"M125.43478260869566 360.0 L112.43478260869566 360.0 L125.43478260869566 308.0 L117.43478260869566 308.0 L126.43478260869566 292.0 L135.43478260869566 308.0 L128.43478260869566 308.0 L139.43478260869566 360.0Z\" fill=\"#16402B\"/><path d=\"M194.6521739130435 360.0 L181.6521739130435 360.0 L194.6521739130435 315.0 L186.6521739130435 315.0 L195.6521739130435 299.0 L204.6521739130435 315.0 L197.6521739130435 315.0 L208.6521739130435 360.0Z\" fill=\"#16402B\"/><path d=\"M263.8695652173913 360.0 L250.8695652173913 360.0 L263.8695652173913 300.0 L255.8695652173913 300.0 L264.8695652173913 284.0 L273.8695652173913 300.0 L266.8695652173913 300.0 L277.8695652173913 360.0Z\" fill=\"#16402B\"/><path d=\"M326.0869565217391 360.0 L313.0869565217391 360.0 L326.0869565217391 326.0 L318.0869565217391 326.0 L327.0869565217391 310.0 L336.0869565217391 326.0 L329.0869565217391 326.0 L340.0869565217391 360.0Z\" fill=\"#16402B\"/><path d=\"M393.304347826087 360.0 L380.304347826087 360.0 L393.304347826087 320.0 L385.304347826087 320.0 L394.304347826087 304.0 L403.304347826087 320.0 L396.304347826087 320.0 L407.304347826087 360.0Z\" fill=\"#16402B\"/><path d=\"M459.5217391304348 360.0 L446.5217391304348 360.0 L459.5217391304348 322.0 L451.5217391304348 322.0 L460.5217391304348 306.0 L469.5217391304348 322.0 L462.5217391304348 322.0 L473.5217391304348 360.0Z\" fill=\"#16402B\"/><path d=\"M526.7391304347826 360.0 L513.7391304347826 360.0 L526.7391304347826 330.0 L518.7391304347826 330.0 L527.7391304347826 314.0 L536.7391304347826 330.0 L529.7391304347826 330.0 L540.7391304347826 360.0Z\" fill=\"#16402B\"/><path d=\"M588.9565217391305 360.0 L575.9565217391305 360.0 L588.9565217391305 319.0 L580.9565217391305 319.0 L589.9565217391305 303.0 L598.9565217391305 319.0 L591.9565217391305 319.0 L602.9565217391305 360.0Z\" fill=\"#16402B\"/><path d=\"M0 352.0 q150.0 -22 300.0 0 t300.0 0 V400 H0Z\" fill=\"#3E86B5\" opacity=\".9\"/><path d=\"M120.0 376.0 l70 -30 l12 14 z\" fill=\"#fff\" opacity=\".9\"/><path d=\"M130.0 376.0 h80 l-8 14 h-70z\" fill=\"#E11D2E\"/><g><polygon points=\"434,136 134.0,400 176.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"434,136 266.0,400 308.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"434,136 398.0,400 440.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"434,136 530.0,400 572.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"434,136 662.0,400 704.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"434,136 794.0,400 836.0,400\" fill=\"#fff\" opacity=\".07\"/></g><rect y=\"200.0\" width=\"600\" height=\"64.0\" fill=\"url(#hzgkashmir)\"/><path d=\"M120.0 64.0 q8 -9 16 0 q8 -9 16 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M156.0 80.0 q6.4 -9 12.8 0 q6.4 -9 12.8 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M186.0 56.00000000000001 q5.2 -9 10.4 0 q5.2 -9 10.4 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><rect width=\"600\" height=\"400\" fill=\"url(#vgkashmir)\"/><rect width=\"600\" height=\"400\" filter=\"url(#nzkashmir)\" opacity=\".16\"/></svg>", "kerala": "<svg viewBox=\"0 0 600 400\" preserveAspectRatio=\"xMidYMid slice\" style=\"width:100%;height:100%;display:block\" xmlns=\"http://www.w3.org/2000/svg\"><defs><radialGradient id=\"vgkerala\" cx=\".5\" cy=\".45\" r=\".8\"><stop offset=\".55\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#1a0a10\" stop-opacity=\".34\"/></radialGradient><linearGradient id=\"hzgkerala\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0\"/><stop offset=\".5\" stop-color=\"#fff\" stop-opacity=\".22\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><filter id=\"nzkerala\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".85\" numOctaves=\"2\" stitchTiles=\"stitch\"/><feColorMatrix values=\"0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .08  0 0 0 .9 0\"/></filter><linearGradient id=\"skykerala\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFE7A8\"/><stop offset=\"1\" stop-color=\"#8BCB8B\"/></linearGradient><linearGradient id=\"seakerala\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#2E8B6A\"/><stop offset=\"1\" stop-color=\"#2E8B6A\" stop-opacity=\".6\"/></linearGradient></defs><rect width=\"600\" height=\"400\" fill=\"url(#skykerala)\"/><circle cx=\"414\" cy=\"136\" r=\"36.0\" fill=\"#fff\" opacity=\".85\"/><circle cx=\"414\" cy=\"136\" r=\"64.0\" fill=\"#fff\" opacity=\".18\"/><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"472\" cy=\"54\" rx=\"38\" ry=\"10\"/><ellipse cx=\"494\" cy=\"46\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"321\" cy=\"59\" rx=\"38\" ry=\"10\"/><ellipse cx=\"343\" cy=\"51\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"373\" cy=\"54\" rx=\"38\" ry=\"10\"/><ellipse cx=\"395\" cy=\"46\" rx=\"24\" ry=\"9\"/></g><rect y=\"220\" width=\"600\" height=\"180\" fill=\"#4FB6A2\"/><path d=\"M0 220 Q150.0 160.0 300.0 220 T600 220 V228 H0Z\" fill=\"#5FAE6A\"/><path d=\"M0 234 q50.0 -6 100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 259 q50.0 -6 100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 284 q50.0 -6 100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 309 q50.0 -6 100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 334 q50.0 -6 100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 359 q50.0 -6 100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0 t100.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><g transform=\"translate(276.0,288.0)\"><path d=\"M-70 0 Q0 26 84 0 L70 -10 L-58 -10Z\" fill=\"#7A4A2B\"/><path d=\"M-30 -10 Q10 -52 56 -10Z\" fill=\"#E9C46A\"/><rect x=\"-6\" y=\"-46\" width=\"3\" height=\"36\" fill=\"#5A3921\"/></g><g transform=\"translate(48.0,224) scale(1.1)\"><path d=\"M0 0 Q6 -72.0 0 -120.0\" stroke=\"#6B3E26\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-30 -28.000000000000004 -54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-44 -28.000000000000004 -79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q30 -28.000000000000004 54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q44 -28.000000000000004 79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q0 -28.000000000000004 0.0 -18\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/></g><g transform=\"translate(120.0,224) scale(0.8)\"><path d=\"M0 0 Q6 -72.0 0 -120.0\" stroke=\"#6B3E26\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-30 -28.000000000000004 -54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-44 -28.000000000000004 -79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q30 -28.000000000000004 54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q44 -28.000000000000004 79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q0 -28.000000000000004 0.0 -18\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/></g><g transform=\"translate(540.0,224) scale(1)\"><path d=\"M0 0 Q6 -72.0 0 -120.0\" stroke=\"#6B3E26\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-30 -28.000000000000004 -54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-44 -28.000000000000004 -79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q30 -28.000000000000004 54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q44 -28.000000000000004 79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q0 -28.000000000000004 0.0 -18\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/></g><g transform=\"translate(468.0,224) scale(0.75)\"><path d=\"M0 0 Q6 -72.0 0 -120.0\" stroke=\"#6B3E26\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-30 -28.000000000000004 -54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-44 -28.000000000000004 -79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q30 -28.000000000000004 54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q44 -28.000000000000004 79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q0 -28.000000000000004 0.0 -18\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/></g><g><polygon points=\"414,136 114.0,400 156.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"414,136 246.0,400 288.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"414,136 378.0,400 420.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"414,136 510.0,400 552.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"414,136 642.0,400 684.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"414,136 774.0,400 816.0,400\" fill=\"#fff\" opacity=\".07\"/></g><rect x=\"369.0\" y=\"226\" width=\"90\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.55\"/><rect x=\"372.5\" y=\"242\" width=\"83\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.50\"/><rect x=\"376.0\" y=\"258\" width=\"76\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.45\"/><rect x=\"379.5\" y=\"274\" width=\"69\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.40\"/><rect x=\"383.0\" y=\"290\" width=\"62\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.35\"/><rect x=\"386.5\" y=\"306\" width=\"55\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.30\"/><rect x=\"390.0\" y=\"322\" width=\"48\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.25\"/><rect x=\"393.5\" y=\"338\" width=\"41\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.20\"/><rect x=\"397.0\" y=\"354\" width=\"34\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.15\"/><rect y=\"200.0\" width=\"600\" height=\"64.0\" fill=\"url(#hzgkerala)\"/><path d=\"M120.0 64.0 q8 -9 16 0 q8 -9 16 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M156.0 80.0 q6.4 -9 12.8 0 q6.4 -9 12.8 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M186.0 56.00000000000001 q5.2 -9 10.4 0 q5.2 -9 10.4 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><rect width=\"600\" height=\"400\" fill=\"url(#vgkerala)\"/><rect width=\"600\" height=\"400\" filter=\"url(#nzkerala)\" opacity=\".16\"/></svg>", "rajasthan": "<svg viewBox=\"0 0 600 400\" preserveAspectRatio=\"xMidYMid slice\" style=\"width:100%;height:100%;display:block\" xmlns=\"http://www.w3.org/2000/svg\"><defs><radialGradient id=\"vgrajasthan\" cx=\".5\" cy=\".45\" r=\".8\"><stop offset=\".55\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#1a0a10\" stop-opacity=\".34\"/></radialGradient><linearGradient id=\"hzgrajasthan\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0\"/><stop offset=\".5\" stop-color=\"#fff\" stop-opacity=\".22\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><filter id=\"nzrajasthan\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".85\" numOctaves=\"2\" stitchTiles=\"stitch\"/><feColorMatrix values=\"0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .08  0 0 0 .9 0\"/></filter><linearGradient id=\"skyrajasthan\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFC48A\"/><stop offset=\"1\" stop-color=\"#F08A4B\"/></linearGradient><linearGradient id=\"searajasthan\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#D96B3A\"/><stop offset=\"1\" stop-color=\"#D96B3A\" stop-opacity=\".6\"/></linearGradient></defs><rect width=\"600\" height=\"400\" fill=\"url(#skyrajasthan)\"/><circle cx=\"467\" cy=\"136\" r=\"36.0\" fill=\"#fff\" opacity=\".85\"/><circle cx=\"467\" cy=\"136\" r=\"64.0\" fill=\"#fff\" opacity=\".18\"/><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"463\" cy=\"38\" rx=\"38\" ry=\"10\"/><ellipse cx=\"485\" cy=\"30\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"168\" cy=\"68\" rx=\"38\" ry=\"10\"/><ellipse cx=\"190\" cy=\"60\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"331\" cy=\"101\" rx=\"38\" ry=\"10\"/><ellipse cx=\"353\" cy=\"93\" rx=\"24\" ry=\"9\"/></g><path d=\"M0 400 L0 280 Q150.0 240.0 300.0 280 T600 270 V400Z\" fill=\"#F2A65A\"/><path d=\"M0 400 L0 328.0 Q180.0 296.0 360.0 336.0 T600 320.0 V400Z\" fill=\"#E08A3E\"/><g fill=\"#8C3B2A\" opacity=\".95\"><rect x=\"168.00000000000003\" y=\"168.0\" width=\"276.0\" height=\"112.00000000000001\"/><rect x=\"170.00000000000003\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"200.66666666666669\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"231.33333333333337\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"262.0\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"292.6666666666667\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"323.33333333333337\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"354.0\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"384.66666666666674\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"415.33333333333337\" y=\"152.0\" width=\"24.666666666666668\" height=\"16.0\"/><rect x=\"156.00000000000003\" y=\"120.0\" width=\"34\" height=\"160.0\"/><rect x=\"422.0\" y=\"120.0\" width=\"34\" height=\"160.0\"/><path d=\"M156.00000000000003 120.0 q17 -26 34 0z\"/><path d=\"M422.0 120.0 q17 -26 34 0z\"/><path d=\"M274.0 280.0 v-56.00000000000001 q26 -34 52 0 v56.00000000000001z\" fill=\"#3A1A12\"/></g><g transform=\"translate(491.99999999999994,312.0)\"><ellipse cx=\"0\" cy=\"-26\" rx=\"26\" ry=\"14\" fill=\"#7A4A2B\"/><path d=\"M18 -34 q18 -18 20 -42 l8 2 q-2 26 -20 48z\" fill=\"#7A4A2B\"/><rect x=\"-18\" y=\"-16\" width=\"5\" height=\"30\" fill=\"#7A4A2B\"/><rect x=\"12\" y=\"-16\" width=\"5\" height=\"30\" fill=\"#7A4A2B\"/></g><g><polygon points=\"467,136 167.0,400 209.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"467,136 299.0,400 341.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"467,136 431.0,400 473.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"467,136 563.0,400 605.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"467,136 695.0,400 737.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"467,136 827.0,400 869.0,400\" fill=\"#fff\" opacity=\".07\"/></g><rect y=\"200.0\" width=\"600\" height=\"64.0\" fill=\"url(#hzgrajasthan)\"/><path d=\"M120.0 64.0 q8 -9 16 0 q8 -9 16 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M156.0 80.0 q6.4 -9 12.8 0 q6.4 -9 12.8 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M186.0 56.00000000000001 q5.2 -9 10.4 0 q5.2 -9 10.4 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><rect width=\"600\" height=\"400\" fill=\"url(#vgrajasthan)\"/><rect width=\"600\" height=\"400\" filter=\"url(#nzrajasthan)\" opacity=\".16\"/></svg>", "manali": "<svg viewBox=\"0 0 600 400\" preserveAspectRatio=\"xMidYMid slice\" style=\"width:100%;height:100%;display:block\" xmlns=\"http://www.w3.org/2000/svg\"><defs><radialGradient id=\"vgmanali\" cx=\".5\" cy=\".45\" r=\".8\"><stop offset=\".55\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#1a0a10\" stop-opacity=\".34\"/></radialGradient><linearGradient id=\"hzgmanali\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0\"/><stop offset=\".5\" stop-color=\"#fff\" stop-opacity=\".22\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><filter id=\"nzmanali\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".85\" numOctaves=\"2\" stitchTiles=\"stitch\"/><feColorMatrix values=\"0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .08  0 0 0 .9 0\"/></filter><linearGradient id=\"skymanali\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#9EC5F5\"/><stop offset=\"1\" stop-color=\"#5E8FD6\"/></linearGradient><linearGradient id=\"seamanali\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#F4F9FF\"/><stop offset=\"1\" stop-color=\"#F4F9FF\" stop-opacity=\".6\"/></linearGradient></defs><rect width=\"600\" height=\"400\" fill=\"url(#skymanali)\"/><circle cx=\"371\" cy=\"136\" r=\"36.0\" fill=\"#fff\" opacity=\".85\"/><circle cx=\"371\" cy=\"136\" r=\"64.0\" fill=\"#fff\" opacity=\".18\"/><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"78\" cy=\"95\" rx=\"38\" ry=\"10\"/><ellipse cx=\"100\" cy=\"87\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"315\" cy=\"106\" rx=\"38\" ry=\"10\"/><ellipse cx=\"337\" cy=\"98\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"83\" cy=\"80\" rx=\"38\" ry=\"10\"/><ellipse cx=\"105\" cy=\"72\" rx=\"24\" ry=\"9\"/></g><path d=\"M0 248 L96.0 120.0 L180.0 208.0 L276.0 72.0 L384.0 200.0 L480.0 112.00000000000001 L600 248 L600 400 L0 400Z\" fill=\"#F4F9FF\" stroke=\"#fff\" stroke-opacity=\".6\"/><path d=\"M0 288.0 L120.0 184.0 L240.0 272.0 L372.0 168.0 L510.0 264.0 L600 224.00000000000003 L600 400 L0 400Z\" fill=\"#7E9FCB\" opacity=\".85\"/><path d=\"M264.0 80.0 L276.0 72.0 L300.0 108.0 L282.0 100.0 L270.0 120.0Z\" fill=\"#fff\"/><rect y=\"328.0\" width=\"600\" height=\"72.0\" fill=\"#1E4A35\"/><path d=\"M-5.0 360.0 L-18.0 360.0 L-5.0 330.0 L-13.0 330.0 L-4.0 314.0 L5.0 330.0 L-2.0 330.0 L9.0 360.0Z\" fill=\"#16402B\"/><path d=\"M69.21739130434783 360.0 L56.21739130434783 360.0 L69.21739130434783 322.0 L61.21739130434783 322.0 L70.21739130434783 306.0 L79.21739130434783 322.0 L72.21739130434783 322.0 L83.21739130434783 360.0Z\" fill=\"#16402B\"/><path d=\"M129.43478260869566 360.0 L116.43478260869566 360.0 L129.43478260869566 305.0 L121.43478260869566 305.0 L130.43478260869566 289.0 L139.43478260869566 305.0 L132.43478260869566 305.0 L143.43478260869566 360.0Z\" fill=\"#16402B\"/><path d=\"M193.6521739130435 360.0 L180.6521739130435 360.0 L193.6521739130435 309.0 L185.6521739130435 309.0 L194.6521739130435 293.0 L203.6521739130435 309.0 L196.6521739130435 309.0 L207.6521739130435 360.0Z\" fill=\"#16402B\"/><path d=\"M260.8695652173913 360.0 L247.8695652173913 360.0 L260.8695652173913 324.0 L252.8695652173913 324.0 L261.8695652173913 308.0 L270.8695652173913 324.0 L263.8695652173913 324.0 L274.8695652173913 360.0Z\" fill=\"#16402B\"/><path d=\"M321.0869565217391 360.0 L308.0869565217391 360.0 L321.0869565217391 304.0 L313.0869565217391 304.0 L322.0869565217391 288.0 L331.0869565217391 304.0 L324.0869565217391 304.0 L335.0869565217391 360.0Z\" fill=\"#16402B\"/><path d=\"M386.304347826087 360.0 L373.304347826087 360.0 L386.304347826087 320.0 L378.304347826087 320.0 L387.304347826087 304.0 L396.304347826087 320.0 L389.304347826087 320.0 L400.304347826087 360.0Z\" fill=\"#16402B\"/><path d=\"M457.5217391304348 360.0 L444.5217391304348 360.0 L457.5217391304348 323.0 L449.5217391304348 323.0 L458.5217391304348 307.0 L467.5217391304348 323.0 L460.5217391304348 323.0 L471.5217391304348 360.0Z\" fill=\"#16402B\"/><path d=\"M527.7391304347826 360.0 L514.7391304347826 360.0 L527.7391304347826 301.0 L519.7391304347826 301.0 L528.7391304347826 285.0 L537.7391304347826 301.0 L530.7391304347826 301.0 L541.7391304347826 360.0Z\" fill=\"#16402B\"/><path d=\"M582.9565217391305 360.0 L569.9565217391305 360.0 L582.9565217391305 313.0 L574.9565217391305 313.0 L583.9565217391305 297.0 L592.9565217391305 313.0 L585.9565217391305 313.0 L596.9565217391305 360.0Z\" fill=\"#16402B\"/><g><polygon points=\"371,136 71.0,400 113.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"371,136 203.0,400 245.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"371,136 335.0,400 377.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"371,136 467.0,400 509.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"371,136 599.0,400 641.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"371,136 731.0,400 773.0,400\" fill=\"#fff\" opacity=\".07\"/></g><rect y=\"200.0\" width=\"600\" height=\"64.0\" fill=\"url(#hzgmanali)\"/><path d=\"M120.0 64.0 q8 -9 16 0 q8 -9 16 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M156.0 80.0 q6.4 -9 12.8 0 q6.4 -9 12.8 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M186.0 56.00000000000001 q5.2 -9 10.4 0 q5.2 -9 10.4 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><rect width=\"600\" height=\"400\" fill=\"url(#vgmanali)\"/><rect width=\"600\" height=\"400\" filter=\"url(#nzmanali)\" opacity=\".16\"/></svg>", "andaman": "<svg viewBox=\"0 0 600 400\" preserveAspectRatio=\"xMidYMid slice\" style=\"width:100%;height:100%;display:block\" xmlns=\"http://www.w3.org/2000/svg\"><defs><radialGradient id=\"vgandaman\" cx=\".5\" cy=\".45\" r=\".8\"><stop offset=\".55\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#1a0a10\" stop-opacity=\".34\"/></radialGradient><linearGradient id=\"hzgandaman\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0\"/><stop offset=\".5\" stop-color=\"#fff\" stop-opacity=\".22\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><filter id=\"nzandaman\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".85\" numOctaves=\"2\" stitchTiles=\"stitch\"/><feColorMatrix values=\"0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .08  0 0 0 .9 0\"/></filter><linearGradient id=\"skyandaman\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#8FE3F0\"/><stop offset=\"1\" stop-color=\"#2EC4D6\"/></linearGradient><linearGradient id=\"seaandaman\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#0E9AB0\"/><stop offset=\"1\" stop-color=\"#F4E3B4\" stop-opacity=\".6\"/></linearGradient></defs><rect width=\"600\" height=\"400\" fill=\"url(#skyandaman)\"/><circle cx=\"417\" cy=\"136\" r=\"36.0\" fill=\"#fff\" opacity=\".85\"/><circle cx=\"417\" cy=\"136\" r=\"64.0\" fill=\"#fff\" opacity=\".18\"/><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"381\" cy=\"51\" rx=\"38\" ry=\"10\"/><ellipse cx=\"403\" cy=\"43\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"205\" cy=\"57\" rx=\"38\" ry=\"10\"/><ellipse cx=\"227\" cy=\"49\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"438\" cy=\"52\" rx=\"38\" ry=\"10\"/><ellipse cx=\"460\" cy=\"44\" rx=\"24\" ry=\"9\"/></g><rect y=\"231\" width=\"600\" height=\"169\" fill=\"url(#seaandaman)\"/><path d=\"M0 241 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 262 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 283 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 304 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 325 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 346 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 367 q37.5 -8 75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0 t75.0 0\" stroke=\"#fff\" stroke-opacity=\".35\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 400 L0 336 Q240.0 304 600 352 L600 400Z\" fill=\"#F4E3B4\"/><ellipse cx=\"192.0\" cy=\"237\" rx=\"96.0\" ry=\"14\" fill=\"#2F8F5B\"/><ellipse cx=\"468.0\" cy=\"235\" rx=\"60.0\" ry=\"9\" fill=\"#3AA66B\"/><g transform=\"translate(84.00000000000001,344.0) scale(1)\"><path d=\"M0 0 Q8 -80.0 0 -144.0\" stroke=\"#6B3E26\" stroke-width=\"7\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q-34 -32.0 -61.2 18\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q-50 -32.0 -90.0 4\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q34 -32.0 61.2 18\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q50 -32.0 90.0 4\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q0 -32.0 0.0 -22\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/></g><g transform=\"translate(516.0,344.0) scale(0.85)\"><path d=\"M0 0 Q8 -80.0 0 -144.0\" stroke=\"#6B3E26\" stroke-width=\"7\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q-34 -32.0 -61.2 18\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q-50 -32.0 -90.0 4\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q34 -32.0 61.2 18\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q50 -32.0 90.0 4\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -144.0 q0 -32.0 0.0 -22\" stroke=\"#1E7A4C\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/></g><g><polygon points=\"417,136 117.0,400 159.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"417,136 249.0,400 291.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"417,136 381.0,400 423.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"417,136 513.0,400 555.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"417,136 645.0,400 687.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"417,136 777.0,400 819.0,400\" fill=\"#fff\" opacity=\".07\"/></g><rect x=\"372.0\" y=\"237\" width=\"90\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.55\"/><rect x=\"375.5\" y=\"252\" width=\"83\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.50\"/><rect x=\"379.0\" y=\"267\" width=\"76\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.45\"/><rect x=\"382.5\" y=\"282\" width=\"69\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.40\"/><rect x=\"386.0\" y=\"297\" width=\"62\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.35\"/><rect x=\"389.5\" y=\"312\" width=\"55\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.30\"/><rect x=\"393.0\" y=\"327\" width=\"48\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.25\"/><rect x=\"396.5\" y=\"342\" width=\"41\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.20\"/><rect x=\"400.0\" y=\"357\" width=\"34\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.15\"/><rect y=\"200.0\" width=\"600\" height=\"64.0\" fill=\"url(#hzgandaman)\"/><path d=\"M120.0 64.0 q8 -9 16 0 q8 -9 16 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M156.0 80.0 q6.4 -9 12.8 0 q6.4 -9 12.8 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M186.0 56.00000000000001 q5.2 -9 10.4 0 q5.2 -9 10.4 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><rect width=\"600\" height=\"400\" fill=\"url(#vgandaman)\"/><rect width=\"600\" height=\"400\" filter=\"url(#nzandaman)\" opacity=\".16\"/></svg>", "dubai": "<svg viewBox=\"0 0 600 400\" preserveAspectRatio=\"xMidYMid slice\" style=\"width:100%;height:100%;display:block\" xmlns=\"http://www.w3.org/2000/svg\"><defs><radialGradient id=\"vgdubai\" cx=\".5\" cy=\".45\" r=\".8\"><stop offset=\".55\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#1a0a10\" stop-opacity=\".34\"/></radialGradient><linearGradient id=\"hzgdubai\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0\"/><stop offset=\".5\" stop-color=\"#fff\" stop-opacity=\".22\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><filter id=\"nzdubai\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".85\" numOctaves=\"2\" stitchTiles=\"stitch\"/><feColorMatrix values=\"0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .08  0 0 0 .9 0\"/></filter><linearGradient id=\"skydubai\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFB88A\"/><stop offset=\"1\" stop-color=\"#E8657A\"/></linearGradient><linearGradient id=\"seadubai\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#4C3A7A\"/><stop offset=\"1\" stop-color=\"#4C3A7A\" stop-opacity=\".6\"/></linearGradient></defs><rect width=\"600\" height=\"400\" fill=\"url(#skydubai)\"/><circle cx=\"476\" cy=\"136\" r=\"36.0\" fill=\"#fff\" opacity=\".85\"/><circle cx=\"476\" cy=\"136\" r=\"64.0\" fill=\"#fff\" opacity=\".18\"/><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"134\" cy=\"54\" rx=\"38\" ry=\"10\"/><ellipse cx=\"156\" cy=\"46\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"128\" cy=\"79\" rx=\"38\" ry=\"10\"/><ellipse cx=\"150\" cy=\"71\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"292\" cy=\"77\" rx=\"38\" ry=\"10\"/><ellipse cx=\"314\" cy=\"69\" rx=\"24\" ry=\"9\"/></g><rect y=\"280.0\" width=\"600\" height=\"120.0\" fill=\"#2A2250\"/><rect x=\"36.0\" y=\"143.99999999999997\" width=\"42.00000000000001\" height=\"136.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"42.0\" y=\"151.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"42.0\" y=\"165.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"42.0\" y=\"179.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"42.0\" y=\"193.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"84.00000000000001\" y=\"175.99999999999997\" width=\"42.00000000000001\" height=\"104.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"90.00000000000001\" y=\"183.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"90.00000000000001\" y=\"197.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"90.00000000000001\" y=\"211.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"132.0\" y=\"111.99999999999999\" width=\"42.00000000000001\" height=\"168.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"138.0\" y=\"119.99999999999999\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"138.0\" y=\"134.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"138.0\" y=\"148.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"138.0\" y=\"162.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"138.0\" y=\"176.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"180.0\" y=\"160.0\" width=\"42.00000000000001\" height=\"120.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"186.0\" y=\"168.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"186.0\" y=\"182.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"186.0\" y=\"196.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"234.0\" y=\"79.99999999999999\" width=\"42.00000000000001\" height=\"200.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"240.0\" y=\"87.99999999999999\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"240.0\" y=\"101.99999999999999\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"240.0\" y=\"115.99999999999999\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"240.0\" y=\"130.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"240.0\" y=\"144.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"240.0\" y=\"158.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"300.0\" y=\"199.99999999999997\" width=\"42.00000000000001\" height=\"80.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"306.0\" y=\"207.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"306.0\" y=\"221.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"360.0\" y=\"127.99999999999999\" width=\"42.00000000000001\" height=\"152.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"366.0\" y=\"136.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"366.0\" y=\"150.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"366.0\" y=\"164.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"366.0\" y=\"178.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"408.00000000000006\" y=\"167.99999999999997\" width=\"42.00000000000001\" height=\"112.00000000000001\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"414.00000000000006\" y=\"175.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"414.00000000000006\" y=\"189.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"414.00000000000006\" y=\"203.99999999999997\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"462.0\" y=\"103.99999999999999\" width=\"42.00000000000001\" height=\"176.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"468.0\" y=\"111.99999999999999\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"468.0\" y=\"125.99999999999999\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"468.0\" y=\"140.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"468.0\" y=\"154.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"468.0\" y=\"168.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"516.0\" y=\"160.0\" width=\"42.00000000000001\" height=\"120.0\" fill=\"#3B2F6B\" opacity=\".95\"/><rect x=\"522.0\" y=\"168.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"522.0\" y=\"182.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><rect x=\"522.0\" y=\"196.0\" width=\"30.000000000000007\" height=\"4\" fill=\"#FFD27A\" opacity=\".5\"/><path d=\"M288.0 280.0 L297.0 32.0 L300.0 16.0 L303.0 32.0 L312.0 280.0Z\" fill=\"#4C3A7A\"/><path d=\"M0 320.0 q150.0 -14 300.0 0 t300.0 0 V400 H0Z\" fill=\"#1E1840\"/><g><polygon points=\"476,136 176.0,400 218.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"476,136 308.0,400 350.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"476,136 440.0,400 482.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"476,136 572.0,400 614.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"476,136 704.0,400 746.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"476,136 836.0,400 878.0,400\" fill=\"#fff\" opacity=\".07\"/></g><rect x=\"431.0\" y=\"294\" width=\"90\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.55\"/><rect x=\"434.5\" y=\"304\" width=\"83\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.50\"/><rect x=\"438.0\" y=\"314\" width=\"76\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.45\"/><rect x=\"441.5\" y=\"324\" width=\"69\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.40\"/><rect x=\"445.0\" y=\"334\" width=\"62\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.35\"/><rect x=\"448.5\" y=\"344\" width=\"55\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.30\"/><rect x=\"452.0\" y=\"354\" width=\"48\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.25\"/><rect x=\"455.5\" y=\"364\" width=\"41\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.20\"/><rect x=\"459.0\" y=\"374\" width=\"34\" height=\"3\" rx=\"1.5\" fill=\"#fff\" opacity=\"0.15\"/><rect y=\"200.0\" width=\"600\" height=\"64.0\" fill=\"url(#hzgdubai)\"/><path d=\"M120.0 64.0 q8 -9 16 0 q8 -9 16 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M156.0 80.0 q6.4 -9 12.8 0 q6.4 -9 12.8 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M186.0 56.00000000000001 q5.2 -9 10.4 0 q5.2 -9 10.4 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><rect width=\"600\" height=\"400\" fill=\"url(#vgdubai)\"/><rect width=\"600\" height=\"400\" filter=\"url(#nzdubai)\" opacity=\".16\"/></svg>", "bali": "<svg viewBox=\"0 0 600 400\" preserveAspectRatio=\"xMidYMid slice\" style=\"width:100%;height:100%;display:block\" xmlns=\"http://www.w3.org/2000/svg\"><defs><radialGradient id=\"vgbali\" cx=\".5\" cy=\".45\" r=\".8\"><stop offset=\".55\" stop-color=\"#000\" stop-opacity=\"0\"/><stop offset=\"1\" stop-color=\"#1a0a10\" stop-opacity=\".34\"/></radialGradient><linearGradient id=\"hzgbali\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#fff\" stop-opacity=\"0\"/><stop offset=\".5\" stop-color=\"#fff\" stop-opacity=\".22\"/><stop offset=\"1\" stop-color=\"#fff\" stop-opacity=\"0\"/></linearGradient><filter id=\"nzbali\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\"><feTurbulence type=\"fractalNoise\" baseFrequency=\".85\" numOctaves=\"2\" stitchTiles=\"stitch\"/><feColorMatrix values=\"0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 .08  0 0 0 .9 0\"/></filter><linearGradient id=\"skybali\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFE9A0\"/><stop offset=\"1\" stop-color=\"#9BD16B\"/></linearGradient><linearGradient id=\"seabali\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#4C9A3F\"/><stop offset=\"1\" stop-color=\"#4C9A3F\" stop-opacity=\".6\"/></linearGradient></defs><rect width=\"600\" height=\"400\" fill=\"url(#skybali)\"/><circle cx=\"473\" cy=\"136\" r=\"36.0\" fill=\"#fff\" opacity=\".85\"/><circle cx=\"473\" cy=\"136\" r=\"64.0\" fill=\"#fff\" opacity=\".18\"/><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"474\" cy=\"60\" rx=\"38\" ry=\"10\"/><ellipse cx=\"496\" cy=\"52\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"83\" cy=\"65\" rx=\"38\" ry=\"10\"/><ellipse cx=\"105\" cy=\"57\" rx=\"24\" ry=\"9\"/></g><g fill=\"#fff\" opacity=\".7\"><ellipse cx=\"234\" cy=\"60\" rx=\"38\" ry=\"10\"/><ellipse cx=\"256\" cy=\"52\" rx=\"24\" ry=\"9\"/></g><path d=\"M0 214.0 Q150.0 174.0 300.0 204.0 T600 200.0 V400 H0Z\" fill=\"#B5E08A\"/><path d=\"M0 214.0 Q150.0 174.0 300.0 204.0 T600 200.0\" stroke=\"#fff\" stroke-opacity=\".3\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 254.0 Q150.0 214.0 300.0 244.0 T600 240.0 V400 H0Z\" fill=\"#9BD16B\"/><path d=\"M0 254.0 Q150.0 214.0 300.0 244.0 T600 240.0\" stroke=\"#fff\" stroke-opacity=\".3\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 294.0 Q150.0 254.0 300.0 284.0 T600 280.0 V400 H0Z\" fill=\"#82C25A\"/><path d=\"M0 294.0 Q150.0 254.0 300.0 284.0 T600 280.0\" stroke=\"#fff\" stroke-opacity=\".3\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 334.0 Q150.0 294.0 300.0 324.0 T600 320.0 V400 H0Z\" fill=\"#6AB04A\"/><path d=\"M0 334.0 Q150.0 294.0 300.0 324.0 T600 320.0\" stroke=\"#fff\" stroke-opacity=\".3\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 374.0 Q150.0 334.0 300.0 364.0 T600 360.0 V400 H0Z\" fill=\"#559B3E\"/><path d=\"M0 374.0 Q150.0 334.0 300.0 364.0 T600 360.0\" stroke=\"#fff\" stroke-opacity=\".3\" stroke-width=\"2\" fill=\"none\"/><path d=\"M0 414.0 Q150.0 374.0 300.0 404.0 T600 400.0 V400 H0Z\" fill=\"#448A34\"/><path d=\"M0 414.0 Q150.0 374.0 300.0 404.0 T600 400.0\" stroke=\"#fff\" stroke-opacity=\".3\" stroke-width=\"2\" fill=\"none\"/><g transform=\"translate(420.0,200.0)\"><rect x=\"-26\" y=\"-34\" width=\"52\" height=\"26\" fill=\"#C98B4B\"/><path d=\"M-36 -34 L0 -62 L36 -34Z\" fill=\"#7A4A2B\"/><rect x=\"-6\" y=\"-26\" width=\"12\" height=\"18\" fill=\"#4A2A18\"/></g><g transform=\"translate(132.0,256.0)\"><path d=\"M0 0 Q6 -72.0 0 -120.0\" stroke=\"#6B3E26\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-30 -28.000000000000004 -54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q-44 -28.000000000000004 -79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q30 -28.000000000000004 54.0 16\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q44 -28.000000000000004 79.2 2\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M0 -120.0 q0 -28.000000000000004 0.0 -18\" stroke=\"#1E7A4C\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/></g><g><polygon points=\"473,136 173.0,400 215.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"473,136 305.0,400 347.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"473,136 437.0,400 479.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"473,136 569.0,400 611.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"473,136 701.0,400 743.0,400\" fill=\"#fff\" opacity=\".07\"/><polygon points=\"473,136 833.0,400 875.0,400\" fill=\"#fff\" opacity=\".07\"/></g><rect y=\"200.0\" width=\"600\" height=\"64.0\" fill=\"url(#hzgbali)\"/><path d=\"M120.0 64.0 q8 -9 16 0 q8 -9 16 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M156.0 80.0 q6.4 -9 12.8 0 q6.4 -9 12.8 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M186.0 56.00000000000001 q5.2 -9 10.4 0 q5.2 -9 10.4 0\" stroke=\"#2A1A22\" stroke-opacity=\".55\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"/><rect width=\"600\" height=\"400\" fill=\"url(#vgbali)\"/><rect width=\"600\" height=\"400\" filter=\"url(#nzbali)\" opacity=\".16\"/></svg>"};
+const PACKAGES = [
+ {id:'goa-beach-bliss',name:'Goa Beach Bliss',dest:'Goa',country:'India',kind:'goa',days:4,nights:3,price:14999,old:18999,rating:4.6,reviews:312,tag:'Bestseller',theme:'Beach',hotel:'4★ beachfront resort',
+  about:'Soak up the sun, sand and soul of Goa on a relaxed getaway. Stay on the beach, see the old forts and churches, and finish each day at a shack by the water. All transfers and sightseeing are by private cab.',
+  highlights:['Sunset cruise on the Mandovi river with live music','Fort Aguada and Basilica of Bom Jesus','Sea-facing room at a beachfront resort','Trip manager reachable 24×7'],
+  itin:[['Arrival and Candolim Beach','Airport pickup, resort check-in and a welcome drink. Evening on Candolim Beach.'],['North Goa sightseeing','Fort Aguada, Calangute, Baga and the Anjuna flea market.'],['South Goa and Old Goa','Bom Jesus, Se Cathedral, Colva Beach and a sunset river cruise.'],['Leisure and departure','Slow breakfast, last-minute shopping and airport drop.']]},
+ {id:'kashmir-paradise',name:'Kashmir Paradise Escape',dest:'Kashmir',country:'India',kind:'kashmir',days:6,nights:5,price:28499,old:33999,rating:4.8,reviews:198,tag:'Top Rated',theme:'Mountains',hotel:'3★ hotels and one houseboat night',
+  about:'Shikaras on Dal Lake, snow at Gulmarg and the green valleys of Pahalgam, with a houseboat night in between. A private cab and an English-speaking driver stay with you the whole trip.',
+  highlights:['Shikara ride on Dal Lake','Gondola ride at Gulmarg','Betaab and Aru valleys in Pahalgam','Night on a Srinagar houseboat'],
+  itin:[['Arrive in Srinagar','Pickup, Mughal Gardens and an evening shikara ride on Dal Lake.'],['Srinagar to Gulmarg','Drive up to Gulmarg, gondola phase 1 and snow play.'],['Gulmarg to Pahalgam','Scenic drive past saffron fields. Betaab Valley stop.'],['Pahalgam sightseeing','Aru Valley and Chandanwari with a picnic lunch.'],['Back to Srinagar','Saffron stop at Pampore and a houseboat stay.'],['Departure','Breakfast and airport drop.']]},
+ {id:'kerala-backwaters',name:'Kerala Backwater Retreat',dest:'Kerala',country:'India',kind:'kerala',days:5,nights:4,price:22999,old:26999,rating:4.7,reviews:254,tag:'Family Pick',theme:'Nature',hotel:'Resorts plus one deluxe houseboat',
+  about:'Hill mist in Munnar, spice gardens in Thekkady and a night on a private houseboat in Alleppey. Slow days with plenty of chai stops.',
+  highlights:['Overnight deluxe houseboat in Alleppey','Tea gardens of Munnar','Spice plantation walk in Thekkady','Kathakali evening show'],
+  itin:[['Arrive in Cochin, drive to Munnar','Scenic drive through tea country. Evening at leisure.'],['Munnar sightseeing','Eravikulam, Mattupetty Dam and a tea museum visit.'],['Munnar to Thekkady','Spice plantation walk and a Kathakali show.'],['Thekkady to Alleppey','Houseboat check-in, lunch and dinner on board.'],['Departure from Cochin','Breakfast on the boat, drive to the airport.']]},
+ {id:'royal-rajasthan',name:'Royal Rajasthan Heritage',dest:'Rajasthan',country:'India',kind:'rajasthan',days:7,nights:6,price:31999,old:37999,rating:4.5,reviews:167,tag:'Heritage',theme:'Culture',hotel:'Heritage hotels in three cities',
+  about:'Forts, palaces and bazaars across Jaipur, Jodhpur and Udaipur. Stay in restored havelis and finish with a sunset over Lake Pichola.',
+  highlights:['Amber Fort elephant-point photo stop','Mehrangarh Fort in Jodhpur','Boat ride on Lake Pichola','Evening folk dance dinner'],
+  itin:[['Arrive in Jaipur','Check-in and a stroll through Bapu Bazaar.'],['Jaipur sightseeing','Amber Fort, City Palace and Hawa Mahal.'],['Jaipur to Jodhpur','Drive via Ajmer and Pushkar. Evening at the blue city.'],['Jodhpur sightseeing','Mehrangarh Fort and Jaswant Thada.'],['Jodhpur to Udaipur','Ranakpur Jain temples on the way.'],['Udaipur sightseeing','City Palace, Saheliyon Ki Bari and a Pichola boat ride.'],['Departure','Breakfast and airport drop.']]},
+ {id:'manali-snow',name:'Manali Snow Adventure',dest:'Manali',country:'India',kind:'manali',days:5,nights:4,price:17499,old:20999,rating:4.4,reviews:221,tag:'Adventure',theme:'Mountains',hotel:'3★ hotel with mountain view',
+  about:'Snow points, river rafting and mall-road evenings. An easy-paced mountain break with a driver who knows every hairpin.',
+  highlights:['Solang Valley snow activities','Atal Tunnel and Sissu drive','Hadimba Temple visit','Mall Road food walk'],
+  itin:[['Arrive in Manali','Check-in, rest and a short walk on Mall Road.'],['Solang Valley','Snow play, zorbing and optional paragliding.'],['Rohtang and Atal Tunnel','Day trip beyond the tunnel to Sissu.'],['Local sightseeing','Hadimba Temple, Vashisht hot springs and Old Manali.'],['Departure','Breakfast and drop at Chandigarh or Kullu.']]},
+ {id:'andaman-island',name:'Andaman Island Hopping',dest:'Andaman',country:'India',kind:'andaman',days:6,nights:5,price:36999,old:42999,rating:4.9,reviews:143,tag:'Premium',theme:'Beach',hotel:'4★ resorts on three islands',
+  about:'Clear water, white sand and ferry hops between Port Blair, Havelock and Neil. Time for snorkelling, a sunrise beach walk and plenty of nothing.',
+  highlights:['Radhanagar Beach at sunset','Snorkelling at Elephant Beach','Cellular Jail light and sound show','Natural Bridge at Neil Island'],
+  itin:[['Arrive in Port Blair','Cellular Jail and the evening light and sound show.'],['Port Blair to Havelock','Ferry transfer and a sunset at Radhanagar Beach.'],['Elephant Beach','Boat trip with snorkelling and sea walk options.'],['Havelock to Neil Island','Bharatpur Beach and Natural Bridge.'],['Neil to Port Blair','Ferry back and local shopping.'],['Departure','Breakfast and airport drop.']]},
+ {id:'dubai-delight',name:'Dubai Dazzle Getaway',dest:'Dubai',country:'UAE',kind:'dubai',days:5,nights:4,price:54999,old:61999,rating:4.7,reviews:289,tag:'International',theme:'City',intl:true,hotel:'4★ hotel near Sheikh Zayed Road',
+  about:'Skyline views, desert dunes and souk shopping. Visa assistance and airport transfers are included, so you only pack bags.',
+  highlights:['Burj Khalifa observation deck (124th floor)','Desert safari with BBQ dinner','Dhow cruise on Dubai Creek','Gold and Spice souk walk'],
+  itin:[['Arrive in Dubai','Airport pickup and a Dubai Mall fountain show.'],['City tour','Jumeirah Mosque, Burj Al Arab photo stop and Atlantis view.'],['Burj Khalifa and desert safari','Observation deck by day, dune bashing at dusk.'],['Old Dubai and Creek','Abra ride, souks and a dhow dinner cruise.'],['Departure','Breakfast and airport drop.']]},
+ {id:'bali-serenity',name:'Bali Serenity Escape',dest:'Bali',country:'Indonesia',kind:'bali',days:6,nights:5,price:48999,old:55999,rating:4.8,reviews:176,tag:'Honeymoon',theme:'Beach',intl:true,hotel:'Pool villa in Ubud and a resort in Seminyak',
+  about:'Rice terraces, temple sunsets and a private pool villa. A calm, couple-friendly plan with room for spa time.',
+  highlights:['Tegalalang rice terraces','Uluwatu temple and Kecak dance','Private pool villa in Ubud','Floating breakfast (optional upgrade)'],
+  itin:[['Arrive in Bali','Airport pickup and check-in at Ubud villa.'],['Ubud day','Rice terraces, monkey forest and a swing photo stop.'],['Kintamani and Tirta Empul','Volcano view breakfast and temple water ritual.'],['Ubud to Seminyak','Beach club afternoon and sunset on the sand.'],['Uluwatu','Cliff temple and the Kecak fire dance.'],['Departure','Breakfast and airport drop.']]}
+];
+const COUNTS = PACKAGES.reduce((m,p)=>(m[p.dest]=(m[p.dest]||0)+1,m),{});
+const DESTS = Object.keys(COUNTS);
+const THEMES = ['Beach','Mountains','Culture','Nature','City'];
+const DURS = [['1-3','1-3 Days'],['4-5','4-5 Days'],['6-7','6-7 Days'],['8+','8+ Days']];
+const demo = {fail:false};
+const wait = ms => new Promise(r=>setTimeout(r,ms));
+const service = {
+  async getPackages(f){
+    await wait(500);
+    if(demo.fail) throw new Error('HOLIDAY_FETCH_FAILED');
+    const q=f.q.trim().toLowerCase();
+    let r=PACKAGES.filter(p=>(!q||p.name.toLowerCase().includes(q)||p.dest.toLowerCase().includes(q)||p.theme.toLowerCase().includes(q))
+      &&(!f.dests.length||f.dests.includes(p.dest))&&(!f.theme||p.theme===f.theme)&&p.price<=f.bud&&inDur(p.days,f.dur)&&(!f.reg||(f.reg==='intl')===!!p.intl));
+    const s={popular:(a,b)=>b.reviews-a.reviews,low:(a,b)=>a.price-b.price,high:(a,b)=>b.price-a.price,rated:(a,b)=>b.rating-a.rating}[f.sort];
+    return r.sort(s);
+  },
+  getPackage(id){return PACKAGES.find(p=>p.id===id)},
+  async submitEnquiry(){await wait(700);return {id:'ZP-ENQ-'+Math.floor(10000+Math.random()*89999)}},
+  async createBooking(){await wait(1500);return {id:'ZP-HOL-'+Math.floor(10000+Math.random()*89999)}}
+};
+function inDur(d,k){return !k||(k==='1-3'&&d<=3)||(k==='4-5'&&d>=4&&d<=5)||(k==='6-7'&&d>=6&&d<=7)||(k==='8+'&&d>=8)}
+
+
+/* ============ State ============ */
+const MAXB=60000;
+const S={view:'list',q:'',dests:[],dur:'',bud:MAXB,theme:'',sort:'popular',list:[],loading:true,error:false,pop:null,feat:0,
+  id:null,shot:0,dateIx:0,adults:2,kids:0,trav:[],contact:{mobile:'',email:''},errs:{},coupon:'',applied:null,cpDisc:0,cpBusy:false,cpMsg:'',offers:[],offersState:'idle',signedIn:false,showOffers:true,pay:'upi',pf:{upi:'',card:'',exp:'',cvv:'',cname:'',bank:'HDFC Bank'},
+  openDay:{0:true},drawer:null,step:0,enq:{name:'',phone:'',email:'',city:'',msg:''},enqErr:{},enqId:'',busy:false,booking:null,saved:{},toast:'',spy:'sec-overview'};
+S.openFaq={};S.moreRev=false;S.reg='';
+document.documentElement.dataset.theme='light';S.reg='';
+/* ============ Helpers ============ */
+const $=s=>document.querySelector(s);
+const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ============ Coupons ============
+   Coupons are created in the admin panel (Marketing > Coupons, "Valid on" = Holidays or all services).
+   This page runs inside an iframe, so it asks the ZPROO GO page around it to talk to the server:
+   list the live holiday coupons, check a code, and record its use when the booking is paid. */
+const bridge=(()=>{let n=0;const waiting=new Map();
+  const fail=m=>({ok:false,signedIn:false,offline:true,message:m});
+  addEventListener('message',e=>{if(e.source!==window.parent||e.origin!==location.origin)return;const d=e.data;if(!d||d.type!=='zproo-holiday-coupons-reply')return;const w=waiting.get(d.id);if(!w)return;waiting.delete(d.id);clearTimeout(w.t);w.res(d)});
+  return {call(action,payload){
+    if(window.parent===window)return Promise.resolve(fail('Coupons are available on the ZPROO GO holidays page.'));
+    return new Promise(res=>{const id=++n;const t=setTimeout(()=>{waiting.delete(id);res(fail('Could not reach the coupon service. Please try again.'))},15000);
+      waiting.set(id,{res,t});window.parent.postMessage(Object.assign({type:'zproo-holiday-coupons',id,action},payload||{}),location.origin)})}}})();
+const rs=paise=>'₹'+(paise/100).toLocaleString('en-IN',{maximumFractionDigits:2});
+function cpHead(c){return c.discountType==='PERCENT'?`${c.value}% off${c.maxDiscountPaise?` (max ${rs(c.maxDiscountPaise)})`:''}`:`${rs(c.value)} off`}
+function cpCond(c){return c.minOrderPaise>0?`On bookings over ${rs(c.minOrderPaise)}`:''}
+function cpTill(c){const d=new Date(c.validTo);return isNaN(d)?'':'Valid till '+d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
+function offersSlot(){return S.offers.slice(0,3).map(c=>`<div class="offer">${ic('gift',16)}<span><b>${esc(c.code)}</b> · ${esc(cpHead(c))}${cpCond(c)?' · '+esc(cpCond(c)):''}</span><button data-act="cpcopy" data-v="${esc(c.code)}">COPY</button></div>`).join('')}
+function paintOffers(){const sl=$('#offerslot');if(sl)sl.innerHTML=offersSlot();if(S.drawer&&S.step===1)paintDrawer(true)}
+async function loadOffers(){if(S.offersState==='loading')return;if(!S.offers.length)S.offersState='loading';const r=await bridge.call('list');S.signedIn=!!r.signedIn;if(r.ok&&Array.isArray(r.data)){S.offers=r.data;S.offersState='ready'}else S.offersState='error';paintOffers()}
+function couponCard(q){
+  let h=`<div class="card tc"><h4>${ic('gift',18)} Offers &amp; coupons</h4>`;
+  if(S.applied){
+    h+=`<div class="cp">${ic('ok',18)}<span><b>${esc(S.applied)}</b> applied. You save <b>${fmt(q.disc)}</b>.</span><button class="link" data-act="removeCp" style="margin-left:auto">Remove</button></div>`;
+  }else{
+    h+=`<div class="coupon"><input class="in" id="cpn" placeholder="Enter code" value="${esc(S.coupon)}" aria-label="Coupon code" autocomplete="off" style="text-transform:uppercase"><button class="btn line" data-act="applyCp" ${S.cpBusy?'disabled':''}>${S.cpBusy?'Checking…':'Apply'}</button></div>`;
+    if(S.cpMsg)h+=`<div class="err-t" style="margin-top:8px" role="alert">${esc(S.cpMsg)}</div>`;
+    if(!S.signedIn&&S.offersState!=='idle'&&S.offersState!=='loading')h+=`<div class="cpnote">Sign in to use a coupon. <button class="link" data-act="cpSignin">Sign in</button></div>`;
+  }
+  const live=S.offers;
+  if(S.offersState==='loading'&&!live.length)h+=`<div class="muted" style="font-size:12.5px;margin-top:12px">Loading offers…</div>`;
+  else if(S.offersState==='error'&&!live.length)h+=`<div class="muted" style="font-size:12.5px;margin-top:12px">Could not load offers. <button class="link" data-act="retryOffers">Try again</button></div>`;
+  else if(live.length){
+    h+=`<button class="link" data-act="toggleOffers" aria-expanded="${S.showOffers}" style="margin-top:12px">${S.showOffers?'Hide':'View'} offers (${live.length})</button>`;
+    if(S.showOffers)h+=`<div class="offers" style="margin-top:10px">${live.map(c=>{const short=c.minOrderPaise>q.base*100,on=S.applied===c.code;
+      const note=[c.description,short?`Add ${rs(c.minOrderPaise-q.base*100)} more to use this`:cpCond(c),cpTill(c)].filter(Boolean).map(esc).join(' · ');
+      return `<div class="offer">${ic('gift',16)}<span><b>${esc(c.code)}</b> · ${esc(cpHead(c))}<small class="muted">${note}</small></span><button data-act="useOffer" data-v="${esc(c.code)}" ${short||on||S.cpBusy?'disabled':''}>${on?'APPLIED':'APPLY'}</button></div>`}).join('')}</div>`;
+  }else if(S.offersState==='ready')h+=`<div class="muted" style="font-size:12.5px;margin-top:12px">No holiday coupons are live right now. Have a code? Enter it above.</div>`;
+  return h+'</div>'}
+async function applyCoupon(raw){
+  const code=String(raw||'').replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,20);S.coupon=code;
+  if(!code){S.cpMsg='Enter a coupon code first.';paintDrawer(true);return}
+  if(S.cpBusy)return;
+  const q=quote(pkg());S.cpBusy=true;S.cpMsg='';paintDrawer(true);
+  const r=await bridge.call('check',{code,orderPaise:q.base*100});
+  S.cpBusy=false;S.signedIn=!!r.signedIn;
+  if(r.ok){S.applied=r.data.code;S.cpDisc=Math.floor(r.data.discountPaise/100);S.coupon=r.data.code;S.cpMsg='';toast(r.data.code+' applied')}
+  else{S.applied=null;S.cpDisc=0;S.cpMsg=r.message||'Could not check this coupon. Please try again.'}
+  paintDrawer(true)}
+/* The package, travellers or dates may have changed since the coupon was applied: check it again. */
+async function revalidateCoupon(){
+  if(!S.applied)return;const code=S.applied,q=quote(pkg());
+  const r=await bridge.call('check',{code,orderPaise:q.base*100});if(S.applied!==code)return;
+  S.signedIn=!!r.signedIn;
+  if(r.ok)S.cpDisc=Math.floor(r.data.discountPaise/100);
+  else if(r.refused||r.needsSignIn){S.applied=null;S.cpDisc=0;S.cpMsg=r.message||'This coupon can no longer be used.'}
+  paintDrawer(true)}
+const P={pin:'<path d="M12 21s-7-6.2-7-11a7 7 0 1114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',heart:'<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.8-8 11-8 11z"/>',star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',check:'<path d="M5 12.5l4.5 4.5L19 7.5"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',plane:'<path d="M2 12l20-8-6 17-4-7-10-2z"/>',bus:'<rect x="4" y="4" width="16" height="13" rx="3"/><path d="M4 11h16M8 20v-3M16 20v-3"/>',hotel:'<path d="M3 20V8M3 14h18v6M21 14v-2a3 3 0 00-3-3h-8v5"/><circle cx="7" cy="11" r="1.5"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/>',sliders:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',chev:'<path d="M9 6l6 6-6 6"/>',left:'<path d="M15 6l-6 6 6 6"/>',share:'<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.3 11l7.4-3.8M8.3 13l7.4 3.8"/>',phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 7l9 6 9-6"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20a7 7 0 0114 0M16 4.5a3.5 3.5 0 010 7M18 20a6 6 0 00-3-5.2"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',food:'<path d="M7 3v8M4 3v5a3 3 0 006 0V3M7 11v10M17 3c-2 2-3 5-3 8h3v10"/>',car:'<path d="M5 16l1.5-6A2 2 0 018.4 8.5h7.2a2 2 0 011.9 1.5L19 16M3 16h18v3H3z"/><circle cx="7.5" cy="19" r="1.5"/><circle cx="16.5" cy="19" r="1.5"/>',camera:'<path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="14" r="3.5"/>',shield:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.3"/>',alert:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/>',refresh:'<path d="M20 11a8 8 0 10-2.3 6.3M20 4v7h-7"/>',ok:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>',no:'<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',gift:'<rect x="3" y="9" width="18" height="12" rx="2"/><path d="M3 13h18M12 9v12M12 9c-3 0-4-4-1-4s2 4 1 4zm0 0c3 0 4-4 1-4"/>',copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/>',moon:'<path d="M20 14.5A8.5 8.5 0 119.5 4a7 7 0 0010.5 10.5z"/>',lock:'<rect x="5" y="11" width="14" height="10" rx="3"/><path d="M8 11V8a4 4 0 018 0v3"/>',card:'<rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/>',bank:'<path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/>',qr:'<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h3v3h-3zM19 14v6M14 19h3"/>',down:'<path d="M6 9l6 6 6-6"/>',download:'<path d="M12 4v12M7 11l5 5 5-5M5 20h14"/>'};
+const ic=(n,s=18,sw=2)=>`<svg class="ico" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
+const star=s=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="currentColor"><path d="${P.star.match(/d="([^"]+)"/)[1]}"/></svg>`;
+const PHOTOS={
+  'goa': 'https://assets.serenity.co.uk/37000-37999/37594/1296x864.jpg',
+  'kashmir': 'https://wanderon-images.gumlet.io/gallery/new/2025/12/23/1766488837022-kashmir.jpg?auto=compress%2Cformat&w=1600',
+  'kerala': 'https://cdn.audleytravel.com/1050/750/79/524344-houseboat-kerala-backwaters.webp',
+  'rajasthan': 'https://assets.st-note.com/img/1731357026-4RFCNBw0rO2nIizKUmsJZ3EL.jpg?fit=bounds&height=2000&quality=85&width=2000',
+  'manali': 'https://wallpapercrafter.com/desktop3/1096162-manali-himalayas-quiet-backdrop-landscape-mountains.jpg',
+  'andaman': 'https://wanderon-images.gumlet.io/blogs/new/2024/01/best-time-to-visit-radhanagar-beach-1.jpg',
+  'dubai': 'https://blog.issta.co.il/wp-content/uploads/2020/11/shutterstock_779374966-1.jpg',
+  'bali': 'https://golakaw.com/uploads/destination/features/ChatGPT%20Image%20Nov%2021%2C%202025%2C%2012_30_01%20PM-1763699641.png'
+};
+/* High-resolution sources (Wikimedia Commons originals, 4000-5700 px wide), requested at 2400 px for sharp full-width hero images. */
+const HD_FILES={goa:'Anjuna Beach, Goa, India, Legendary Curlies beach shack.jpg',kashmir:'Dal Lake Hazratbal Srinagar.jpg',manali:'The Great Himalayas at the Sunrise in Manali.jpg',dubai:'Burj Dubai 001.jpg'};
+const commonsHd=n=>'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(n.replace(/ /g,'_'))+'?width=2400';
+/* For the other hosts, ask for their largest rendition. */
+const hdUrl=u=>{
+  if(!/^https?:/.test(u))return u;
+  if(u.includes('wanderon-images.gumlet.io'))return u.split('?')[0]+'?auto=compress%2Cformat&w=2400&q=90';
+  if(u.includes('cdn.audleytravel.com'))return u.replace('/1050/750/79/','/2100/1500/90/');
+  if(u.includes('assets.st-note.com'))return u.replace(/quality=\d+/,'quality=95');
+  return u;
+};
+/* Try the HD source first; if it fails to load, step down to the next source, ending at the original URL. */
+function imgFallback(el){const l=(el.dataset.fb||'').split('|').filter(Boolean);const n=l.shift();el.dataset.fb=l.join('|');if(n)el.src=n}
+const photoSources=k=>{const o=PHOTOS[k];if(!/^https?:/.test(o))return [o];const l=[];if(HD_FILES[k])l.push(commonsHd(HD_FILES[k]));l.push(hdUrl(o),o);return l.filter((u,i)=>l.indexOf(u)===i)};
+const scene=(k,extra='')=>{if(!PHOTOS[k])return `<div style="width:100%;height:100%;${extra}">${SCENES[k]}</div>`;const src=photoSources(k);return `<img src="${esc(src[0])}" data-fb="${esc(src.slice(1).join('|'))}" onerror="imgFallback(this)" alt="${esc(k)} destination photograph" decoding="async" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;display:block;image-rendering:auto;${extra}">`};
+function applyPhotos(files){
+  const kinds=PACKAGES.map(p=>({kind:p.kind,dest:p.dest.toLowerCase()}));
+  let n=0;
+  [...files].filter(f=>f.type.startsWith('image/')).forEach(f=>{
+    const name=f.name.toLowerCase();
+    const tgt=kinds.find(x=>name.includes(x.dest))||kinds.find(x=>!PHOTOS[x.kind]);
+    if(!tgt)return;
+    if(PHOTOS[tgt.kind])URL.revokeObjectURL(PHOTOS[tgt.kind]);
+    PHOTOS[tgt.kind]=URL.createObjectURL(f);n++;
+  });
+  render(false);toast(n?`${n} photo${n>1?'s':''} applied`:'No image files found');
+}
+const place=p=>`${p.dest}, ${p.country}`;
+const pkg=()=>service.getPackage(S.id);
+function dates(){const out=[];const base=new Date();[16,23,37,51].forEach(d=>{const x=new Date(base.getTime()+d*864e5);out.push(x.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}))});return out}
+function quote(p){const base=p.price*S.adults+Math.round(p.price*.75)*S.kids;const c=S.applied?Math.min(S.cpDisc,Math.max(0,base-1)):0;return {base,disc:c,total:base-c,pax:S.adults+S.kids}}
+function toast(m){S.toast=m;paintToast();clearTimeout(toast.t);toast.t=setTimeout(()=>{S.toast='';paintToast()},2200)}
+function paintToast(){$('#portal').querySelector('.toast')?.remove();if(S.toast)$('#portal').insertAdjacentHTML('beforeend',`<div class="toast" role="status">${esc(S.toast)}</div>`)}
+function openShare(title,text,url){
+  const sheet=()=>{
+    $('#portal').querySelector('.shm')?.remove();
+    const u=encodeURIComponent(url),tx=encodeURIComponent(text+' '+url);
+    $('#portal').insertAdjacentHTML('beforeend',`<div class="shm" data-act="shclose"><div class="shc" role="dialog" aria-modal="true" aria-label="Share"><h3>${esc(title)}</h3><div class="muted" style="font-size:12.5px">Share this link with friends and family</div><div class="shrow"><input id="shurl" readonly value="${esc(url)}" aria-label="Share link"><button class="btn red sm" data-act="shcopy" data-v="${esc(url)}">Copy</button></div><div class="shopts"><a href="https://wa.me/?text=${tx}" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:?subject=${encodeURIComponent(title)}&body=${tx}">Email</a><a href="sms:?&body=${tx}">Message</a></div><button class="btn line block" data-act="shclose" style="margin-top:16px">Close</button></div></div>`);
+    const i=$('#shurl');if(i){i.focus();i.select()}
+  };
+  if(navigator.share){navigator.share({title,text,url}).catch(e=>{if(e&&e.name!=='AbortError')sheet()})}else sheet();
+}
+function copy(t){const fb=()=>{try{const a=document.createElement('textarea');a.value=t;a.setAttribute('readonly','');a.style.cssText='position:fixed;opacity:0;top:0';document.body.appendChild(a);a.select();const ok=document.execCommand('copy');a.remove();toast(ok?'Copied to clipboard':'Select and copy: '+t)}catch(e){toast('Select and copy: '+t)}};try{navigator.clipboard.writeText(t).then(()=>toast('Copied to clipboard'),fb)}catch(e){fb()}}
+
+
+const FEATURED=['andaman-island','kashmir-paradise','bali-serenity','royal-rajasthan'];
+
+/* ============ Views ============ */
+function header(){return ''}
+function footer(){return ''}
+
+function heroHtml(){const p=service.getPackage(FEATURED[S.feat]);
+  return `<div class="bg" key="${p.id}">${scene(p.kind)}</div><div class="wrap"><div><span class="kicker">${ic('star',14)} Featured holiday · ${p.tag}</span><h1>${p.name}</h1><div class="m"><span>${ic('pin',17)} ${place(p)}</span><span>${ic('clock',17)} ${p.days} Days / ${p.nights} Nights</span><span>${ic('star',17)} ${p.rating} (${p.reviews})</span></div>
+  <div class="badges"><span class="bdg"><i class="live"></i> ${40+p.reviews%37} people viewing</span><span class="bdg hot">${ic('tag',13)} Save ${fmt(p.old-p.price)}</span><span class="bdg">${ic('shield',13)} Free cancellation</span></div>
+  <div class="cta"><div class="pr"><small>Starting from</small><b>${fmt(p.price)}</b></div><button class="btn white lg" data-act="open" data-v="${p.id}">View Details ${ic('chev',18,2.5)}</button></div></div>
+  <div class="feats" role="tablist" aria-label="Featured packages">${FEATURED.map((id,i)=>{const q=service.getPackage(id);return `<button class="feat ${i===S.feat?'on':''}" data-act="feat" data-v="${i}" role="tab" aria-selected="${i===S.feat}" aria-label="${q.name}">${scene(q.kind)}</button>`}).join('')}</div></div>`}
+function paintHero(){const h=$('#hero');if(h)h.innerHTML=heroHtml()}
+
+
+/* ===== v2 content: reviews, FAQ, how it works, extras ===== */
+const BEST={Goa:'November to February',Kashmir:'April to October (snow in Dec to Feb)',Kerala:'September to March',Rajasthan:'October to March',Manali:'March to June, and Dec to Feb for snow',Andaman:'October to May',Dubai:'November to March',Bali:'April to October'};
+const RPOOL=[
+ ['Aarav S.','Pune','Family','Oct 2026','Well planned, with enough free time. The driver was helpful and always on time.'],
+ ['Neha K.','Mumbai','Friends','Sep 2026','Great value for money. The support team replied instantly when we changed our dates.'],
+ ['Rohit & Isha','Nagpur','Couple','Sep 2026','Hotels were exactly as shown in the photos. We would happily book this again.'],
+ ['Priya M.','Bengaluru','Solo','Aug 2026','Travelled alone and felt completely safe. The trip manager checked in every evening.'],
+ ['Karan V.','Delhi','Family','Aug 2026','Kids loved it. Day plans were relaxed and the pickups were punctual throughout.'],
+ ['Sneha & Aditya','Hyderabad','Honeymoon','Jul 2026','A smooth, stress-free trip. Zproo handled every transfer and we just enjoyed ourselves.'],
+ ['Manish J.','Ahmedabad','Friends','Jul 2026','Good itinerary and clean rooms. A little more lunch info upfront would be nice.'],
+ ['Divya R.','Chennai','Family','Jun 2026','Booking took five minutes and the confirmation came instantly. Highly recommended.']
+];
+function dist(r){const f=Math.round(60+(r-4.4)*50),a=Math.round((100-f)*.6),b=Math.round((100-f-a)*.6),c=Math.round((100-f-a-b)*.5);return [f,a,b,c,100-f-a-b-c]}
+function stars(n,s=13){return `<span class="stars">${Array.from({length:5},(_,i)=>`<span style="opacity:${i<n?1:.25}">${star(s)}</span>`).join('')}</span>`}
+function reviewsHtml(p){
+  const d=dist(p.rating),shown=S.moreRev?RPOOL:RPOOL.slice(0,3);
+  return `<section class="card sec dsec" id="sec-reviews"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2 class="sh">Traveller reviews</h2><span class="rate" style="font-size:14px;padding:6px 12px">${star(13)} ${p.rating} · ${p.reviews} reviews</span></div>
+  <div class="rsum"><div class="rbig"><b>${p.rating}</b>${stars(Math.round(p.rating),16)}<small style="display:block;margin-top:4px">Based on ${p.reviews} verified trips</small></div>
+  <div class="bars">${d.map((v,i)=>`<div class="bar"><span>${5-i} ★</span><i><u style="width:${v}%"></u></i><span>${v}%</span></div>`).join('')}</div></div>
+  <div class="tags">${['Value for money','Helpful driver','Clean hotels','On-time pickups','Great support'].map(t=>`<span class="chip soft">${t}</span>`).join('')}</div>
+  <div class="rv2">${shown.map((r,i)=>`<article class="rc"><div class="h"><span class="av">${r[0][0]}</span><div><b>${r[0]}</b><div class="muted" style="font-size:11.5px">${r[1]} · <span class="vbadge">${ic('check',12,3)} Verified booking</span></div></div><span class="rate">${star(11)} ${i===6?'4.0':i%3===1?'4.5':'5.0'}</span></div><p>${r[4].replace('this','this')} ${i%2?'':`The ${p.dest} plan was spot on.`}</p><div class="meta"><span>${r[2]} trip</span><span>${p.name}</span><span>${r[3]}</span></div></article>`).join('')}</div>
+  <div style="text-align:center;margin-top:18px"><button class="btn ghost" data-act="morerev">${S.moreRev?'Show fewer reviews':'Show all '+RPOOL.length+' reviews'} ${ic('down',16)}</button></div></section>`}
+function faqItems(p){
+  const intl=p.intl;
+  return [
+   ['What is the best time to visit '+p.dest+'?',`The best time is ${BEST[p.dest]||'the pleasant season'}. We can still arrange your trip outside that window, with a few activities depending on weather.`],
+   ['What is included in the '+p.name+' package?',`${p.nights} nights at a ${p.hotel}, daily breakfast and 2 dinners, a private AC cab for transfers and sightseeing, airport pickup and drop, and entry to the listed highlights with guide. All taxes and driver charges are included.${intl?' Visa assistance and travel insurance are included too.':''}`],
+   ['Are flights included?','No. Flights or train tickets to the destination are not part of the package, so you can use your own miles or choose the fare you like. Our team can help you book them separately.'],
+   ['Can I customise the itinerary or hotel?','Yes. Tap Enquire Now and tell us what you would like to change, such as an extra night, a hotel upgrade or an added activity. A holiday expert will share a revised quote within a few hours.'],
+   ['Is there a child discount?','Children aged 2 to 11 are charged 75% of the adult price. Anyone 12 and above is counted as an adult.'],
+   ['How do I pay, and is it secure?','Pay through UPI, card or net banking inside the booking panel. All payments are encrypted, and you receive your voucher with a booking ID as soon as the payment succeeds.'],
+   ['What is the cancellation and refund policy?','Cancel 7 or more days before travel for a 100% refund. Between 3 and 7 days you get a 50% refund. Within 3 days of travel the booking is non-refundable.'],
+   intl?['Do I need a visa for '+p.country+'?','We provide visa assistance as part of this package. You will need a passport valid for at least 6 months and a few standard documents, and our team guides you through each step.']:['Is this trip safe for solo travellers, women and seniors?','Yes. Hotels are vetted, drivers are verified, and a trip manager is reachable 24x7. The pace of the plan can be relaxed for seniors on request.']
+  ]}
+function faqBlock(items,pre){return `<div class="faqs">${items.map((f,i)=>{const k=pre+i,o=S.openFaq[k];return `<div class="faq ${o?'open':''}"><button data-act="faq" data-v="${k}" aria-expanded="${!!o}"><span class="q">Q</span>${f[0]}<span class="chev">${ic('down',20)}</span></button>${o?`<div class="a">${f[1]}</div>`:''}</div>`}).join('')}</div>`}
+function faqHtml(p){return `<section class="card sec dsec" id="sec-faq"><h2 class="sh">Frequently asked questions</h2><p class="muted" style="margin:8px 0 0">Quick answers before you book ${p.name}.</p>${faqBlock(faqItems(p),'d')}
+  <div class="helpcta"><div><b>Still have a question?</b><span>Our holiday experts reply within a few hours.</span></div><button class="btn red sm" data-act="enquire">${ic('phone',16)} Talk to an expert</button></div></section>`}
+function knowHtml(p){return `<div class="hlbox"><div><small>Best time to visit</small><b>${BEST[p.dest]||'Year round'}</b></div><div><small>Pickup</small><b>Airport / station / hotel</b></div><div><small>Support</small><b>Trip manager 24x7</b></div><div><small>Booking</small><b>Instant confirmation</b></div></div>`}
+function stepsHtml(){return `<div class="steps">${[['search','Explore','Browse handpicked holidays and filter by budget, theme and duration.'],['sun','Customise','Pick your departure date, travellers and any special requests.'],['shield','Book securely','Pay with UPI, card or net banking and get an instant voucher.'],['plane','Travel stress-free','Pickups, stays and sightseeing are handled, with support 24x7.']].map((s,i)=>`<div class="step" style="animation-delay:${i*90}ms"><span class="no">0${i+1}</span><span class="ic">${ic(s[0],24)}</span><h4>${s[1]}</h4><p>${s[2]}</p></div>`).join('')}</div>`}
+function homeExtras(){
+  const tm=[['Aarav S.','Pune','Kashmir Paradise Escape','Everything from the shikara to the houseboat was perfectly timed. Best family holiday we have had.'],['Sneha & Aditya','Hyderabad','Bali Serenity Escape','Our honeymoon was effortless. The pool villa was a dream and the team was always one message away.'],['Priya M.','Bengaluru','Andaman Island Hopping','Travelled solo and never felt alone. Clear plans, clean stays and a very helpful trip manager.']];
+  return `<section class="band"><div class="wrap"><div class="sechead"><span class="eyebrow">${ic('ok',14)} How it works</span><h2>Your holiday in four easy steps</h2><p>From the first search to the last goodbye, we keep it simple.</p></div>${stepsHtml()}
+  <div class="stats">${[['25,000+','Happy travellers'],['4.7 / 5','Average rating'],['120+','Handpicked packages'],['24x7','Trip support']].map((s,i)=>`<div class="stat" style="animation-delay:${i*80}ms"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('')}</div></div></section>
+  <section class="band alt"><div class="wrap"><div class="sechead"><span class="eyebrow">${ic('star',14)} Why Zproo</span><h2>Travel better with Zproo Holidays</h2><p>Everything you need for a smooth trip, all in one place.</p></div>
+  <div class="whys">${[['tag','Best price promise','Found it cheaper elsewhere? Tell us and we will match it.'],['shield','Secure and flexible','Encrypted payments and free cancellation up to 7 days before travel.'],['users','Local experts','Verified drivers and guides who know every destination well.'],['phone','24x7 support','A real trip manager is a call away, before and during your trip.'],['gift','Exclusive offers','Sign in and apply a live coupon at checkout to save more.'],['hotel','Handpicked stays','Every hotel is checked for cleanliness, comfort and location.']].map((w,i)=>`<div class="why" style="animation-delay:${i*70}ms"><span class="ic">${ic(w[0],22)}</span><div><h4>${w[1]}</h4><p>${w[2]}</p></div></div>`).join('')}</div></div></section>
+  <section class="tband"><div class="wrap"><div class="sechead"><span class="eyebrow">${ic('heart',14)} Traveller stories</span><h2>Loved by travellers across India</h2><p>Real words from guests who booked with us.</p></div>
+  <div class="tgrid">${tm.map((t,i)=>`<div class="tcard" style="animation-delay:${i*90}ms">${stars(5,16)}<p>“${t[3]}”</p><div class="who"><span class="av">${t[0][0]}</span><div><b>${t[0]}</b><small>${t[1]} · ${t[2]}</small></div></div></div>`).join('')}</div></div></section>
+  <section class="band"><div class="wrap faqwrap"><div class="sechead"><span class="eyebrow">${ic('phone',14)} FAQs</span><h2>Got questions? We have answers</h2><p>Everything you need to know about booking a holiday with Zproo.</p></div>${faqBlock([
+   ['How do I book a holiday package?','Choose a package, pick a departure date and number of travellers, then tap Book Now. Fill in traveller details, pay securely and your voucher is ready instantly.'],
+   ['Can I book without paying the full amount?','Tap Enquire Now on any package and our expert will call you with a custom quote and payment options.'],
+   ['Are taxes included in the displayed price?','Yes. The price shown is per adult and includes taxes and driver charges.'],
+   ['How do coupons work?','Sign in, then pick a live offer or enter its code in the Offers and coupons box on the Review and pay step. The discount applies to your total instantly. Each coupon has its own dates, minimum booking amount and usage limit.'],
+   ['Can I change my dates after booking?','Yes, subject to availability. Contact support at least 7 days before travel and we will help you reschedule.'],
+   ['Do you offer international holidays?','Yes. Dubai and Bali are available with visa assistance and airport transfers included.']],'g')}</div></section>
+  <section class="band" style="padding-top:0"><div class="wrap"><div class="news"><div style="position:relative;z-index:1"><h2>Get holiday deals in your inbox</h2><p>Join 25,000+ travellers. Early access to offers, never spam.</p></div><div><div class="nrow"><input id="nl" type="email" placeholder="Enter your email address" aria-label="Email address"><button class="btn white lg" data-act="subscribe">Subscribe</button></div></div></div></div></section>`}
+
+function routeHtml(p){const stops=p.itin.map(d=>d[0].split(' to ')[0].replace(/^Arrive (in|at) /,'').replace(/^Arrival and /,'').replace(/ sightseeing$/,'')).filter((v,i,a)=>a.indexOf(v)===i).slice(0,5);return `<div class="route" aria-label="Trip route">${stops.map((n,i)=>`${i?'<div class="rl"></div>':''}<div class="rn"><i></i>${n}</div>`).join('')}</div>`}
+addEventListener('scroll',()=>{const t=document.getElementById('ttop');if(t)t.classList.toggle('show',scrollY>600);const b=document.getElementById('sprog');if(b){const h=document.documentElement.scrollHeight-innerHeight;b.style.width=(h>0?scrollY/h*100:0)+'%'}},{passive:true});
+function listView(){
+  return `${header()}<section class="hero" id="hero"></section>
+  <div class="wrap"><div class="card finder"><div class="fhead"><div><b>Find your perfect holiday</b><span>Handpicked packages · Instant confirmation · 24x7 support</span></div><div class="ftabs" id="rtabs"></div></div><div class="frow"><div class="iw lg"><span style="display:contents">${ic('search')}</span><input class="in big" id="q" type="search" placeholder="Search destinations, packages or themes" value="${esc(S.q)}" autocomplete="off" aria-label="Search packages"></div><button class="btn red lg" data-act="searchGo">${ic('search')} Search</button></div>
+  <div class="fchips" id="fchips"></div></div>
+  <div class="stories" id="stories" aria-label="Browse by destination"></div>
+  <div id="browse"></div>
+  <div class="card perks">${[['shield','Secure payments'],['tag','Best price promise'],['phone','24×7 trip support'],['gift','Exclusive offers']].map(([i,t])=>`<div class="perk"><span>${ic(i,22)}</span>${t}</div>`).join('')}</div></div>${homeExtras()}${footer()}`}
+
+function dlistHtml(q){
+  q=q.trim().toLowerCase();
+  let r=DESTS.filter(d=>!q||d.toLowerCase().includes(q)||PACKAGES.some(p=>p.dest===d&&(p.country.toLowerCase().includes(q)||p.theme.toLowerCase().includes(q))));
+  r.sort((a,b)=>(b.toLowerCase().startsWith(q)?1:0)-(a.toLowerCase().startsWith(q)?1:0));
+  if(!r.length)return `<div class="dnone">No destination found for “${esc(q)}”.<br><small>Try Goa, Kerala or Dubai.</small></div>`;
+  const hl=d=>{const i=q?d.toLowerCase().indexOf(q):-1;return i<0?d:d.slice(0,i)+'<mark>'+d.slice(i,i+q.length)+'</mark>'+d.slice(i+q.length)};
+  return (q?'':'<div class="dhint">Popular destinations</div>')+r.map(d=>{const pk=PACKAGES.find(x=>x.dest===d),on=S.dests.includes(d);return `<button class="sug ${on?'on':''}" data-act="dpick" data-v="${d}"><span class="th">${scene(pk.kind)}</span><span class="tx"><b>${hl(d)}</b><small>${pk.country} · ${COUNTS[d]} package${COUNTS[d]>1?'s':''}</small></span>${on?ic('check',18,3):ic('pin',16)}</button>`}).join('')}
+function fchipsHtml(){
+  const durL=S.dur?DURS.find(x=>x[0]===S.dur)[1]:'Duration';
+  const chip=(k,icn,label,n,body,val,on)=>`<div class="pw"><button class="ftile ${on?'on':''}" data-act="pop" data-v="${k}" aria-haspopup="true" aria-expanded="${S.pop===k}"><span class="fi">${ic(icn,20)}</span><span class="ft"><small>${label}</small><b>${val}</b></span><span class="fc">${ic('down',16)}</span></button>${S.pop===k?`${'<div class="pdim" data-act="popx"></div>'}<div class="pop" role="dialog" aria-label="${label} filter">${body}</div>`:''}</div>`;
+  const bud=`<h4>Budget per person</h4><input type="range" id="bud" min="10000" max="${MAXB}" step="2000" value="${S.bud}" aria-label="Maximum budget per person"><div class="rv"><span>₹10,000</span><b id="budv" style="color:var(--accent)">Up to ${fmt(S.bud)}</b></div>`;
+  const dur=`<h4>Trip length</h4><div style="display:flex;gap:8px;flex-wrap:wrap">${DURS.map(([k,l])=>`<button class="chip ${S.dur===k?'on':''}" data-act="dur" data-v="${k}">${l}</button>`).join('')}</div>`;
+  const dst=`<h4>Destination</h4><div class="iw">${ic('search',17)}<input class="in" id="dq" style="padding-left:42px" placeholder="Type a destination, e.g. Goa" autocomplete="off" value="${esc(S.dq||'')}" aria-label="Search destinations"></div>${S.dests.length?`<div class="dsel">${S.dests.map(d=>`<span class="chip soft">${d}<button class="link" style="display:grid" data-act="dpick" data-v="${d}" aria-label="Remove ${d}">${ic('x',13,2.5)}</button></span>`).join('')}</div>`:''}<div id="dlist" class="dlist">${dlistHtml(S.dq||'')}</div>`;
+  const th=`<h4>Theme</h4><div style="display:flex;gap:8px;flex-wrap:wrap">${THEMES.map(t=>`<button class="chip ${S.theme===t?'on':''}" data-act="theme-cat" data-v="${t}">${t}</button>`).join('')}</div>`;
+  const any=S.q.trim()||S.dests.length||S.dur||S.bud<MAXB||S.theme;
+  const dval=S.dests.length?(S.dests.length===1?S.dests[0]:S.dests[0]+' +'+(S.dests.length-1)):'Anywhere';
+  return `${chip('dest','pin','Destination',0,dst,dval,S.dests.length)}${chip('dur','clock','Duration',0,dur,S.dur?durL:'Any length',S.dur)}${chip('bud','tag','Budget per person',0,bud,S.bud<MAXB?'Up to '+fmt(S.bud):'Any budget',S.bud<MAXB)}${chip('theme','sun','Holiday theme',0,th,S.theme||'All themes',S.theme)}
+  <div class="fpop"><span>Popular:</span>${['Goa','Kashmir','Bali','Dubai','Andaman'].map(d=>`<button class="pl" data-act="story" data-v="${d}">${d}</button>`).join('')}${any?'<button class="link" data-act="clear" style="margin-left:auto">Clear all filters</button>':''}</div>`}
+function storiesHtml(){return DESTS.map(d=>{const p=PACKAGES.find(x=>x.dest===d);const on=S.dests.length===1&&S.dests[0]===d;return `<button class="story ${on?'on':''}" data-act="story" data-v="${d}" aria-pressed="${on}"><span class="ring"><div>${scene(p.kind)}</div></span>${d}</button>`}).join('')}
+
+function posterHtml(p){return `<article class="poster"><div class="im">${scene(p.kind)}</div><div class="tp"><span class="tagb">${p.tag}</span><button class="heart ${S.saved[p.id]?'on':''}" data-act="save" data-v="${p.id}" aria-label="Save ${esc(p.name)}">${ic('heart',17)}</button></div>
+  <div class="bt"><span class="dest">${ic('pin',15)} ${place(p)}</span><h3>${p.name}</h3><div class="pm"><span>${ic('clock',13)} ${p.days}D / ${p.nights}N</span><span>${star(12)} ${p.rating}</span></div>
+  <div class="pb"><div><small>Starting from</small><s>${fmt(p.old)}</s><b>${fmt(p.price)}</b></div><button class="btn white sm" data-act="open" data-v="${p.id}">View Details</button></div></div></article>`}
+function resultsHtml(){
+  const chips=[];if(S.q.trim())chips.push(['q',`“${esc(S.q.trim())}”`]);S.dests.forEach(d=>chips.push(['d:'+d,d]));if(S.theme)chips.push(['theme',S.theme]);if(S.dur)chips.push(['dur',DURS.find(x=>x[0]===S.dur)[1]]);if(S.bud<MAXB)chips.push(['bud','Up to '+fmt(S.bud)]);
+  const act=chips.map(([k,l])=>`<span class="chip soft">${l}<button class="link" style="display:grid" data-act="rm" data-v="${k}" aria-label="Remove filter ${l}">${ic('x',13,2.5)}</button></span>`).join('');
+  let body;
+  if(S.loading)body=`<div class="grid">${'<div class="sk"></div>'.repeat(6)}</div><p class="muted" style="text-align:center;margin-top:20px">${ic('refresh',16)} Finding the best holiday packages for you…</p>`;
+  else if(S.error)body=`<div class="card state"><svg width="190" height="140" viewBox="0 0 220 170" aria-hidden="true"><circle cx="110" cy="85" r="74" fill="var(--accent-soft)"/><path d="M110 40l50 88H60z" fill="var(--surface)" stroke="var(--accent)" stroke-width="6" stroke-linejoin="round"/><path d="M110 74v28" stroke="var(--accent)" stroke-width="8" stroke-linecap="round"/><circle cx="110" cy="116" r="5" fill="var(--accent)"/></svg><h2>Something went wrong</h2><p>We couldn't load holiday packages. Check your connection and try again.</p><div class="row"><button class="btn red" data-act="retry">${ic('refresh')} Try again</button><button class="btn ghost" data-act="failOff">Use sample data</button></div><span class="code">HOLIDAY_FETCH_FAILED · Ref #ZP-20261013</span></div>`;
+  else if(!S.list.length)body=`<div class="card state"><svg width="190" height="140" viewBox="0 0 220 170" aria-hidden="true"><circle cx="110" cy="85" r="74" fill="var(--accent-soft)"/><circle cx="110" cy="85" r="48" fill="var(--surface)" stroke="var(--accent)" stroke-width="6"/><path d="M146 121l30 30" stroke="var(--accent)" stroke-width="10" stroke-linecap="round"/><path d="M92 76h36M92 94h24" stroke="var(--accent-line)" stroke-width="6" stroke-linecap="round"/></svg><h2>No packages found</h2><p>Nothing matches your search and filters. Try a different destination or clear a few filters.</p><div class="row"><button class="btn red" data-act="clear">Clear all filters</button></div><div class="suggest">Popular searches: ${['Goa','Kashmir','Kerala','Andaman'].map(x=>`<button class="chip" data-act="quick" data-v="${x}">${x}</button>`).join('')}</div></div>`;
+  else body=`<div class="grid">${S.list.map(posterHtml).join('')}</div>`;
+  return `<div class="rhead"><div><div class="t">${S.loading?'Searching…':S.error?'Packages unavailable':`${S.list.length} holiday package${S.list.length===1?'':'s'}`}</div><div class="active">${act}</div></div>
+  <select class="in sel" id="sort" aria-label="Sort packages"><option value="popular">Sort: Popularity</option><option value="low">Price: Low to high</option><option value="high">Price: High to low</option><option value="rated">Top rated</option></select></div>${body}`}
+function paintBrowse(){const b=$('#browse');if(!b)return;b.innerHTML=resultsHtml();const s=$('#sort');if(s)s.value=S.sort;paintFilters()}
+function rtabsHtml(){return [['','All holidays','globe'],['in','India','pin'],['intl','International','plane']].map(([k,l,i])=>`<button class="ftab ${S.reg===k?'on':''}" data-act="reg" data-v="${k}" role="tab" aria-selected="${S.reg===k}">${ic(i,15)} ${l}</button>`).join('')}
+function paintFilters(){const rt=$('#rtabs');if(rt)rt.innerHTML=rtabsHtml();const f=$('#fchips');if(f)f.innerHTML=fchipsHtml();const st=$('#stories');if(st)st.innerHTML=storiesHtml()}
+async function refresh(){S.loading=true;S.error=false;paintBrowse();const key=()=>JSON.stringify([S.q,S.dests,S.dur,S.bud,S.theme,S.sort,S.reg]);const snap=key();
+  try{const r=await service.getPackages({q:S.q,dests:S.dests,dur:S.dur,bud:S.bud,theme:S.theme,sort:S.sort,reg:S.reg});if(snap!==key())return;S.list=r}catch(e){S.error=true;S.list=[]}
+  S.loading=false;paintBrowse()}
+
+/* ---- details ---- */
+const SECS=[['sec-overview','Overview'],['sec-itinerary','Itinerary'],['sec-incl','Inclusions'],['sec-excl','Exclusions'],['sec-policy','Policies'],['sec-reviews','Reviews'],['sec-faq','FAQs']];
+const SHOTS=[['50% 50%',1],['15% 80%',1.35],['85% 55%',1.5],['45% 20%',1.8]];
+function detailView(){
+  const p=pkg(),q=quote(p),ds=dates();
+  const incl=[['hotel',`${p.nights} nights at a ${p.hotel}`],['food','Daily breakfast and 2 dinners'],['car','Private AC cab for transfers and sightseeing'],['plane','Airport pickup and drop'],['camera','Entry to listed highlights with guide'],['shield','All taxes and driver charges']];if(p.intl)incl.splice(5,0,['ok','Visa assistance and travel insurance']);
+  const excl=['Flights or train tickets to the destination','Lunches and personal expenses','Optional activities and water sports','Tips and gratuities','Anything not listed under inclusions'];
+  const [o,sc]=SHOTS[S.shot];
+  const facts=[['clock','Duration',`${p.days}D / ${p.nights}N`],['hotel','Stay',p.hotel.split(' ').slice(0,3).join(' ')],['car','Transfers','Private AC cab'],['food','Meals','Breakfast + 2 dinners'],['users','Group','Private, 2+ guests']];
+  const more=PACKAGES.filter(x=>x.id!==p.id&&(x.theme===p.theme||x.intl===p.intl)).slice(0,3);
+  const days=p.itin.map((d,i)=>`<div class="day ${S.openDay[i]?'open':''}"><button data-act="day" data-v="${i}" aria-expanded="${!!S.openDay[i]}"><span class="dn"><span><small>DAY</small>${i+1}</span></span><div><h4>${d[0]}</h4></div><span class="chev">${ic('down',20)}</span></button>${S.openDay[i]?`<div class="dc">${d[1]}</div>`:''}</div>`).join('');
+  const bk=`<aside class="card bk"><span class="save">${ic('tag',14)} Save ${fmt(p.old-p.price)} per person</span><div class="muted" style="font-size:11.5px;margin-top:14px">Starting from</div><div style="display:flex;align-items:baseline;gap:10px"><span class="price">${fmt(p.price)}</span><span class="old">${fmt(p.old)}</span></div><div class="muted" style="font-size:12.5px">per adult · taxes included</div><div class="emi">${ic('tag',15)} No-cost EMI from <b>${fmt(Math.round(p.price/6))}</b>/month</div>
+   <div class="lbl" style="margin:18px 0 8px">Choose a departure</div><div class="dates">${ds.map((d,i)=>{const [dd,mm,yy]=d.split(' ');return `<button class="dchip ${S.dateIx===i?'on':''}" data-act="date" data-v="${i}" aria-pressed="${S.dateIx===i}"><b>${dd} ${mm}</b><small>${yy}</small></button>`}).join('')}</div>
+   <div style="display:flex;flex-direction:column;gap:10px;margin-top:16px"><div class="stp"><div class="n">${ic('user',17)}<span>Adults <small>12+ yrs</small></span></div><div class="c"><button data-act="adm" aria-label="Fewer adults" ${S.adults<=1?'disabled':''}>−</button><output>${S.adults}</output><button data-act="adp" aria-label="More adults" ${S.adults>=8?'disabled':''}>+</button></div></div>
+   <div class="stp"><div class="n">${ic('users',17)}<span>Children <small>2-11 yrs · 75%</small></span></div><div class="c"><button data-act="chm" aria-label="Fewer children" ${S.kids<=0?'disabled':''}>−</button><output>${S.kids}</output><button data-act="chp" aria-label="More children" ${S.kids>=6?'disabled':''}>+</button></div></div></div>
+   <div style="margin-top:16px"><div class="kv"><span class="muted">${S.adults} adult${S.adults>1?'s':''}${S.kids?` + ${S.kids} child${S.kids>1?'ren':''}`:''}</span><b>${fmt(q.base)}</b></div><div class="kv"><span class="muted">Taxes and fees</span><b style="color:var(--good)">Included</b></div><div class="kv t"><b>Total</b><b>${fmt(q.base)}</b></div></div>
+   <div class="seats" style="margin-top:16px"><div style="flex:1">${ic('clock',14)} Only ${3+p.reviews%5} seats left for ${dates()[S.dateIx]}<div class="seatbar"><i style="width:${70+p.reviews%20}%"></i></div></div></div><button class="btn red block lg" data-act="book" style="margin-top:14px">Book Now</button><button class="btn line block lg" data-act="enquire" style="margin-top:10px">Enquire Now</button>
+   <div style="display:flex;gap:8px;align-items:center;justify-content:center;margin-top:14px;color:var(--ink-2);font-size:12.5px"><span style="color:var(--good);display:grid">${ic('shield',16)}</span>Free cancellation up to 7 days before travel</div><div class="offers" id="offerslot">${offersSlot()}</div><div class="trust"><div><span>${ic('shield',20)}</span>Secure payment</div><div><span>${ic('phone',20)}</span>24x7 support</div><div><span>${ic('ok',20)}</span>Verified stays</div></div></aside>`;
+  return `${header()}<section class="dh"><div class="sprog" id="sprog"></div><div class="bg" style="transform:scale(${1+(sc-1)*.12});transform-origin:${o}">${scene(p.kind,`transform:scale(${sc});transform-origin:${o};transition:transform .8s`)}</div>
+   <div class="topbar"><button class="fab" data-act="home" aria-label="Back to holidays">${ic('chev',20)}</button></div><div class="dact"><button class="btn gl sm" data-act="share">${ic('share',16)} Share</button><button class="btn gl sm" data-act="save" data-v="${p.id}">${ic('heart',16)} ${S.saved[p.id]?'Saved':'Save'}</button></div>
+   <div class="wrap"><span class="kicker">${p.tag} · ${p.theme}</span><h1>${p.name}</h1>
+   <div class="m"><span>${ic('pin',17)} ${place(p)}</span><span>${ic('clock',17)} ${p.days} Days / ${p.nights} Nights</span><span>${ic('star',17)} ${p.rating} · ${p.reviews} reviews</span></div><div class="badges"><span class="bdg hot">${ic('tag',13)} ${Math.round((p.old-p.price)/p.old*100)}% off</span><span class="bdg"><i class="live"></i> ${40+p.reviews%37} people viewing now</span><span class="bdg">${ic('shield',13)} Instant confirmation</span></div></div>
+   <div class="shots" role="group" aria-label="Photo angles">${SHOTS.map((s,i)=>`<button class="shot ${S.shot===i?'on':''}" data-act="shot" data-v="${i}" aria-label="Photo ${i+1}">${scene(p.kind,`transform:scale(${s[1]});transform-origin:${s[0]}`)}</button>`).join('')}</div></section>
+  <main class="wrap pad-b"><div class="card facts">${facts.map(([i,t,v])=>`<div class="fact"><span class="ic">${ic(i,22)}</span><div><small>${t}</small><b>${v}</b></div></div>`).join('')}</div></main>
+  <div class="snav"><div class="wrap" role="tablist" id="snav">${SECS.map(([id,l])=>`<button role="tab" class="${S.spy===id?'on':''}" data-act="goto" data-v="${id}">${l}</button>`).join('')}</div></div>
+  <main class="wrap pad-b"><div class="dg"><div class="stack">
+   <section class="card sec dsec" id="sec-overview"><h2 class="sh">Package overview</h2><p class="muted" style="line-height:1.85;margin:12px 0 0">${p.about}</p><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><b style="font-size:16px">Highlights</b><div style="margin-top:6px">${p.highlights.map(h=>`<div class="hl">${ic('ok',20)}<span>${h}</span></div>`).join('')}</div></section>
+   <section class="card sec dsec" id="sec-itinerary"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h2 class="sh">Day-wise itinerary</h2><button class="link" data-act="expand">${Object.keys(S.openDay).filter(k=>S.openDay[k]).length===p.itin.length?'Collapse all':'Expand all'}</button></div>${routeHtml(p)}<div class="days">${days}</div></section>
+   <div class="two dsec" id="sec-incl"><section class="card sec"><h2 style="font-size:21px;display:flex;gap:10px;align-items:center"><span style="color:var(--good);display:grid">${ic('ok',26)}</span>Included</h2>${incl.map(([i,t])=>`<div class="li g"><span>${ic(i,20)}</span>${t}</div>`).join('')}</section>
+   <section class="card sec dsec" id="sec-excl"><h2 style="font-size:21px;display:flex;gap:10px;align-items:center"><span style="color:var(--accent);display:grid">${ic('no',26)}</span>Not included</h2>${excl.map(t=>`<div class="li r"><span>${ic('x',18,2.5)}</span>${t}</div>`).join('')}</section></div>
+   <section class="card sec dsec" id="sec-policy"><h2 class="sh">Cancellation policy</h2><div style="margin-top:8px">${[['7+ days before travel','100% refund','var(--good)'],['3 to 7 days before travel','50% refund','var(--warn)'],['Less than 3 days','Non-refundable','var(--accent)']].map(([a,b,c])=>`<div class="kv" style="border-bottom:1px solid var(--line)"><span>${a}</span><b style="color:${c}">${b}</b></div>`).join('')}</div>
+    ${knowHtml(p)}</section>${reviewsHtml(p)}${faqHtml(p)}
+   <section class="more-sec"><h2 class="sh">You may also like</h2><div class="more">${more.map(posterHtml).join('')}</div></section></div>${bk}</div></main>
+  <div class="mbar"><div style="min-width:0"><div class="muted" style="font-size:11px">Total for ${q.pax}</div><div style="font-size:20px;font-weight:800;letter-spacing:-.03em">${fmt(q.base)}</div></div><button class="btn line" data-act="enquire">Enquire</button><button class="btn red" data-act="book">Book Now</button></div>${footer()}`}
+
+/* ---- drawer ---- */
+function drawerHtml(){
+  const p=pkg(),q=quote(p),e=S.errs;
+  const close=`<button class="iconbtn" data-act="dclose" aria-label="Close" style="border-radius:50%">${ic('x',16)}</button>`;
+  const mini=`<div class="mini"><div class="im">${scene(p.kind)}</div><div style="min-width:0"><b style="font-size:14.5px;display:block">${p.name}</b><div class="muted" style="font-size:12px">${p.days}D / ${p.nights}N · ${dates()[S.dateIx]} · ${S.adults+S.kids} traveller${S.adults+S.kids>1?'s':''}</div></div></div>`;
+  const fld=(id,l,key,icn,ph,t,err,val)=>`<div class="field"><label for="${id}">${l}</label><div class="iw">${ic(icn,17)}<input class="in ${err?'err':''}" id="${id}" data-in="${key}" type="${t||'text'}" placeholder="${ph}" value="${esc(val)}"></div>${err?`<span class="err-t">${err}</span>`:''}</div>`;
+  if(S.drawer==='enquire'){
+    if(S.enqId)return `<aside class="drawer" role="dialog" aria-modal="true" aria-label="Enquiry sent"><div class="dhd"><div class="row"><h3>Enquiry sent</h3>${close}</div></div><div class="dbody" style="text-align:center;padding-top:34px"><div class="tick">${ic('check',42,3)}</div><h2 style="font-size:24px">Thanks, ${esc(S.enq.name.split(' ')[0])}!</h2><p class="muted">Our travel expert will call <b>+91 ${esc(S.enq.phone)}</b> within 30 minutes with the best quote.</p><div style="text-align:left;margin-top:18px">${mini}</div><div class="bid">Enquiry ID · ${S.enqId}</div></div><div class="dfoot"><button class="btn line" data-act="dclose">Close</button><button class="btn red" data-act="home">More packages</button></div></aside>`;
+    const en=S.enqErr;
+    return `<aside class="drawer" role="dialog" aria-modal="true" aria-label="Enquire about this trip"><div class="dhd"><div class="row"><h3>Enquire about this trip</h3>${close}</div><div class="muted" style="font-size:12.5px;margin-top:4px">We call back within 30 minutes. No payment needed.</div></div>
+    <div class="dbody">${mini}<div class="fgrid" style="margin-top:16px"><div class="full">${fld('en','Full name','enq.name','user','Your name','text',en.name,S.enq.name)}</div>${fld('ep','Mobile number','enq.phone','phone','10-digit number','tel',en.phone,S.enq.phone)}${fld('ec','Departure city','enq.city','pin','e.g. Pune','text',en.city,S.enq.city)}<div class="full">${fld('ee','Email address','enq.email','mail','name@example.com','email',en.email,S.enq.email)}</div></div>
+    <div class="field" style="margin-top:12px"><label for="em">Message (optional)</label><textarea class="in" id="em" data-in="enq.msg" rows="3" placeholder="Any special requests or preferences">${esc(S.enq.msg)}</textarea></div><div class="notice">${ic('shield',16)} We use your details only to respond to this enquiry.</div></div>
+    <div class="dfoot"><div class="tot"><small>From</small><b>${fmt(p.price)}</b></div><button class="btn red lg" data-act="sendEnq" ${S.busy?'disabled':''}>${S.busy?'Sending…':'Send Enquiry'}</button></div></aside>`}
+  const titles=['Traveller details','Review and pay','Booking confirmed'];
+  const prog=`<div class="prog">${[0,1,2].map(i=>`<i class="${i<S.step||S.step===2?'done':i===S.step?'on':''}"></i>`).join('')}</div><div class="plab"><span>Travellers</span><span>Review and pay</span><span>Confirmed</span></div>`;
+  let body='',foot='';
+  if(S.step===0){
+    const rows=S.trav.map((t,i)=>`<div class="card tc"><h4><span class="av" style="width:30px;height:30px;font-size:12px">${i+1}</span>${t.type}${i===0?' · lead traveller':''}</h4><div class="fgrid"><div class="field full"><label for="tn${i}">Full name (as on ID)</label><input class="in ${e['n'+i]?'err':''}" id="tn${i}" data-in="trav.${i}.name" value="${esc(t.name)}" autocomplete="name">${e['n'+i]?`<span class="err-t">${e['n'+i]}</span>`:''}</div>
+     <div class="field"><label for="ta${i}">Age</label><input class="in ${e['a'+i]?'err':''}" id="ta${i}" data-in="trav.${i}.age" inputmode="numeric" value="${esc(t.age)}" placeholder="${t.type==='Adult'?'12+':'2-11'}">${e['a'+i]?`<span class="err-t">${e['a'+i]}</span>`:''}</div>
+     <div class="field"><label for="tg${i}">Gender</label><select class="in" id="tg${i}" data-in="trav.${i}.gender"><option ${t.gender==='Female'?'selected':''}>Female</option><option ${t.gender==='Male'?'selected':''}>Male</option><option ${t.gender==='Other'?'selected':''}>Other</option></select></div></div></div>`).join('');
+    body=`${mini}<div style="height:14px"></div>${rows}<div class="card tc"><h4>${ic('phone',18)} Contact details</h4><div class="fgrid"><div class="full">${fld('cm','Mobile number','contact.mobile','phone','10-digit number','tel',e.mobile,S.contact.mobile)}</div><div class="full">${fld('ce','Email address','contact.email','mail','name@example.com','email',e.email,S.contact.email)}</div></div><div class="notice">${ic('mail',16)} Your e-voucher is sent to these details.</div></div>`;
+    foot=`<div class="tot"><small>Total</small><b>${fmt(q.total)}</b></div><button class="btn red lg" data-act="to-pay">Continue</button>`}
+  if(S.step===1){
+    const pm=(k,i,t,s)=>`<button class="pmeth ${S.pay===k?'on':''}" data-act="pm" data-v="${k}" role="radio" aria-checked="${S.pay===k}"><span class="rd"></span><span style="color:var(--accent);display:grid">${ic(i,22)}</span><span><b>${t}</b><small>${s}</small></span></button>`;
+    let f='';
+    if(S.pay==='upi')f=`<div class="field"><label for="upi">UPI ID</label><input class="in ${e.upi?'err':''}" id="upi" data-in="pf.upi" placeholder="name@bank" value="${esc(S.pf.upi)}" autocomplete="off">${e.upi?`<span class="err-t">${e.upi}</span>`:''}</div>`;
+    if(S.pay==='card')f=`<div class="fgrid"><div class="field full"><label for="cn">Card number</label><input class="in ${e.card?'err':''}" id="cn" data-in="pf.card" inputmode="numeric" placeholder="1234 5678 9012 3456" value="${esc(S.pf.card)}" autocomplete="off">${e.card?`<span class="err-t">${e.card}</span>`:''}</div><div class="field"><label for="cx">Expiry</label><input class="in ${e.exp?'err':''}" id="cx" data-in="pf.exp" placeholder="MM/YY" value="${esc(S.pf.exp)}" autocomplete="off">${e.exp?`<span class="err-t">${e.exp}</span>`:''}</div><div class="field"><label for="cv">CVV</label><input class="in ${e.cvv?'err':''}" id="cv" type="password" data-in="pf.cvv" inputmode="numeric" placeholder="123" value="${esc(S.pf.cvv)}" autocomplete="off">${e.cvv?`<span class="err-t">${e.cvv}</span>`:''}</div></div>`;
+    if(S.pay==='nb')f=`<div class="field"><label for="bk">Choose your bank</label><select class="in" id="bk" data-in="pf.bank">${['HDFC Bank','ICICI Bank','State Bank of India','Axis Bank','Kotak Mahindra Bank'].map(b=>`<option ${S.pf.bank===b?'selected':''}>${b}</option>`).join('')}</select></div>`;
+    body=`${mini}<div class="card tc" style="margin-top:14px"><div class="kv" style="padding-top:0"><span class="muted">Package price</span><b>${fmt(q.base)}</b></div>${q.disc?`<div class="kv"><span class="muted">Coupon ${S.applied}</span><b style="color:var(--good)">− ${fmt(q.disc)}</b></div>`:''}<div class="kv"><span class="muted">Taxes and fees</span><b style="color:var(--good)">Included</b></div><div class="kv t"><b>Total payable</b><b>${fmt(q.total)}</b></div></div>
+    ${couponCard(q)}
+    <div class="card tc"><h4>${ic('lock',18)} Payment method</h4><div role="radiogroup" aria-label="Payment method">${pm('upi','qr','UPI','Google Pay, PhonePe, Paytm')}${pm('card','card','Credit or debit card','Visa, Mastercard, RuPay')}${pm('nb','bank','Net banking','All major Indian banks')}</div>${f}<div class="notice">${ic('lock',16)} Prototype only. Nothing is charged, sent or stored.</div></div>`;
+    foot=`<button class="btn ghost" data-act="dback" style="flex:none">${ic('left',18)}</button><button class="btn red lg" data-act="pay">Pay ${fmt(q.total)}</button>`}
+  if(S.step===2){
+    const b=S.booking,h=[...b.id].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);let cells='';for(let y=0;y<9;y++)for(let x=0;x<9;x++){const corner=(x<3&&y<3)||(x>5&&y<3)||(x<3&&y>5);const on=corner?!(x%3===1&&y%3===1)||false:((h>>((x*9+y)%31))&1);if(corner||on)cells+=`<rect x="${x*10}" y="${y*10}" width="9" height="9" rx="2" fill="currentColor"/>`}
+    body=`<div style="text-align:center;padding-top:6px"><div class="tick">${ic('check',42,3)}</div><h2 style="font-size:24px">You're going to ${p.dest}!</h2><p class="muted" style="margin:6px 0 0">E-voucher sent to <b>${esc(S.contact.email)}</b></p><div class="bid">Booking ID · ${b.id}<button data-act="copyId" aria-label="Copy booking ID">${ic('copy',17)}</button></div></div>
+    <div class="vc" style="margin-top:20px"><div class="a"><div class="muted" style="font-size:10.5px;letter-spacing:.1em;font-weight:700">ZPROO HOLIDAY VOUCHER</div><b style="font-size:17px;display:block;margin:4px 0 10px;line-height:1.25">${p.name}</b><div class="kv" style="padding:3px 0"><span class="muted">Travel date</span><b>${dates()[S.dateIx]}</b></div><div class="kv" style="padding:3px 0"><span class="muted">Lead traveller</span><b>${esc(S.trav[0].name)}</b></div><div class="kv" style="padding:3px 0"><span class="muted">Travellers</span><b>${S.adults}A${S.kids?` + ${S.kids}C`:''}</b></div>${q.disc?`<div class="kv" style="padding:3px 0"><span class="muted">Coupon ${esc(S.applied)}</span><b style="color:var(--good)">− ${fmt(q.disc)}</b></div>`:''}<div class="kv" style="padding:3px 0"><span class="muted">Paid</span><b style="color:var(--good)">${fmt(q.total)}</b></div></div><div class="b"><svg viewBox="0 0 89 89" aria-hidden="true">${cells}</svg><small>SCAN AT PICKUP</small></div></div>
+    <button class="btn line block" data-act="shareBooking" style="margin-top:18px">${ic('share',16)} Share your trip</button>
+    <div class="card tc" style="margin-top:18px"><h4>What happens next</h4><div class="kv"><span>1. Voucher in your inbox</span><span class="muted">Within minutes</span></div><div class="kv"><span>2. Trip manager call</span><span class="muted">24 hours before</span></div><div class="kv"><span>3. ${p.itin[0][0]}</span><span class="muted">Day 1</span></div></div>`;
+    foot=`<button class="btn line" data-act="dclose">View package</button><button class="btn red" data-act="home">Explore more</button>`}
+  return `<aside class="drawer" role="dialog" aria-modal="true" aria-label="${titles[S.step]}"><div class="dhd"><div class="row"><h3>${titles[S.step]}</h3>${close}</div>${prog}</div><div class="dbody">${body}</div><div class="dfoot">${foot}</div></aside>`}
+function paintDrawer(keepScroll){const old=$('#drawer');const st=old?.querySelector('.dbody')?.scrollTop||0;old?.remove();
+  if(S.drawer){$('#portal').insertAdjacentHTML('afterbegin',`<div class="dw" id="drawer" data-act="dclose">${drawerHtml()}</div>`);document.body.style.overflow='hidden';if(keepScroll){const b=$('#drawer .dbody');if(b)b.scrollTop=st}}else document.body.style.overflow=''}
+
+function render(scrollTop){
+  $('#app').innerHTML={list:listView,detail:detailView}[S.view]();
+  if(S.view==='list'){paintHero();paintBrowse()}
+  paintDrawer();
+  if(scrollTop)window.scrollTo({top:0,behavior:'auto'});
+  setupSpy();
+}
+let spyOn=false;
+function setupSpy(){if(spyOn)return;spyOn=true;let tk=false;addEventListener('scroll',()=>{if(S.view!=='detail'||tk)return;tk=true;requestAnimationFrame(()=>{tk=false;let cur=SECS[0][0];for(const [id] of SECS){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=170)cur=id}
+  if(cur!==S.spy){S.spy=cur;document.querySelectorAll('#snav button').forEach(b=>b.classList.toggle('on',b.dataset.v===cur))}})},{passive:true})}
+
+/* ============ Flow logic ============ */
+function setIn(path,v){const k=path.split('.');let o=S;for(let i=0;i<k.length-1;i++)o=o[k[i]];o[k[k.length-1]]=v}
+function initTrav(){const old=S.trav;S.trav=[];for(let i=0;i<S.adults;i++)S.trav.push(old[i]&&old[i].type==='Adult'?old[i]:{type:'Adult',name:'',age:'',gender:'Female'});for(let i=0;i<S.kids;i++)S.trav.push({type:'Child',name:'',age:'',gender:'Female'})}
+/* ---------- Validation (shared by typing, blur and submit) ---------- */
+const RX={name:/^[A-Za-z][A-Za-z .'-]*$/,city:/^[A-Za-z][A-Za-z .'-]*$/,email:/^[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/,upi:/^[A-Za-z0-9._-]{2,}@[A-Za-z][A-Za-z0-9]{1,}$/};
+const luhn=n=>{let sum=0,alt=false;for(let i=n.length-1;i>=0;i--){let d=+n[i];if(alt){d*=2;if(d>9)d-=9}sum+=d;alt=!alt}return sum%10===0};
+function vName(v,who){v=(v||'').trim().replace(/\s+/g,' ');if(!v)return 'Enter '+who;if((v.match(/[A-Za-z]/g)||[]).length<3)return 'Enter at least 3 letters';if(!RX.name.test(v))return 'Use letters, spaces and . \' - only';if(v.length>50)return 'Name must be 50 characters or fewer';return ''}
+function vMobile(v){const d=(v||'').replace(/\s/g,'');if(!d)return 'Enter your mobile number';if(!/^\d+$/.test(d)||d.length!==10)return 'Enter a valid 10-digit mobile number';if(!/^[6-9]/.test(d))return 'Mobile number must start with 6, 7, 8 or 9';if(/^(\d)\1{9}$/.test(d))return 'Enter a valid mobile number';return ''}
+function vEmail(v){v=(v||'').trim();if(!v)return 'Enter your email address';if(v.length>80||!RX.email.test(v)||v.includes('..'))return 'Enter a valid email address';return ''}
+function vCity(v){v=(v||'').trim();if(!v)return 'Enter your city';if(v.length<2)return 'City name is too short';if(!RX.city.test(v))return 'Use letters only';if(v.length>40)return 'City name is too long';return ''}
+function vAge(v,type){if(!v)return 'Enter age';const a=+v;if(isNaN(a))return 'Age must be a number';if(type==='Adult'){if(a<12)return 'Adults must be 12+';if(a>99)return 'Enter a valid age'}else if(a<2||a>11)return 'Child age 2-11';return ''}
+function cardBrand(d){d=(d||'').replace(/\D/g,'');
+  if(/^3[47]/.test(d))return{n:'American Express',len:[15],cvv:4,g:[4,6,5]};
+  if(/^(3[689]|30[0-5]|3095)/.test(d))return{n:'Diners Club',len:[14],cvv:3,g:[4,6,4]};
+  if(/^4/.test(d))return{n:'Visa',len:[13,16],cvv:3,g:[4,4,4,4]};
+  if(/^(5[1-5]|222[1-9]|22[3-9]\d|2[3-6]\d\d|27[01]\d|2720)/.test(d))return{n:'Mastercard',len:[16],cvv:3,g:[4,4,4,4]};
+  if(/^(60|65|81|82|508|64[4-9])/.test(d))return{n:'RuPay / Discover',len:[16],cvv:3,g:[4,4,4,4]};
+  if(/^(50|5[6-9]|6)/.test(d))return{n:'Maestro',len:[12,13,14,15,16,17,18,19],cvv:3,g:[4,4,4,4,4]};
+  return null}
+function cardFmt(v){let d=(v||'').replace(/\D/g,'');const b=cardBrand(d);d=d.slice(0,b?Math.max(...b.len):19);if(b&&b.g.length<5&&b.n!=='Visa'&&b.n!=='Mastercard'&&b.n!=='RuPay / Discover'){const o=[];let i=0;for(const n of b.g){if(i>=d.length)break;o.push(d.slice(i,i+n));i+=n}return o.join(' ')}return d.replace(/(\d{4})(?=\d)/g,'$1 ')}
+function vCard(v){const c=(v||'').replace(/\s/g,'');if(!c)return 'Enter your card number';if(!/^\d+$/.test(c))return 'Card number can only contain digits';const br=cardBrand(c);if(!br)return 'Enter a valid Visa, Mastercard, RuPay or American Express card number';if(!br.len.includes(c.length))return br.n+' card numbers have '+(br.len.length>2?br.len[0]+' to '+br.len[br.len.length-1]:br.len.join(' or '))+' digits';if(!luhn(c))return 'This card number is not valid. Check the digits';return ''}
+function vExp(v){if(!v)return 'Enter expiry as MM/YY';if(!/^(0[1-9]|1[0-2])\/\d{2}$/.test(v))return 'Use MM/YY';const mm=+v.slice(0,2),yy=2000+(+v.slice(3)),n=new Date(),cy=n.getFullYear(),cm=n.getMonth()+1;if(yy<cy||(yy===cy&&mm<cm))return 'This card has expired';if(yy>cy+20)return 'Enter a valid expiry year';return ''}
+function vCvv(v,card){const br=cardBrand(card),n=br?br.cvv:3;if(!v)return 'Enter CVV';return new RegExp('^\\d{'+n+'}$').test(v)?'':(n===4?'American Express CVV is 4 digits':'CVV is 3 digits')}
+function vUpi(v){v=(v||'').trim();if(!v)return 'Enter your UPI ID';return RX.upi.test(v)&&v.length<=60?'':'Enter a valid UPI ID like name@bank'}
+function fieldErr(k,v){
+  let m;
+  if(m=k.match(/^trav\.(\d+)\.(name|age)$/)){const t=S.trav[+m[1]];if(!t)return '';return m[2]==='name'?vName(v,'the full name'):vAge(v,t.type)}
+  switch(k){
+    case 'contact.mobile':case 'enq.phone':return vMobile(v);
+    case 'contact.email':case 'enq.email':return vEmail(v);
+    case 'enq.name':return vName(v,'your name');
+    case 'enq.city':return vCity(v);
+    case 'enq.msg':return (v||'').length>300?'Message must be 300 characters or fewer':'';
+    case 'pf.upi':return vUpi(v);
+    case 'pf.card':return vCard(v);
+    case 'pf.exp':return vExp(v);
+    case 'pf.cvv':return vCvv(v,S.pf.card);
+  }
+  return '';
+}
+function validTrav(){const e={};S.trav.forEach((t,i)=>{const n=fieldErr('trav.'+i+'.name',t.name);if(n)e['n'+i]=n;const a=fieldErr('trav.'+i+'.age',t.age);if(a)e['a'+i]=a});
+  /* Every traveller needs a different name. */
+  const seen={};S.trav.forEach((t,i)=>{const k=t.name.trim().replace(/\s+/g,' ').toLowerCase();if(!k||e['n'+i])return;if(seen[k]!==undefined)e['n'+i]='Each traveller needs a different name';else seen[k]=i});
+  const m=fieldErr('contact.mobile',S.contact.mobile);if(m)e.mobile=m;const em=fieldErr('contact.email',S.contact.email);if(em)e.email=em;return e}
+function validPay(){const e={};if(S.pay==='upi'){const u=fieldErr('pf.upi',S.pf.upi);if(u)e.upi=u}
+  if(S.pay==='card'){const c=fieldErr('pf.card',S.pf.card);if(c)e.card=c;const x=fieldErr('pf.exp',S.pf.exp);if(x)e.exp=x;const v=fieldErr('pf.cvv',S.pf.cvv);if(v)e.cvv=v}return e}
+function validEnq(){const e={},q=S.enq;const n=fieldErr('enq.name',q.name);if(n)e.name=n;const p=fieldErr('enq.phone',q.phone);if(p)e.phone=p;const m=fieldErr('enq.email',q.email);if(m)e.email=m;const c=fieldErr('enq.city',q.city);if(c)e.city=c;const g=fieldErr('enq.msg',q.msg);if(g)e.msg=g;return e}
+/* Show or clear one field's error in place (no re-render, so focus is kept). */
+function paintFieldErr(el,msg){const box=el.closest('.field');if(!box)return;const old=box.querySelector('.err-t');if(old)old.remove();el.classList.toggle('err',!!msg);el.setAttribute('aria-invalid',msg?'true':'false');if(msg){const sp=document.createElement('span');sp.className='err-t';sp.setAttribute('role','alert');sp.textContent=msg;box.appendChild(sp)}}
+function focusErr(){const el=document.querySelector('#drawer .in.err');if(el){el.scrollIntoView({block:'center',behavior:'smooth'});el.focus({preventScroll:true})}}
+function openPkg(id){
+  const p=service.getPackage(id)||service.getPackage(+id);
+  if(!p)return toast('This package is no longer available');
+  S.id=p.id;S.view='detail';S.drawer=null;S.step=0;S.shot=0;S.dateIx=0;S.adults=2;S.kids=0;
+  S.openDay={0:true};S.openFaq={};S.moreRev=false;S.errs={};S.applied=null;S.cpDisc=0;S.cpBusy=false;S.cpMsg='';S.coupon='';S.spy=SECS[0][0];
+  render(true);loadOffers();
+}
+function toList(){S.drawer=null;S.view='list';render(true);refresh()}
+let ftimer;function startFeat(){clearInterval(ftimer);if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;ftimer=setInterval(()=>{if(S.view==='list'&&!S.drawer){S.feat=(S.feat+1)%FEATURED.length;paintHero()}},6500)}
+
+document.addEventListener('click',async ev=>{
+  const t=ev.target.closest('[data-act]');
+  if(!ev.target.closest('.pw')&&S.pop){S.pop=null;paintFilters()}
+  if(!t)return;
+  const a=t.dataset.act,v=t.dataset.v;
+  if(t.classList.contains('dw')&&ev.target!==t)return;
+  if(a==='dest'||a==='failToggle')return;
+  switch(a){
+    case 'theme':{break;const d=document.documentElement,dark=(d.dataset.theme==='dark')||(!d.dataset.theme&&matchMedia('(prefers-color-scheme: dark)').matches);d.dataset.theme=dark?'light':'dark';try{localStorage.setItem('zp-theme2',d.dataset.theme)}catch(e){}render(false);break}
+    case 'home':toList();break;
+    case 'feat':S.feat=+v;paintHero();startFeat();break;
+    case 'pop':S.pop=S.pop===v?null:v;paintFilters();if(S.pop==='dest'){const d=$('#dq');if(d)d.focus({preventScroll:true})}break;
+    case 'reg':S.reg=v;refresh();break;
+    case 'dpick':{S.dests=S.dests.includes(v)?S.dests.filter(d=>d!==v):[...S.dests,v];paintFilters();const d=$('#dq');if(d){d.focus({preventScroll:true});d.setSelectionRange(d.value.length,d.value.length)}refresh();break}
+    case 'popx':S.pop=null;paintFilters();break;
+    case 'searchGo':case 'quick':if(v){S.q=v;const q=$('#q');if(q)q.value=v}S.pop=null;refresh();$('#browse')?.scrollIntoView({behavior:'smooth',block:'start'});break;
+    case 'story':S.dests=(S.dests.length===1&&S.dests[0]===v)?[]:[v];refresh();$('#browse')?.scrollIntoView({behavior:'smooth',block:'start'});break;
+    case 'theme-cat':S.theme=S.theme===v?'':v;S.pop=null;refresh();break;
+    case 'dur':S.dur=S.dur===v?'':v;S.pop=null;refresh();break;
+    case 'clear':S.q='';S.dests=[];S.dq='';S.reg='';S.dur='';S.bud=MAXB;S.theme='';S.pop=null;const qi=$('#q');if(qi)qi.value='';refresh();break;
+    case 'rm':if(v==='q'){S.q='';const q2=$('#q');if(q2)q2.value=''}else if(v.startsWith('d:'))S.dests=S.dests.filter(d=>d!==v.slice(2));else if(v==='theme')S.theme='';else if(v==='dur')S.dur='';else if(v==='bud')S.bud=MAXB;refresh();break;
+    case 'retry':refresh();break;
+    case 'failOff':demo.fail=false;const cb=document.querySelector('[data-act=failToggle]');if(cb)cb.checked=false;refresh();break;
+    case 'save':S.saved[v]=!S.saved[v];if(S.view==='list')paintBrowse();else render(false);toast(S.saved[v]?'Saved to your wishlist':'Removed from wishlist');break;
+    case 'open':openPkg(v);break;
+    case 'shot':S.shot=+v;render(false);break;
+    case 'goto':document.getElementById(v)?.scrollIntoView({behavior:'smooth',block:'start'});break;
+    case 'faq':S.openFaq[v]=!S.openFaq[v];render(false);break;
+    case 'morerev':S.moreRev=!S.moreRev;render(false);break;
+    case 'subscribe':{const em=document.getElementById('nl');if(em&&!vEmail(em.value)){toast('Subscribed! Watch your inbox for deals');em.value=''}else toast(em&&em.value.trim()?'Enter a valid email address':'Enter your email address first');break}
+    case 'cpcopy':copy(v);break;
+    case 'top':scrollTo({top:0,behavior:'smooth'});break;
+    case 'day':S.openDay[v]=!S.openDay[v];render(false);break;
+    case 'expand':{const n=pkg().itin.length,all=Object.keys(S.openDay).filter(k=>S.openDay[k]).length===n;S.openDay={};if(!all)for(let i=0;i<n;i++)S.openDay[i]=true;render(false);break}
+    case 'date':S.dateIx=+v;render(false);break;
+    case 'adm':S.adults=Math.max(1,S.adults-1);render(false);break;case 'adp':S.adults=Math.min(8,S.adults+1);render(false);break;
+    case 'chm':S.kids=Math.max(0,S.kids-1);render(false);break;case 'chp':S.kids=Math.min(6,S.kids+1);render(false);break;
+    case 'share':{const sp=pkg();openShare(sp.name,'Check out '+sp.name+' on ZPROO Holidays','https://zproo.com/holidays/'+S.id);break}
+    case 'shareBooking':{const sp=pkg(),b=S.booking;openShare('My trip to '+sp.dest,'I just booked '+sp.name+' with ZPROO Holidays! Booking ID '+b.id+'.','https://zproo.com/holidays/'+S.id);break}
+    case 'shcopy':copy(v);break;
+    case 'shclose':if(ev.target.closest('.shc')&&!ev.target.closest('button[data-act="shclose"]'))break;$('#portal').querySelector('.shm')?.remove();break;
+    case 'book':initTrav();S.drawer='book';S.step=0;S.errs={};paintDrawer();break;
+    case 'enquire':S.drawer='enquire';S.enqErr={};S.enqId='';paintDrawer();break;
+    case 'dclose':S.drawer=null;paintDrawer();break;
+    case 'dback':S.step=0;S.errs={};paintDrawer();break;
+    case 'sendEnq':{S.enqErr=validEnq();if(Object.keys(S.enqErr).length){paintDrawer(true);focusErr();break}S.busy=true;paintDrawer(true);const r=await service.submitEnquiry(S.enq);S.busy=false;S.enqId=r.id;paintDrawer();break}
+    case 'to-pay':{S.errs=validTrav();if(Object.keys(S.errs).length){paintDrawer(true);focusErr();break}S.step=1;paintDrawer();loadOffers();revalidateCoupon();break}
+    case 'applyCp':applyCoupon($('#cpn')?.value);break;
+    case 'useOffer':applyCoupon(v);break;
+    case 'removeCp':S.applied=null;S.cpDisc=0;S.coupon='';S.cpMsg='';paintDrawer(true);break;
+    case 'toggleOffers':S.showOffers=!S.showOffers;paintDrawer(true);break;
+    case 'retryOffers':S.offersState='idle';paintDrawer(true);loadOffers();break;
+    case 'cpSignin':bridge.call('signin');break;
+    case 'pm':S.pay=v;S.errs={};paintDrawer(true);break;
+    case 'pay':{S.errs=validPay();if(Object.keys(S.errs).length){paintDrawer(true);focusErr();break}$('#portal').insertAdjacentHTML('beforeend','<div class="proc" id="proc" role="alert"><div><span class="spin"></span><b>Confirming your payment…</b><span class="muted" style="font-size:12.5px">Please do not close this page</span></div></div>');const r=await service.createBooking({});
+      if(S.applied){/* Record the coupon use with this booking ID. If it was just used up or refused, nothing is booked. */
+        const rd=await bridge.call('redeem',{code:S.applied,orderPaise:quote(pkg()).base*100,bookingRef:r.id});
+        if(!rd.ok){$('#proc')?.remove();S.signedIn=!!rd.signedIn;
+          if(rd.refused||rd.needsSignIn){S.applied=null;S.cpDisc=0;S.cpMsg=(rd.message||'This coupon can no longer be used.')+' Your total was updated. Please check it and pay again.'}
+          else toast(rd.message||'Could not confirm your coupon. Please try again.');
+          paintDrawer(true);break}
+        S.cpDisc=Math.floor(rd.data.discountPaise/100)}
+      $('#proc')?.remove();S.booking=r;S.step=2;paintDrawer();break}
+    case 'copyId':copy(S.booking.id);break;
+    case 'resetPhotos':Object.keys(PHOTOS).forEach(k=>{URL.revokeObjectURL(PHOTOS[k]);delete PHOTOS[k]});render(false);toast('Back to illustrations');break;
+  }
+});
+document.addEventListener('change',ev=>{
+  const t=ev.target;
+  if(t.dataset.act==='dest'){const v=t.dataset.v;S.dests=t.checked?[...S.dests,v]:S.dests.filter(d=>d!==v);refresh();return}
+  if(t.dataset.act==='failToggle'){demo.fail=t.checked;if(S.view==='list')refresh();else toast(t.checked?'Next package search will fail':'Package search restored');return}
+  if(t.id==='photos'){applyPhotos(t.files);t.value='';return}
+  if(t.id==='bud'){S.bud=+t.value;refresh();return}
+  if(t.id==='sort'){S.sort=t.value;refresh();return}
+});
+document.addEventListener('keydown',ev=>{if(ev.target.id==='dq'&&ev.key==='Enter'){ev.preventDefault();const f=document.querySelector('#dlist .sug');if(f)f.click()}if(ev.target.id==='dq'&&ev.key==='Escape'){S.pop=null;paintFilters()}});
+document.addEventListener('input',ev=>{if(ev.target.id==='cpn'){const v=ev.target.value.replace(/[^A-Za-z0-9]/g,'').toUpperCase().slice(0,20);if(v!==ev.target.value)ev.target.value=v;S.coupon=v;return}
+  if(ev.target.id==='dq'){S.dq=ev.target.value;const l=$('#dlist');if(l)l.innerHTML=dlistHtml(S.dq);return}
+  const t=ev.target;
+  if(t.id==='q'){S.q=t.value;clearTimeout(onQ.t);onQ.t=setTimeout(refresh,350);return}
+  if(t.id==='bud'){const b=$('#budv');if(b)b.textContent='Up to '+fmt(+t.value);return}
+  if(t.dataset.in){let v=t.value;const k=t.dataset.in;
+    if(/(^|\.)name$/.test(k))v=v.replace(/[^A-Za-z .'-]/g,'').replace(/^[^A-Za-z]+/,'').replace(/\s{2,}/g,' ').slice(0,50);
+    if(k==='enq.city')v=v.replace(/[^A-Za-z .'-]/g,'').replace(/^[^A-Za-z]+/,'').replace(/\s{2,}/g,' ').slice(0,40);
+    if(k==='contact.mobile'||k==='enq.phone'){v=v.replace(/\D/g,'');if(v.length>10)v=v.replace(/^(91|0)/,'');v=v.slice(0,10)}
+    if(k==='contact.email'||k==='enq.email')v=v.replace(/\s/g,'').slice(0,80);
+    if(k==='pf.upi')v=v.replace(/\s/g,'').slice(0,60);
+    if(k==='pf.card'){v=cardFmt(v)}
+    if(k==='pf.exp'){v=v.replace(/[^\d/]/g,'').slice(0,5);if(/^\d{2}$/.test(v)&&ev.inputType!=='deleteContentBackward')v+='/'}
+    if(k==='pf.cvv'){const bb=cardBrand(S.pf.card);v=v.replace(/\D/g,'').slice(0,bb?bb.cvv:3)}
+    if(k==='enq.msg')v=v.slice(0,300);
+    if(k.endsWith('.age'))v=v.replace(/\D/g,'').slice(0,2);
+    if(v!==t.value)t.value=v;setIn(k,v);
+    /* Clear an error as soon as the value becomes valid. */
+    if(t.classList.contains('err')&&!fieldErr(k,v))paintFieldErr(t,'')}
+});
+function onQ(){}
+document.addEventListener('focusout',ev=>{const t=ev.target;if(!t||!t.dataset||!t.dataset.in)return;const k=t.dataset.in;
+  if(k==='enq.msg'&&!t.value)return;
+  /* Wait until the visitor has typed something, so tabbing through an empty form does not flood it with errors. */
+  if(!t.value&&!t.classList.contains('err'))return;
+  paintFieldErr(t,fieldErr(k,t.value))});
+document.addEventListener('keydown',ev=>{if(ev.key==='Escape'){if($('#portal').querySelector('.shm')){$('#portal').querySelector('.shm').remove()}else if(S.drawer){S.drawer=null;paintDrawer()}else if(S.pop){S.pop=null;paintFilters()}}
+  if(ev.key==='Enter'&&ev.target.id==='cpn'){ev.preventDefault();applyCoupon(ev.target.value);return}
+  if(ev.key==='Enter'&&ev.target.id==='q'){ev.preventDefault();clearTimeout(onQ.t);refresh()}});
+
+render(false);refresh();startFeat();loadOffers();
+</script>
+
+</body></html>

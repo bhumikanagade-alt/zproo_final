@@ -1,0 +1,2772 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap");
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.login3-page,
+.login3-page * {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.login3-page {
+  min-height: 100vh;
+  width: 100%;
+
+  position: relative;
+
+  overflow-x: hidden;
+
+  font-family:
+    "DM Sans",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+  color: #183d27;
+
+  background:
+    radial-gradient(
+      circle at 8% 8%,
+      rgba(173, 245, 104, 0.26),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 92% 88%,
+      rgba(75, 184, 91, 0.18),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #f0f9e7 0%,
+      #ddf2cf 45%,
+      #cceabd 100%
+    );
+}
+
+/* =========================================================
+   BACKGROUND SHAPES
+========================================================= */
+
+.login3-shape {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+.shape-one {
+  width: 430px;
+  height: 430px;
+
+  top: -230px;
+  left: -130px;
+
+  background: rgba(92, 177, 67, 0.08);
+}
+
+.shape-two {
+  width: 390px;
+  height: 390px;
+
+  right: -180px;
+  bottom: -210px;
+
+  background: rgba(92, 188, 73, 0.12);
+}
+
+.shape-three {
+  width: 130px;
+  height: 130px;
+
+  right: 5%;
+  top: 30%;
+
+  border: 20px solid rgba(70, 155, 67, 0.06);
+}
+
+/* =========================================================
+   FLOATING DECORATION
+========================================================= */
+
+.login3-floating {
+  position: absolute;
+
+  color: rgba(55, 145, 66, 0.25);
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  pointer-events: none;
+
+  animation:
+    floating3
+    5s
+    ease-in-out
+    infinite;
+}
+
+.floating-one {
+  left: 7%;
+  top: 32%;
+}
+
+.floating-two {
+  right: 13%;
+  top: 20%;
+
+  animation-delay: 1.5s;
+}
+
+.floating-three {
+  left: 46%;
+  bottom: 8%;
+
+  animation-delay: 2.5s;
+}
+
+@keyframes floating3 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* =========================================================
+   MAIN WRAPPER
+========================================================= */
+
+.login3-wrapper {
+  width: min(1180px, 94%);
+
+  min-height: 100vh;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(420px, 0.86fr);
+
+  align-items: center;
+
+  gap: 70px;
+
+  padding: 38px 0;
+
+  position: relative;
+
+  z-index: 2;
+}
+
+/* =========================================================
+   LEFT SECTION
+========================================================= */
+
+.login3-left {
+  padding: 10px;
+}
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.login3-brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+}
+
+.login3-logo {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #163f24,
+      #34783c
+    );
+
+  color: #d9ff9b;
+
+  font-family:
+    "Plus Jakarta Sans",
+    sans-serif;
+
+  font-size: 26px;
+
+  font-weight: 800;
+
+  box-shadow:
+    0 15px 30px
+    rgba(35, 86, 42, 0.2);
+}
+
+.login3-brand h1 {
+  margin: 0;
+
+  font-family:
+    "Plus Jakarta Sans",
+    sans-serif;
+
+  font-size: 23px;
+
+  font-weight: 800;
+
+  letter-spacing: -1px;
+}
+
+.login3-brand h1 span {
+  color: #4ca646;
+}
+
+.login3-brand p {
+  margin: 4px 0 0;
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  color: #6b886f;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.login3-left-content {
+  margin-top: 55px;
+}
+
+.login3-tag {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 8px 14px;
+
+  border-radius: 30px;
+
+  background: rgba(76, 166, 70, 0.08);
+
+  border: 1px solid rgba(76, 166, 70, 0.16);
+
+  color: #438f42;
+
+  font-size: 10px;
+
+  letter-spacing: 1.5px;
+
+  font-weight: 800;
+}
+
+.login3-left-content h2 {
+  margin: 20px 0 15px;
+
+  font-family:
+    "Plus Jakarta Sans",
+    sans-serif;
+
+  font-size: clamp(
+    45px,
+    5vw,
+    68px
+  );
+
+  line-height: 0.98;
+
+  letter-spacing: -4px;
+
+  color: #183f29;
+}
+
+.login3-left-content h2 span {
+  color: #48a046;
+}
+
+.login3-left-content > p {
+  max-width: 500px;
+
+  margin: 0;
+
+  color: #65816b;
+
+  font-size: 15px;
+
+  line-height: 1.75;
+
+  font-weight: 500;
+}
+
+/* =========================================================
+   BUS CARD
+========================================================= */
+
+.login3-bus-card {
+  margin-top: 35px;
+
+  width: 100%;
+
+  height: 230px;
+
+  position: relative;
+
+  border-radius: 28px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 25px 55px
+    rgba(44, 95, 43, 0.16);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.55);
+}
+
+/* =========================================================
+   SKY
+========================================================= */
+
+.login3-sky {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      180deg,
+      #a9dc86 0%,
+      #cfeeb9 48%,
+      #e3f1d5 68%,
+      #bfd9a9 100%
+    );
+}
+
+/* =========================================================
+   SUN
+========================================================= */
+
+.login3-sun {
+  position: absolute;
+
+  width: 65px;
+  height: 65px;
+
+  top: 23px;
+  right: 75px;
+
+  border-radius: 50%;
+
+  background: #fff0a0;
+
+  box-shadow:
+    0 0 35px
+    rgba(255, 235, 105, 0.5);
+}
+
+/* =========================================================
+   CLOUDS
+========================================================= */
+
+.login3-cloud {
+  position: absolute;
+
+  width: 80px;
+  height: 25px;
+
+  border-radius: 30px;
+
+  background: rgba(255, 255, 255, 0.66);
+}
+
+.login3-cloud::before,
+.login3-cloud::after {
+  content: "";
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  background: inherit;
+}
+
+.login3-cloud::before {
+  width: 35px;
+  height: 35px;
+
+  left: 13px;
+  top: -17px;
+}
+
+.login3-cloud::after {
+  width: 27px;
+  height: 27px;
+
+  right: 10px;
+  top: -11px;
+}
+
+.cloud-one {
+  top: 52px;
+  left: 65px;
+}
+
+.cloud-two {
+  top: 80px;
+  right: 190px;
+
+  transform: scale(0.72);
+}
+
+/* =========================================================
+   HILLS
+========================================================= */
+
+.login3-hill {
+  position: absolute;
+
+  bottom: 55px;
+
+  width: 330px;
+  height: 105px;
+
+  border-radius: 50% 50% 0 0;
+
+  z-index: 1;
+}
+
+.hill-one {
+  left: -80px;
+
+  background: #8bc578;
+}
+
+.hill-two {
+  right: -90px;
+
+  background: #76ae68;
+}
+
+/* =========================================================
+   ROAD
+========================================================= */
+
+.login3-road {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 70px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #3a3d3b 0%,
+      #252827 100%
+    );
+
+  border-top: 3px solid #ffffff;
+
+  overflow: hidden;
+
+  z-index: 5;
+}
+
+/* moving center road line */
+
+.login3-road::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 220%;
+  height: 5px;
+
+  background:
+    repeating-linear-gradient(
+      to right,
+      #ffffff 0,
+      #ffffff 68px,
+      transparent 68px,
+      transparent 138px
+    );
+
+  transform: translateY(-50%);
+
+  animation:
+    roadMove
+    0.8s
+    linear
+    infinite;
+}
+
+/* road bottom line */
+
+.login3-road::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 8px;
+
+  width: 100%;
+  height: 4px;
+
+  background: #ffffff;
+}
+
+/* extra road marks */
+
+.road-mark {
+  position: absolute;
+
+  top: 50%;
+
+  width: 55px;
+  height: 4px;
+
+  background: #ffffff;
+
+  opacity: 0.9;
+}
+
+.road-mark-one {
+  left: 8%;
+}
+
+.road-mark-two {
+  left: 34%;
+}
+
+.road-mark-three {
+  left: 61%;
+}
+
+.road-mark-four {
+  left: 87%;
+}
+
+/* =========================================================
+   ROAD ANIMATION
+========================================================= */
+
+@keyframes roadMove {
+  from {
+    transform:
+      translate(
+        -140px,
+        -50%
+      );
+  }
+
+  to {
+    transform:
+      translate(
+        0,
+        -50%
+      );
+  }
+}
+
+/* =========================================================
+   BUS
+   IMPORTANT:
+   The bus stays ABOVE the road.
+========================================================= */
+
+.login3-bus {
+  position: absolute;
+
+  left: 0;
+
+  bottom: 45px;
+
+  width: 275px;
+  height: 88px;
+
+  border-radius:
+    17px
+    23px
+    11px
+    11px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #72d455 0%,
+      #58b848 42%,
+      #429b40 72%,
+      #347e39 100%
+    );
+
+  border:
+    2px solid
+    #2f7f38;
+
+  box-shadow:
+    0 10px 0
+    rgba(27, 78, 35, 0.15),
+    0 17px 24px
+    rgba(31, 76, 34, 0.30);
+
+  z-index: 10;
+
+  animation:
+    busDrive
+    7s
+    linear
+    infinite;
+
+  will-change: transform;
+}
+
+/* bus roof highlight */
+
+.login3-bus::before {
+  content: "";
+
+  position: absolute;
+
+  left: 13px;
+  top: -5px;
+
+  width: 220px;
+  height: 7px;
+
+  border-radius: 8px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #2d7935,
+      #58ad46,
+      #2d7935
+    );
+}
+
+/* bus lower shadow */
+
+.login3-bus::after {
+  content: "";
+
+  position: absolute;
+
+  left: 12px;
+  bottom: 8px;
+
+  width: 245px;
+  height: 4px;
+
+  border-radius: 10px;
+
+  background:
+    rgba(
+      20,
+      70,
+      30,
+      0.35
+    );
+}
+
+/* =========================================================
+   BUS ROOF
+========================================================= */
+
+.bus-roof {
+  position: absolute;
+
+  left: 14px;
+  top: -5px;
+
+  width: 215px;
+  height: 8px;
+
+  border-radius:
+    8px 8px 2px 2px;
+
+  background: #318537;
+}
+
+/* =========================================================
+   BUS DISPLAY
+========================================================= */
+
+.bus-display {
+  position: absolute;
+
+  left: 18px;
+  top: 10px;
+
+  padding: 3px 8px;
+
+  border-radius: 3px;
+
+  background: #173d2c;
+
+  color: #d7f5a8;
+
+  font-family:
+    Arial,
+    sans-serif;
+
+  font-size: 7px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.7px;
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(255, 255, 255, 0.08);
+}
+
+/* =========================================================
+   WINDSHIELD
+========================================================= */
+
+.bus-windshield {
+  position: absolute;
+
+  right: 14px;
+  top: 13px;
+
+  width: 59px;
+  height: 40px;
+
+  border-radius:
+    5px
+    13px
+    5px
+    5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #173d3b,
+      #2d6256
+    );
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.25);
+
+  overflow: hidden;
+
+  box-shadow:
+    inset 0 0 12px
+    rgba(0, 0, 0, 0.18);
+}
+
+.windshield-reflection {
+  position: absolute;
+
+  width: 75px;
+  height: 9px;
+
+  top: 8px;
+  left: -8px;
+
+  background:
+    rgba(255, 255, 255, 0.2);
+
+  transform: rotate(-25deg);
+}
+
+/* =========================================================
+   SIDE WINDOWS
+========================================================= */
+
+.bus-side-windows {
+  position: absolute;
+
+  left: 17px;
+  top: 27px;
+
+  display: flex;
+
+  gap: 5px;
+}
+
+.bus-window {
+  width: 43px;
+  height: 27px;
+
+  position: relative;
+
+  border-radius: 5px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #173d3b,
+      #2a6256
+    );
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.18);
+
+  overflow: hidden;
+
+  box-shadow:
+    inset 0 0 8px
+    rgba(0, 0, 0, 0.12);
+}
+
+.bus-window span {
+  position: absolute;
+
+  width: 34px;
+  height: 4px;
+
+  top: 5px;
+  left: -5px;
+
+  background:
+    rgba(255, 255, 255, 0.14);
+
+  transform: rotate(-20deg);
+}
+
+/* =========================================================
+   BUS DOOR
+========================================================= */
+
+.bus-door {
+  position: absolute;
+
+  right: 76px;
+  top: 24px;
+
+  width: 25px;
+  height: 50px;
+
+  border:
+    2px solid
+    rgba(26, 82, 39, 0.65);
+
+  border-radius: 3px;
+
+  background:
+    rgba(47, 120, 55, 0.35);
+}
+
+.door-window {
+  position: absolute;
+
+  left: 4px;
+  top: 4px;
+
+  width: 13px;
+  height: 20px;
+
+  background: #214d45;
+
+  border-radius: 2px;
+}
+
+.door-line {
+  position: absolute;
+
+  left: 50%;
+  top: 0;
+
+  width: 2px;
+  height: 100%;
+
+  background:
+    rgba(24, 70, 34, 0.5);
+}
+
+.door-handle {
+  position: absolute;
+
+  right: 4px;
+  top: 28px;
+
+  width: 3px;
+  height: 8px;
+
+  border-radius: 3px;
+
+  background: #b7d99b;
+}
+
+/* =========================================================
+   BUS LOWER LINE
+========================================================= */
+
+.bus-lower-line {
+  position: absolute;
+
+  left: 15px;
+  bottom: 19px;
+
+  width: 235px;
+  height: 3px;
+
+  border-radius: 4px;
+
+  background:
+    rgba(255, 255, 255, 0.2);
+}
+
+/* =========================================================
+   FRONT BUMPER
+========================================================= */
+
+.bus-front-bumper {
+  position: absolute;
+
+  right: -5px;
+  bottom: 9px;
+
+  width: 11px;
+  height: 12px;
+
+  border-radius: 4px;
+
+  background: #267233;
+}
+
+/* =========================================================
+   HEADLIGHT
+========================================================= */
+
+.bus-headlight {
+  position: absolute;
+
+  right: -1px;
+  top: 48px;
+
+  width: 7px;
+  height: 13px;
+
+  border-radius: 3px;
+
+  background: #fff7ad;
+
+  box-shadow:
+    0 0 12px
+    rgba(255, 244, 113, 0.9);
+
+  animation:
+    headlightPulse
+    1.1s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes headlightPulse {
+  from {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   REAR LIGHT
+========================================================= */
+
+.bus-rear-light {
+  position: absolute;
+
+  left: -2px;
+  top: 48px;
+
+  width: 6px;
+  height: 13px;
+
+  border-radius: 3px;
+
+  background: #e74343;
+
+  box-shadow:
+    0 0 7px
+    rgba(231, 67, 67, 0.45);
+}
+
+/* =========================================================
+   MIRROR
+========================================================= */
+
+.bus-mirror {
+  position: absolute;
+
+  right: 60px;
+  top: 15px;
+
+  width: 10px;
+  height: 7px;
+
+  border-radius: 4px;
+
+  background: #1f554a;
+
+  border:
+    2px solid
+    #347f3d;
+}
+
+/* =========================================================
+   WHEELS
+========================================================= */
+
+.login3-wheel {
+  position: absolute;
+
+  bottom: -17px;
+
+  width: 35px;
+  height: 35px;
+
+  border-radius: 50%;
+
+  background: #1e2521;
+
+  border:
+    5px solid
+    #e9eee8;
+
+  box-shadow:
+    inset 0 0 0 4px
+    #454d47;
+
+  z-index: 15;
+
+  animation:
+    wheelSpin
+    0.55s
+    linear
+    infinite;
+
+  transform-origin: center;
+}
+
+.wheel-left {
+  left: 32px;
+}
+
+.wheel-right {
+  right: 35px;
+}
+
+.wheel-hub {
+  position: absolute;
+
+  width: 8px;
+  height: 8px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  border-radius: 50%;
+
+  background: #c9d0ca;
+
+  border:
+    2px solid
+    #59625b;
+}
+
+@keyframes wheelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   BUS DRIVING
+========================================================= */
+
+@keyframes busDrive {
+
+  0% {
+    transform:
+      translateX(-330px);
+  }
+
+  38% {
+    transform:
+      translateX(
+        calc(50% - 138px)
+      );
+  }
+
+  50% {
+    transform:
+      translateX(
+        calc(50% - 138px)
+      );
+  }
+
+  62% {
+    transform:
+      translateX(
+        calc(50% - 138px)
+      );
+  }
+
+  100% {
+    transform:
+      translateX(
+        calc(100% + 40px)
+      );
+  }
+}
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.login3-features {
+  display: flex;
+
+  gap: 30px;
+
+  margin-top: 22px;
+}
+
+.login3-features div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #68816b;
+
+  font-size: 10px;
+
+  font-weight: 600;
+}
+
+.login3-features strong {
+  color: #428d42;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   RIGHT SECTION
+========================================================= */
+
+.login3-right {
+  display: flex;
+
+  justify-content: center;
+}
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.login3-card {
+  width: 100%;
+
+  max-width: 470px;
+
+  padding: 38px;
+
+  border-radius: 30px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.97
+    );
+
+  border:
+    1px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.8
+    );
+
+  box-shadow:
+    0 30px 70px
+    rgba(
+      50,
+      92,
+      45,
+      0.17
+    );
+}
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.login3-card-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+}
+
+.login3-mini-icon {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #e4f4d8;
+
+  color: #429341;
+
+  font-size: 24px;
+
+  font-weight: 800;
+}
+
+.login3-card-header span {
+  display: block;
+
+  font-size: 9px;
+
+  letter-spacing: 2px;
+
+  color: #73966f;
+
+  font-weight: 800;
+}
+
+.login3-card-header h3 {
+  margin: 4px 0 0;
+
+  font-family:
+    "Plus Jakarta Sans",
+    sans-serif;
+
+  font-size: 28px;
+
+  letter-spacing: -1.2px;
+
+  color: #193f29;
+}
+
+.login3-subtitle {
+  margin: 9px 0 22px;
+
+  color: #718470;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+/* =========================================================
+   METHOD
+========================================================= */
+
+.login3-method {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 7px;
+
+  padding: 5px;
+
+  margin-bottom: 20px;
+
+  border-radius: 14px;
+
+  background: #eef5e9;
+}
+
+.login3-method button {
+  height: 42px;
+
+  border: 0;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: #728575;
+
+  font-family: inherit;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.login3-method button:hover {
+  color: #347c38;
+}
+
+.login3-method button.active {
+  background: #ffffff;
+
+  color: #347c38;
+
+  box-shadow:
+    0 5px 13px
+    rgba(
+      43,
+      96,
+      45,
+      0.09
+    );
+}
+
+.method-icon {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 7px;
+
+  font-size: 10px;
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.login3-message {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  padding: 11px 13px;
+
+  margin-bottom: 17px;
+
+  border-radius: 11px;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+
+  animation:
+    messageAppear
+    0.25s
+    ease;
+}
+
+.login3-message.success {
+  background: #e9f8df;
+
+  color: #397b39;
+}
+
+.login3-message.error {
+  background: #fff0ef;
+
+  color: #b64e4e;
+}
+
+.message-icon {
+  min-width: 17px;
+
+  height: 17px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  font-size: 10px;
+
+  font-weight: 800;
+}
+
+.success .message-icon {
+  background: #65b957;
+
+  color: white;
+}
+
+.error .message-icon {
+  background: #db6969;
+
+  color: white;
+}
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0);
+  }
+}
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.login3-field {
+  margin-bottom: 17px;
+}
+
+.login3-field label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #4d634f;
+
+  font-size: 11px;
+
+  font-weight: 800;
+}
+
+.login3-label-row {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.login3-input {
+  min-height: 52px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 0 14px;
+
+  border:
+    1px solid
+    #d8e5d4;
+
+  border-radius: 12px;
+
+  background: #f9fcf7;
+
+  transition: 0.25s ease;
+}
+
+.login3-input:focus-within {
+  background: #ffffff;
+
+  border-color: #70b94e;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(
+      101,
+      181,
+      68,
+      0.1
+    );
+}
+
+.input-icon {
+  color: #57964c;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  min-width: 24px;
+
+  text-align: center;
+}
+
+.otp-icon {
+  font-size: 8px;
+
+  letter-spacing: 0.4px;
+}
+
+.login3-input input {
+  flex: 1;
+
+  min-width: 0;
+
+  border: 0;
+
+  outline: none;
+
+  background: transparent;
+
+  color: #21482b;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 500;
+}
+
+.login3-input input::placeholder {
+  color: #98a89a;
+
+  opacity: 1;
+}
+
+.login3-country {
+  padding-right: 9px;
+
+  border-right:
+    1px solid
+    #d8e4d5;
+
+  color: #668066;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.otp-check {
+  color: #48a546;
+
+  font-size: 16px;
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   OTP / FORGOT
+========================================================= */
+
+.login3-resend,
+.login3-forgot {
+  border: 0;
+
+  background: transparent;
+
+  color: #438e3f;
+
+  font-family: inherit;
+
+  font-size: 10px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  padding: 0;
+}
+
+.login3-resend:hover,
+.login3-forgot:hover {
+  color: #286e32;
+
+  text-decoration: underline;
+}
+
+/* =========================================================
+   PASSWORD MASCOT
+========================================================= */
+
+.login3-password-character {
+  min-height: 68px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  margin: 0 0 4px;
+
+  transition: 0.25s ease;
+}
+
+/* =========================================================
+   MASCOT
+========================================================= */
+
+.mascot {
+  width: 75px;
+  height: 62px;
+
+  position: relative;
+
+  flex: 0 0 75px;
+}
+
+/* =========================================================
+   MASCOT BODY
+========================================================= */
+
+.mascot-body {
+  position: absolute;
+
+  left: 15px;
+  bottom: 0;
+
+  width: 48px;
+  height: 25px;
+
+  border-radius:
+    16px
+    16px
+    12px
+    12px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #78c94f,
+      #54a943
+    );
+
+  box-shadow:
+    0 7px 14px
+    rgba(
+      67,
+      133,
+      56,
+      0.18
+    );
+}
+
+.mascot-badge {
+  position: absolute;
+
+  left: 50%;
+  top: 7px;
+
+  transform:
+    translateX(-50%);
+
+  width: 18px;
+  height: 18px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.8
+    );
+
+  color: #4c9740;
+
+  font-size: 9px;
+
+  font-weight: 800;
+}
+
+/* =========================================================
+   MASCOT HEAD
+========================================================= */
+
+.mascot-head {
+  position: absolute;
+
+  left: 8px;
+  top: 0;
+
+  width: 59px;
+  height: 50px;
+
+  border-radius:
+    48%
+    48%
+    45%
+    45%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #a5e75d,
+      #69bd4b
+    );
+
+  border:
+    2px solid
+    rgba(
+      57,
+      127,
+      48,
+      0.15
+    );
+
+  box-shadow:
+    0 8px 16px
+    rgba(
+      69,
+      130,
+      53,
+      0.18
+    );
+
+  z-index: 3;
+}
+
+/* =========================================================
+   EARS
+========================================================= */
+
+.mascot-ear {
+  position: absolute;
+
+  top: 19px;
+
+  width: 12px;
+  height: 17px;
+
+  border-radius: 50%;
+
+  background: #65b74b;
+
+  z-index: 1;
+}
+
+.ear-left {
+  left: 2px;
+}
+
+.ear-right {
+  right: 2px;
+}
+
+/* =========================================================
+   OPEN EYES
+========================================================= */
+
+.mascot-eye {
+  position: absolute;
+
+  top: 16px;
+
+  width: 12px;
+  height: 15px;
+
+  border-radius: 50%;
+
+  background: white;
+
+  overflow: hidden;
+
+  transition:
+    opacity
+    0.18s
+    ease,
+    transform
+    0.18s
+    ease;
+}
+
+.mascot-eye.eye-left {
+  left: 14px;
+}
+
+.mascot-eye.eye-right {
+  right: 14px;
+}
+
+.pupil {
+  position: absolute;
+
+  width: 5px;
+  height: 7px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  border-radius: 50%;
+
+  background: #183d24;
+}
+
+.pupil::after {
+  content: "";
+
+  position: absolute;
+
+  width: 2px;
+  height: 2px;
+
+  top: 1px;
+  left: 1px;
+
+  border-radius: 50%;
+
+  background: white;
+}
+
+/* =========================================================
+   CLOSED EYES
+========================================================= */
+
+.closed-eye {
+  position: absolute;
+
+  top: 23px;
+
+  width: 13px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: #315b31;
+
+  opacity: 0;
+
+  transform: scaleX(0);
+
+  transition:
+    opacity
+    0.18s
+    ease,
+    transform
+    0.18s
+    ease;
+}
+
+.closed-left {
+  left: 13px;
+}
+
+.closed-right {
+  right: 13px;
+}
+
+.show-closed {
+  opacity: 1;
+
+  transform: scaleX(1);
+}
+
+.eye-hidden {
+  opacity: 0;
+
+  transform: scaleY(0.2);
+}
+
+/* =========================================================
+   MOUTH
+========================================================= */
+
+.mascot-mouth {
+  position: absolute;
+
+  left: 50%;
+  bottom: 9px;
+
+  width: 13px;
+  height: 6px;
+
+  transform:
+    translateX(-50%);
+
+  border-bottom:
+    2px solid
+    #315a31;
+
+  border-radius:
+    0
+    0
+    50%
+    50%;
+
+  transition: 0.2s ease;
+}
+
+.mouth-smile {
+  width: 16px;
+  height: 8px;
+}
+
+/* =========================================================
+   PASSWORD CHARACTER TEXT
+========================================================= */
+
+.password-character-text {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+
+  min-width: 0;
+}
+
+.password-character-text strong {
+  color: #48604a;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  transition: 0.2s ease;
+}
+
+.password-character-text span {
+  color: #829183;
+
+  font-size: 10px;
+
+  line-height: 1.35;
+
+  transition: 0.2s ease;
+}
+
+/* FIXED SELECTORS */
+
+.password-active .password-character-text strong {
+  color: #428d3e;
+}
+
+.password-active .password-character-text span {
+  color: #6c806d;
+}
+
+/* =========================================================
+   PASSWORD INPUT
+========================================================= */
+
+.password-input {
+  padding-right: 10px;
+}
+
+.password-icon {
+  letter-spacing: 1px;
+
+  font-size: 8px;
+}
+
+.password-eye {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  padding: 0;
+}
+
+/* =========================================================
+   PASSWORD EYE
+========================================================= */
+
+.eye-icon {
+  position: relative;
+
+  width: 19px;
+  height: 12px;
+
+  display: block;
+
+  border:
+    2px solid
+    #5b765e;
+
+  border-radius:
+    70% 0;
+
+  transform: rotate(45deg);
+
+  transition: 0.2s ease;
+}
+
+.eye-icon-pupil {
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    rotate(-45deg);
+
+  border-radius: 50%;
+
+  background: #4c6e4f;
+}
+
+/* FIXED SELECTOR */
+
+.eye-visible .eye-icon {
+  border-color: #428e42;
+}
+
+.eye-visible .eye-icon-pupil {
+  background: #428e42;
+}
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.login3-submit {
+  width: 100%;
+
+  height: 54px;
+
+  margin-top: 8px;
+
+  border: 0;
+
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #5cae47,
+      #2f7838
+    );
+
+  color: white;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  box-shadow:
+    0 12px 25px
+    rgba(
+      55,
+      119,
+      52,
+      0.2
+    );
+
+  transition: 0.25s ease;
+}
+
+.login3-submit:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 17px 30px
+    rgba(
+      55,
+      119,
+      52,
+      0.25
+    );
+}
+
+.login3-submit:disabled {
+  opacity: 0.7;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+.submit-arrow {
+  font-size: 19px;
+
+  line-height: 1;
+}
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.login3-spinner {
+  width: 17px;
+  height: 17px;
+
+  border:
+    2px solid
+    rgba(
+      255,
+      255,
+      255,
+      0.4
+    );
+
+  border-top-color: white;
+
+  border-radius: 50%;
+
+  animation:
+    login3Spin
+    0.7s
+    linear
+    infinite;
+}
+
+@keyframes login3Spin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+/* =========================================================
+   REGISTER
+========================================================= */
+
+.login3-register {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  margin-top: 23px;
+
+  font-size: 11px;
+
+  color: #7e8e7f;
+}
+
+.login3-register button {
+  border: 0;
+
+  background: transparent;
+
+  color: #428b40;
+
+  font-family: inherit;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.login3-register button:hover {
+  text-decoration: underline;
+}
+
+/* =========================================================
+   SECURITY
+========================================================= */
+
+.login3-security {
+  text-align: center;
+
+  border-top:
+    1px solid
+    #e4ece1;
+
+  margin-top: 20px;
+
+  padding-top: 15px;
+
+  color: #99a599;
+
+  font-size: 9px;
+}
+
+.security-lock {
+  font-size: 8px;
+
+  font-weight: 800;
+
+  color: #739274;
+
+  margin-right: 4px;
+}
+
+.security-dot {
+  margin: 0 4px;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+  .login3-wrapper {
+    grid-template-columns: 1fr;
+
+    max-width: 650px;
+
+    gap: 40px;
+  }
+
+  .login3-left {
+    text-align: center;
+  }
+
+  .login3-left-content > p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .login3-features {
+    justify-content: center;
+  }
+
+  .login3-card {
+    margin-bottom: 30px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .login3-wrapper {
+    width: 92%;
+
+    padding: 25px 0;
+  }
+
+  .login3-left-content {
+    margin-top: 35px;
+  }
+
+  .login3-left-content h2 {
+    font-size: 45px;
+
+    letter-spacing: -2px;
+  }
+
+  .login3-bus-card {
+    height: 190px;
+  }
+
+  .login3-bus {
+    width: 245px;
+    height: 80px;
+
+    bottom: 45px;
+  }
+
+  .bus-side-windows {
+    transform: scale(0.88);
+
+    transform-origin: left top;
+  }
+
+  .bus-windshield {
+    transform: scale(0.9);
+
+    transform-origin: right top;
+  }
+
+  .login3-card {
+    padding: 28px 20px;
+
+    border-radius: 23px;
+  }
+
+  .login3-features {
+    flex-wrap: wrap;
+
+    gap: 15px;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - SMALL PHONE
+========================================================= */
+
+@media (max-width: 430px) {
+
+  .login3-left-content h2 {
+    font-size: 39px;
+  }
+
+  .login3-card-header h3 {
+    font-size: 24px;
+  }
+
+  .login3-password-character {
+    gap: 9px;
+  }
+
+  .mascot {
+    transform: scale(0.9);
+
+    transform-origin: left center;
+  }
+
+  .password-character-text strong {
+    font-size: 10px;
+  }
+
+  .password-character-text span {
+    font-size: 9px;
+  }
+
+  .login3-bus-card {
+    height: 180px;
+  }
+
+  .login3-bus {
+    width: 225px;
+    height: 76px;
+
+    bottom: 45px;
+  }
+
+  .bus-side-windows {
+    left: 14px;
+    top: 25px;
+
+    gap: 3px;
+
+    transform: scale(0.82);
+
+    transform-origin: left top;
+  }
+
+  .bus-door {
+    right: 63px;
+
+    transform: scale(0.9);
+
+    transform-origin: right top;
+  }
+
+  .bus-windshield {
+    right: 10px;
+
+    transform: scale(0.85);
+
+    transform-origin: right top;
+  }
+
+  .wheel-left {
+    left: 27px;
+  }
+
+  .wheel-right {
+    right: 28px;
+  }
+}
+
+
+/* =========================================================
+   LOGIN3 FINAL FIX
+   - Remove misplaced @ and OTP
+   - Keep icons only inside form fields
+   - Remove duplicate road lines
+   - Keep ONE moving road
+========================================================= */
+
+
+/* =========================================================
+   1. FIX MISPLACED @ / OTP
+========================================================= */
+
+/*
+   If @ or OTP accidentally appears inside the hero/left
+   section, hide only those misplaced elements.
+*/
+
+.login3-left-content .input-icon,
+.login3-left-content .otp-icon,
+.login3-left-content .method-icon {
+  display: none !important;
+}
+
+
+/*
+   Keep input icons visible ONLY inside actual fields.
+*/
+
+.login3-field .input-icon,
+.login3-field .otp-icon {
+  display: inline-flex !important;
+
+  position: static !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  margin: 0 !important;
+
+  transform: none !important;
+}
+
+
+/* =========================================================
+   2. PREVENT @ / OTP FROM BECOMING ABSOLUTE
+========================================================= */
+
+.login3-page .input-icon,
+.login3-page .otp-icon {
+  position: static;
+
+  float: none;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   3. ONE ROAD ONLY
+========================================================= */
+
+.login3-road {
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 70px;
+
+  background: #292d2b;
+
+  border: none !important;
+
+  overflow: hidden;
+
+  z-index: 5;
+}
+
+
+/*
+   THIS is the only road marking.
+   It moves continuously.
+*/
+
+.login3-road::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 220%;
+
+  height: 5px;
+
+  background:
+    repeating-linear-gradient(
+      to right,
+      #ffffff 0,
+      #ffffff 70px,
+      transparent 70px,
+      transparent 140px
+    );
+
+  transform:
+    translate(
+      -140px,
+      -50%
+    );
+
+  animation:
+    roadMove
+    0.8s
+    linear
+    infinite;
+
+  z-index: 2;
+}
+
+
+/*
+   REMOVE the extra bottom road line.
+*/
+
+.login3-road::after {
+  display: none !important;
+
+  content: none !important;
+}
+
+
+/*
+   REMOVE the four extra static road marks.
+   The ::before animation is now the ONLY road marking.
+*/
+
+.road-mark,
+.road-mark-one,
+.road-mark-two,
+.road-mark-three,
+.road-mark-four {
+  display: none !important;
+}
+
+
+/* =========================================================
+   4. ROAD ANIMATION
+========================================================= */
+
+@keyframes roadMove {
+
+  from {
+    transform:
+      translate(
+        -140px,
+        -50%
+      );
+  }
+
+  to {
+    transform:
+      translate(
+        0,
+        -50%
+      );
+  }
+}
+
+
+/* =========================================================
+   5. KEEP BUS ON ONE ROAD
+========================================================= */
+
+.login3-bus {
+  position: absolute;
+
+  left: 0;
+
+  bottom: 43px;
+
+  width: 275px;
+  height: 88px;
+
+  z-index: 10;
+
+  animation:
+    busDrive
+    7s
+    linear
+    infinite;
+
+  will-change: transform;
+}
+
+
+/* =========================================================
+   6. BUS DRIVE
+========================================================= */
+
+@keyframes busDrive {
+
+  0% {
+    transform: translateX(-330px);
+  }
+
+  100% {
+    transform: translateX(calc(100vw + 330px));
+  }
+
+}
+
+/* =========================================================
+   7. WHEELS STAY WITH BUS
+========================================================= */
+
+.login3-wheel {
+  animation:
+    wheelSpin
+    0.55s
+    linear
+    infinite;
+}
+
+@keyframes wheelSpin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   8. KEEP BUS ABOVE ROAD
+========================================================= */
+
+.login3-bus,
+.login3-wheel,
+.bus-windshield,
+.bus-side-windows,
+.bus-door,
+.bus-display,
+.bus-headlight,
+.bus-rear-light,
+.bus-mirror {
+  z-index: 10;
+}
+
+
+/* =========================================================
+   9. FIX LOGIN3 LEFT CONTENT
+========================================================= */
+
+.login3-left-content {
+  position: relative;
+
+  z-index: 20;
+}
+
+
+/*
+   Make sure nothing from the form can visually
+   escape into the hero.
+*/
+
+.login3-left-content > .input-icon,
+.login3-left-content > .otp-icon,
+.login3-left-content > .method-icon {
+  display: none !important;
+}
+
+
+/* =========================================================
+   10. MOBILE ROAD
+========================================================= */
+
+@media (max-width: 650px) {
+
+  .login3-road {
+    height: 65px;
+  }
+
+  .login3-road::before {
+    height: 4px;
+
+    background:
+      repeating-linear-gradient(
+        to right,
+        #ffffff 0,
+        #ffffff 55px,
+        transparent 55px,
+        transparent 110px
+      );
+  }
+
+  .login3-bus {
+    bottom: 40px;
+  }
+}

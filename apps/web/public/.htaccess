@@ -1,0 +1,22 @@
+# Apache: serve files and prerendered pages as they are; everything else gets the app shell.
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /app.html [L]
+
+# Caching: hashed bundles for a year, public images for a week, pages always revalidated.
+<IfModule mod_headers.c>
+  <If "%{REQUEST_URI} =~ m#^/_app/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  <ElseIf "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=604800, stale-while-revalidate=86400"
+  </ElseIf>
+  <ElseIf "%{REQUEST_URI} =~ m#\.html$|/$#">
+    Header set Cache-Control "no-cache"
+  </ElseIf>
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>

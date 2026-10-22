@@ -1,0 +1,5 @@
+{
+  "extends": "@zproo/config/tsconfig/react.json",
+  "compilerOptions": { "types": [] },
+  "include": ["src"]
+}

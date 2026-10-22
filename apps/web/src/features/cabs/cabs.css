@@ -1,0 +1,36 @@
+@keyframes cab-float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+@keyframes cab-drive-in { from { transform: translateX(80px); opacity: 0 } to { transform: translateX(0); opacity: 1 } }
+@keyframes cab-fade-up { from { transform: translateY(14px); opacity: 0 } to { transform: translateY(0); opacity: 1 } }
+@keyframes cab-ring { 0% { transform: scale(.4); opacity: .7 } 100% { transform: scale(1.6); opacity: 0 } }
+@keyframes cab-shimmer { from { background-position: -200% 0 } to { background-position: 200% 0 } }
+@keyframes cab-pop { 0% { transform: scale(.6); opacity: 0 } 70% { transform: scale(1.08) } 100% { transform: scale(1); opacity: 1 } }
+@keyframes cab-road { from { background-position: 0 0 } to { background-position: -80px 0 } }
+.cab-float { animation: cab-float 3.6s ease-in-out infinite }
+.cab-drive-in { animation: cab-drive-in .9s cubic-bezier(.2,.8,.2,1) both }
+.cab-fade-up { animation: cab-fade-up .5s ease-out both }
+.cab-pop { animation: cab-pop .5s cubic-bezier(.2,.9,.3,1.3) both }
+.cab-ring { animation: cab-ring 2.4s ease-out infinite }
+.cab-shimmer { background: linear-gradient(90deg,#fff1f1 25%,#ffd9da 50%,#fff1f1 75%); background-size: 200% 100%; animation: cab-shimmer 1.6s linear infinite }
+.cab-road { background-image: repeating-linear-gradient(90deg,#fff 0 24px,transparent 24px 48px); background-size: 80px 4px; animation: cab-road 1s linear infinite }
+.cab-lift { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease }
+.cab-lift:hover { transform: translateY(-3px); box-shadow: 0 12px 28px -12px rgba(31,26,27,.35) }
+.cab-btn { transition: transform .15s ease, box-shadow .2s ease, background-color .2s ease }
+.cab-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 8px 18px -8px rgba(227,17,24,.7) }
+.cab-btn:active:not(:disabled) { transform: translateY(0) scale(.98) }
+.cab-car-marker { transition: transform 1.2s linear }
+.cab-pin { filter: drop-shadow(0 3px 4px rgba(0,0,0,.35)) }
+.cab-wheel { transition: transform .6s ease }
+.cab-lift:hover .cab-wheel { transform: rotate(180deg); transform-origin: center; transform-box: fill-box }
+@media (prefers-reduced-motion: reduce) {
+  .cab-float,.cab-drive-in,.cab-fade-up,.cab-pop,.cab-ring,.cab-shimmer,.cab-road { animation: none }
+  .cab-lift,.cab-btn,.cab-car-marker,.cab-wheel { transition: none }
+  .cab-lift:hover,.cab-btn:hover:not(:disabled) { transform: none }
+}
+
+/* Swap pickup/drop button: horizontal arrows that flip on hover */
+.cab-swap { transition: background-color .25s, color .25s, border-color .25s, transform .25s; perspective: 200px; }
+.cab-swap svg { transition: transform .45s cubic-bezier(.2,.8,.2,1); transform-style: preserve-3d; }
+.cab-swap:hover, .cab-swap:focus-visible { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+.cab-swap:hover svg, .cab-swap:focus-visible svg { transform: rotateY(180deg); }
+.cab-swap:active { transform: scale(.92); }
+@media (prefers-reduced-motion: reduce) { .cab-swap svg { transition: none; } .cab-swap:hover svg, .cab-swap:focus-visible svg { transform: none; } }

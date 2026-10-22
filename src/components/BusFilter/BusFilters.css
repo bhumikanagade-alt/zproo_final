@@ -1,0 +1,674 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+/* =========================================
+   MAIN FILTER CONTAINER
+========================================= */
+
+.bus-filters {
+  width: 100%;
+  max-width: 330px;
+
+  padding: 24px 20px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.07);
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  color: #20252b;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.filters-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 24px;
+}
+
+.filters-header h2 {
+  margin: 0;
+
+  color: #1e2329;
+
+  font-size: 20px;
+  line-height: 28px;
+
+  font-weight: 700;
+}
+
+.clear-all {
+  margin: 0;
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #0857a1;
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  font-size: 13px;
+  line-height: 19px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.clear-all:hover {
+  color: #0b467d;
+}
+
+
+/* =========================================
+   FILTER SECTION
+========================================= */
+
+.filter-section {
+  margin-bottom: 21px;
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid #eeeeee;
+}
+
+.filter-section:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================================
+   SECTION HEADER
+========================================= */
+
+.section-header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 0 0 14px;
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #424950;
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  font-size: 12px;
+  line-height: 18px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.2px;
+
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.section-header svg {
+  width: 17px;
+  height: 17px;
+
+  color: #69727c;
+
+  stroke-width: 2;
+}
+
+
+/* =========================================
+   QUICK FILTERS
+========================================= */
+
+.quick-filter-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.quick-filter {
+  padding: 8px 11px;
+
+  border: 1px solid #d7dde3;
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #30363d;
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  font-size: 11px;
+  line-height: 16px;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.quick-filter:hover {
+  border-color: #075aaa;
+  color: #075aaa;
+}
+
+.quick-filter.active {
+  border-color:  #075aaa;
+  color: #075aaa;
+}
+
+
+/* =========================================
+   TIME GRID
+========================================= */
+
+.time-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 9px;
+}
+
+.filter-option-box {
+  min-height: 64px;
+
+  padding: 8px 6px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  border: 1px solid #d9dee4;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  color: #242a30;
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  font-size: 11px;
+  line-height: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.filter-option-box:hover {
+  border-color: #075aaa;
+  background: #f7faff;
+}
+
+.filter-option-box.active {
+  border-color: #075aaa;
+  background: #eef6ff;
+  color: #075aaa;
+}
+
+
+/* =========================================
+   ICON BOX
+========================================= */
+
+.option-icon {
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  background: #f0f2f4;
+
+  color: #626a73;
+}
+
+.option-icon svg {
+  width: 19px;
+  height: 19px;
+
+  stroke-width: 1.9;
+}
+
+.filter-option-box.active .option-icon {
+  background: #e1edf9;
+  color: #075aaa;
+}
+
+
+/* =========================================
+   BUS TYPE
+========================================= */
+
+.bus-type-grid {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 9px;
+}
+
+
+/* =========================================
+   CHECK OPTIONS
+========================================= */
+
+.check-option {
+  width: 100%;
+
+  min-height: 38px;
+
+  padding: 5px 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #30363d;
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  font-size: 12px;
+  line-height: 18px;
+
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: color 0.15s ease;
+}
+
+.check-option:hover {
+  color: #075aaa;
+}
+
+.check-option.selected {
+  color: #075aaa;
+}
+
+
+/* =========================================
+   CHECKBOX
+========================================= */
+
+.custom-checkbox {
+  width: 17px;
+  height: 17px;
+
+  flex: 0 0 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border: 1px solid #cbd2d9;
+
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  color: transparent;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 11px;
+
+  font-weight: 700;
+}
+
+.custom-checkbox.checked {
+  border-color: #075aaa;
+
+  background: #075aaa;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   GREY ICON BOX
+========================================= */
+
+.check-option-icon {
+  width: 28px;
+  height: 28px;
+
+  flex: 0 0 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 6px;
+
+  background: #f0f2f4;
+
+  color: #68717a;
+}
+
+.check-option-icon svg {
+  width: 17px;
+  height: 17px;
+
+  stroke-width: 1.8;
+}
+
+.check-option.selected .check-option-icon {
+  background: #e5eef8;
+  color: #075aaa;
+}
+
+
+/* =========================================
+   SEARCH BOX
+========================================= */
+
+.filter-search {
+  width: 100%;
+  height: 40px;
+
+  margin-bottom: 9px;
+  padding: 0 11px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d8dee4;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: #737b84;
+}
+
+.filter-search:focus-within {
+  border-color: #075aaa;
+}
+
+.filter-search svg {
+  flex-shrink: 0;
+
+  width: 17px;
+  height: 17px;
+
+  color: #737b84;
+
+  stroke-width: 1.8;
+}
+
+.filter-search input {
+  width: 100%;
+  min-width: 0;
+
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #30363d;
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  font-size: 11px;
+  line-height: 17px;
+
+  font-weight: 400;
+}
+
+.filter-search input::placeholder {
+  color: #9aa1a9;
+}
+
+
+/* =========================================
+   VIEW ALL
+========================================= */
+
+.view-all {
+  margin-top: 8px;
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #075aaa;
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  font-size: 11px;
+  line-height: 17px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.view-all:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================================
+   PRICE RANGE
+========================================= */
+
+.price-range-box {
+  width: 100%;
+
+  padding: 5px 2px 0;
+}
+
+.price-range-slider {
+  position: relative;
+
+  width: 100%;
+  height: 30px;
+
+  margin: 0;
+
+  user-select: none;
+
+  touch-action: none;
+}
+
+
+/* Grey base line */
+
+.price-range-track {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: 50%;
+
+  height: 4px;
+
+  transform: translateY(-50%);
+
+  border-radius: 10px;
+
+  background: #d9e1e9;
+
+  pointer-events: none;
+}
+
+
+/* Blue selected line */
+
+.price-range-active {
+  position: absolute;
+
+  top: 50%;
+
+  height: 4px;
+
+  transform: translateY(-50%);
+
+  border-radius: 10px;
+
+  background: #145da0;
+
+  pointer-events: none;
+}
+
+
+/* =========================================
+   PRICE CIRCLES
+========================================= */
+
+.price-range-thumb {
+  position: absolute;
+
+  top: 50%;
+
+  width: 22px;
+  height: 22px;
+
+  transform: translate(-50%, -50%);
+
+  box-sizing: border-box;
+
+  border: 2px solid #145da0;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  cursor: grab;
+
+  z-index: 5;
+
+  touch-action: none;
+
+  transition:
+    width 0.12s ease,
+    height 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.price-range-thumb:active {
+  cursor: grabbing;
+}
+
+.price-range-thumb:hover {
+  width: 25px;
+  height: 25px;
+
+  box-shadow:
+    0 0 0 3px rgba(20, 93, 160, 0.1);
+}
+
+
+/* =========================================
+   PRICE VALUES
+========================================= */
+
+.price-values {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 8px;
+
+  color: #15191e;
+
+  font-family: "Poppins", Arial, sans-serif;
+
+  font-size: 13px;
+  line-height: 20px;
+
+  font-weight: 600;
+}
+
+.price-values span {
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+  .bus-filters {
+    max-width: 100%;
+
+    padding: 22px 18px;
+
+    border-radius: 18px;
+  }
+
+  .filters-header h2 {
+    font-size: 19px;
+  }
+
+  .section-header {
+    font-size: 12px;
+  }
+
+  .check-option {
+    font-size: 12px;
+  }
+}
